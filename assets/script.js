@@ -1,43 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sidebar = document.querySelector("#sidebar ul");
-  const items = sidebar.querySelectorAll("li");
+  const nodes = [...document.querySelectorAll(".node")];
 
-  items.forEach((li, index) => {
-    // Check if next item is deeper
-    const next = items[index + 1];
-    if (next && parseInt(next.className.match(/depth-(\d+)/)[1]) > parseInt(li.className.match(/depth-(\d+)/)[1])) {
-      // This is a folder
-      li.classList.add("folder");
-      const toggle = document.createElement("span");
-      toggle.textContent = "▶ ";
-      toggle.style.cursor = "pointer";
-      toggle.style.userSelect = "none";
-      li.prepend(toggle);
+  nodes.forEach((node, i) => {
+    if (!node.classList.contains("folder")) return;
 
-      toggle.addEventListener("click", (e) => {
-        e.stopPropagation();
-        let currentDepth = parseInt(li.className.match(/depth-(\d+)/)[1]);
-        let nextIndex = index + 1;
-        while (nextIndex < items.length) {
-          let nextItem = items[nextIndex];
-          let nextDepth = parseInt(nextItem.className.match(/depth-(\d+)/)[1]);
-          if (nextDepth <= currentDepth) break;
-          nextItem.style.display = nextItem.style.display === "none" ? "block" : "none";
-          nextIndex++;
-        }
-        toggle.textContent = toggle.textContent === "▶ " ? "▼ " : "▶ ";
-      });
+    const arrow = node.querySelector(".arrow");
+    const baseDepth = getDepth(node);
 
-      // Start collapsed
-      let nextIndex = index + 1;
-      let currentDepth = parseInt(li.className.match(/depth-(\d+)/)[1]);
-      while (nextIndex < items.length) {
-        let nextItem = items[nextIndex];
-        let nextDepth = parseInt(nextItem.className.match(/depth-(\d+)/)[1]);
-        if (nextDepth <= currentDepth) break;
-        nextItem.style.display = "none";
-        nextIndex++;
-      }
+    let j = i + 1;
+    const children = [];
+
+    while (j < nodes.length && getDepth(nodes[j]) > baseDepth) {
+      children.push(nodes[j]);
+      j++;
     }
+
+    // start collapsed
+    children.forEach(c => c.style.display = "none");
+
+    arrow.addEventListener("click", e => {
+      e.stopPropagation();
+      const open = arrow.textContent === "▼";
+      arrow.textContent = open ? "▶" : "▼";
+      children.forEach(c => c.style.display = open ? "none" : "block");
+    });
   });
+
+  function getDepth(el) {
+    return [...el.classList]
+      .find(c => c.startsWith("depth-"))
+      .split("-")[1] | 0;
+  }
 });
