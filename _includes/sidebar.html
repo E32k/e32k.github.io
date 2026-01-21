@@ -8,16 +8,14 @@
         {% assign filename = url_parts | last %}
         {% assign depth = url_parts.size | minus: 3 %}
 
-        {% if filename == "" or filename == "index.md" %}
-          <!-- Folder node -->
+        {% if filename == "" or filename == "index.html" %}
+          <!-- Folder with index.md -->
           <li class="node folder depth-{{ depth }}">
-            <span class="arrow">▶</span>
             <a href="{{ page.url }}">{{ page.title }}</a>
           </li>
         {% else %}
           <!-- Regular file -->
           <li class="node file depth-{{ depth }}">
-            <span class="spacer"></span>
             <a href="{{ page.url }}">{{ page.title }}</a>
           </li>
         {% endif %}
