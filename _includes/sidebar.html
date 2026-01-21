@@ -1,0 +1,14 @@
+<aside id="sidebar">
+  <ul class="sidebar-tree">
+    {% assign pages_list = site.pages | sort: "url" %}
+    {% for page in pages_list %}
+      {% if page.url contains '/mysite/' %}
+        {% assign parts = page.url | split: '/' %}
+        {% assign depth = parts.size | minus: 2 %} {# 0-based #}
+        <li class="depth-{{ depth }}">
+          <a href="{{ page.url }}">{{ page.title | default: page.url }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</aside>
