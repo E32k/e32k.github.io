@@ -34,3 +34,11 @@ main {
   flex: 1;
   padding: 2rem;
 }
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #222;
+}
