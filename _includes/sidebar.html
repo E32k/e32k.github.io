@@ -6,7 +6,7 @@
       {% if page.title %}
         {% assign url_parts = page.url | split: "/" %}
         {% assign filename = url_parts | last %}
-        {% assign depth = url_parts.size | minus: 3 %} {# ignore the first /beamng/ folder #}
+        {% assign depth = url_parts.size | minus: 3 %}
 
         {% if filename == "" or filename == "index.md" %}
           <!-- Folder node -->
