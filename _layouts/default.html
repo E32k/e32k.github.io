@@ -9,11 +9,16 @@
 <body>
   {% include header.html %}
 
-  <main>
-    {{ content }}
-  </main>
+  <div class="container">
+    {% include sidebar.html %}
+
+    <main>
+      {{ content }}
+    </main>
+  </div>
 
   {% include footer.html %}
   <script src="/assets/script.js"></script>
 </body>
+
 </html>
