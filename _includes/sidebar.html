@@ -4,37 +4,23 @@
 
     {% for page in pages %}
       {% if page.title %}
+        {% assign url_parts = page.url | split: "/" %}
+        {% assign filename = url_parts | last %}
+        {% assign depth = url_parts.size | minus: 3 %} {# ignore the first /beamng/ folder #}
 
-        {% assign parts = page.url | split: "/" %}
-        <!-- Example: ["", "beamng", "lua", "vlua", "combustionEngine.html"] -->
-
-        {% if parts[1] != "beamng" %}
-          {% continue %}
-        {% endif %}
-        <!-- Ignore everything NOT under /beamng/ -->
-
-        {% assign logical_parts = parts | slice: 2, parts.size %}
-        <!-- Remove "", "beamng" -->
-        <!-- Result: ["lua", "vlua", "combustionEngine.html"] -->
-
-        {% assign name = logical_parts | last %}
-        {% assign depth = logical_parts.size | minus: 1 %}
-        <!-- Depth now starts at lua/ -->
-
-        {% if name == "" or name == "index.html" %}
-          <!-- FOLDER -->
+        {% if filename == "" or filename == "index.md" %}
+          <!-- Folder node -->
           <li class="node folder depth-{{ depth }}">
             <span class="arrow">▶</span>
             <a href="{{ page.url }}">{{ page.title }}</a>
           </li>
         {% else %}
-          <!-- FILE -->
+          <!-- Regular file -->
           <li class="node file depth-{{ depth }}">
             <span class="spacer"></span>
             <a href="{{ page.url }}">{{ page.title }}</a>
           </li>
         {% endif %}
-
       {% endif %}
     {% endfor %}
   </ul>
