@@ -1,13 +1,40 @@
 <aside id="sidebar">
-  <ul class="sidebar-tree">
-    {% assign pages_list = site.pages | sort: "url" %}
-    {% for page in pages_list %}
+  <ul class="tree">
+    {% assign pages = site.pages | sort: "url" %}
+
+    {% for page in pages %}
       {% if page.title %}
-        {% assign parts = page.url | split: '/' %}
-        {% assign depth = parts.size | minus: 2 %} {# 0-based depth #}
-        <li class="depth-{{ depth }}">
-          <a href="{{ page.url }}">{{ page.title }}</a>
-        </li>
+
+        {% assign parts = page.url | split: "/" %}
+        <!-- Example: ["", "beamng", "lua", "vlua", "combustionEngine.html"] -->
+
+        {% if parts[1] != "beamng" %}
+          {% continue %}
+        {% endif %}
+        <!-- Ignore everything NOT under /beamng/ -->
+
+        {% assign logical_parts = parts | slice: 2, parts.size %}
+        <!-- Remove "", "beamng" -->
+        <!-- Result: ["lua", "vlua", "combustionEngine.html"] -->
+
+        {% assign name = logical_parts | last %}
+        {% assign depth = logical_parts.size | minus: 1 %}
+        <!-- Depth now starts at lua/ -->
+
+        {% if name == "" or name == "index.html" %}
+          <!-- FOLDER -->
+          <li class="node folder depth-{{ depth }}">
+            <span class="arrow">▶</span>
+            <a href="{{ page.url }}">{{ page.title }}</a>
+          </li>
+        {% else %}
+          <!-- FILE -->
+          <li class="node file depth-{{ depth }}">
+            <span class="spacer"></span>
+            <a href="{{ page.url }}">{{ page.title }}</a>
+          </li>
+        {% endif %}
+
       {% endif %}
     {% endfor %}
   </ul>
