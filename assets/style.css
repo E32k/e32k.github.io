@@ -2,8 +2,8 @@
   width: 280px;
   padding: 1rem;
   background: #f8f9fa;
-  overflow-y: auto;
   font-family: monospace;
+  overflow-y: auto;
 }
 
 .tree {
@@ -14,7 +14,6 @@
 
 .node {
   position: relative;
-  padding-left: 1.2rem;
   line-height: 1.6;
   white-space: nowrap;
 }
@@ -23,29 +22,18 @@
 .node::before {
   content: "";
   position: absolute;
-  left: 0.55rem;
+  left: 0.5rem;
   top: 0;
   bottom: 0;
   border-left: 1px dotted #bbb;
 }
 
 /* depth indentation */
-.depth-1 { margin-left: 1rem; }
-.depth-2 { margin-left: 2rem; }
-.depth-3 { margin-left: 3rem; }
-.depth-4 { margin-left: 4rem; }
-
-.folder > .arrow {
-  cursor: pointer;
-  display: inline-block;
-  width: 1rem;
-  user-select: none;
-}
-
-.file > .spacer {
-  display: inline-block;
-  width: 1rem;
-}
+.depth-0 { margin-left: 0.5rem; }
+.depth-1 { margin-left: 1.5rem; }
+.depth-2 { margin-left: 2.5rem; }
+.depth-3 { margin-left: 3.5rem; }
+.depth-4 { margin-left: 4.5rem; }
 
 a {
   text-decoration: none;
