@@ -1,25 +1,14 @@
-<aside>
-<!-- Start filtering all pages that start with /beamng/ -->
-
-{% assign tree = {} %}
-
-{% for page in site.pages %}
-  {% if page.path contains "/beamng/" %}
-    {% assign parts = page.path | remove_first: "/" | split: "/" %}
-    {% assign current = tree %}
-    {% for part in parts %}
-      {% if forloop.last %}
-        {% assign current = current | merge: {{ part }}: page %}
-      {% else %}
-        {% unless current[part] %}
-          {% assign current = current | merge: {{ part }}: {} %}
-        {% endunless %}
-        {% assign current = current[part] %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-
-<!-- Render the tree recursively -->
-{% include sidebar_node.html node=tree path="" %}
+<aside class="left-bar">
+<details>
+  <summary><a href="/beamng/lua/">lua</a></summary>
+  <details>
+    <summary><a href="/beamng/vlua/">vlua</a></summary>
+    <a href="/beamng/vlua/combustionEngine.html">combustionEngine</a></summary>
+    <a href="/beamng/vlua/electricEngine.html">electricEngine</a></summary>
+  </details>
+  <details>
+    <summary><a href="/beamng/gelua/">gelua</a></summary>
+    <a href="/beamng/gelua/spawning.html">spawning</a></summary>
+  </details>
+</details>
 </aside>
