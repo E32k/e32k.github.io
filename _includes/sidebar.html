@@ -1,32 +1,56 @@
 <aside id="sidebar">
   <ul class="tree">
+
     {% assign pages = site.pages | sort: "url" %}
 
     {% for page in pages %}
-      {% if page.title and page.url endswith "/" %}
-        <li class="node folder">
-          <details>
-            <summary>
-              <a href="{{ page.url }}">{{ page.title }}</a>
-            </summary>
+      {% if page.title %}
 
-            <ul>
-              {% for subpage in pages %}
-                {% if subpage.title %}
-                  {% if subpage.url startswith page.url %}
-                    {% if subpage.url != page.url and subpage.url endswith ".html" %}
-                      <li class="node file">
-                        <a href="{{ subpage.url }}">{{ subpage.title }}</a>
-                      </li>
+        {% assign parts = page.url | split: "/" %}
+        {% assign last = parts | last %}
+
+        {%- comment -%}
+        A folder:
+        - URL ends with /
+        - last part is empty string
+        {%- endcomment -%}
+        {% if last == "" %}
+
+          <li class="node folder">
+            <details>
+              <summary>
+                <a href="{{ page.url }}">{{ page.title }}</a>
+              </summary>
+
+              <ul>
+                {% for subpage in pages %}
+                  {% if subpage.title and subpage.url != page.url %}
+
+                    {% if subpage.url contains page.url %}
+                      {% assign subparts = subpage.url | split: "/" %}
+                      {% assign sublast = subparts | last %}
+
+                      {%- comment -%}
+                      A file:
+                      - last segment contains ".html"
+                      {%- endcomment -%}
+                      {% if sublast contains ".html" %}
+                        <li class="node file">
+                          <a href="{{ subpage.url }}">{{ subpage.title }}</a>
+                        </li>
+                      {% endif %}
+
                     {% endif %}
                   {% endif %}
-                {% endif %}
-              {% endfor %}
-            </ul>
+                {% endfor %}
+              </ul>
 
-          </details>
-        </li>
+            </details>
+          </li>
+
+        {% endif %}
       {% endif %}
     {% endfor %}
+
   </ul>
 </aside>
