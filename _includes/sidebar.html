@@ -1,23 +1,11 @@
 <aside>
+<!-- Filter all pages that start with /beamng/ -->
 {% assign beamng_pages = site.pages | where_exp:"p","p.path contains '/beamng/'" %}
 
+<!-- Initialize empty tree -->
 {% assign tree = {} %}
 
-<!--
-Build a nested tree structure:
-tree = {
-  "lua": {
-    "vlua": {
-      "combustionEngine.html": page_object,
-      "electricEngine.html": page_object
-    },
-    "gelua": {
-      "spawning.html": page_object
-    }
-  }
-}
--->
-
+<!-- Build nested folder/file tree -->
 {% for page in beamng_pages %}
   {% assign parts = page.path | remove_first: "/" | split: "/" %}
   {% assign current = tree %}
@@ -33,72 +21,6 @@ tree = {
   {% endfor %}
 {% endfor %}
 
-<!-- Now define a recursive function to render the tree -->
-{% capture render_tree %}
-{% macro render_node(node, path) %}
-  {% for key,value in node %}
-    {% assign new_path = path | append: "/" | append: key %}
-    {% if value.path %}
-      <a href="{{ value.url }}">{{ key | remove: ".html" | remove: ".md" }}</a><br>
-    {% else %}
-      <details>
-        <summary>
-          {% assign index_page = site.pages | where:"path", new_path | first %}
-          {% if index_page %}
-            <a href="{{ new_path }}">{{ key }}</a>
-          {% else %}
-            {{ key }}
-          {% endif %}
-        </summary>
-        {{ render_node(value, new_path) }}
-      </details>
-    {% endif %}
-  {% endfor %}
-{% endmacro %}
-{% endcapture %}
-
-{{ render_node(tree, "") }}
+<!-- Render the tree recursively -->
+{% include sidebar_node.html node=tree path="" %}
 </aside>
-
-
-
-<!--
-<aside id="sidebar">
-  <ul class="tree">
-
-    {% assign pages = site.pages | sort: "path" %}
-
-    {% for page in pages %}
-      {% if page.title and page.path contains "index.md" %}
-
-        {% assign folder_url = page.url %}
-
-        <li class="node folder">
-          <details>
-            <summary>
-              <a href="{{ folder_url }}">{{ page.title }}</a>
-            </summary>
-
-            <ul>
-              {% for subpage in pages %}
-                {% if subpage.title and subpage.url != folder_url %}
-                  {% if subpage.url contains folder_url %}
-                    {% unless subpage.path contains "index.md" %}
-                      <li class="node file">
-                        <a href="{{ subpage.url }}">{{ subpage.title }}</a>
-                      </li>
-                    {% endunless %}
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-            </ul>
-
-          </details>
-        </li>
-
-      {% endif %}
-    {% endfor %}
-
-  </ul>
-</aside>
--->
