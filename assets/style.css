@@ -23,8 +23,8 @@
   content: "";
   position: absolute;
   left: 0.5rem;
-  top: 0;
-  bottom: 0;
+  top: 0.9em;
+  bottom: 0.4em;
   border-left: 1px dotted #bbb;
 }
 
@@ -44,7 +44,18 @@ a:hover {
   text-decoration: underline;
 }
 
+.node details {
+  display: block;
+}
 
+.node summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.node summary::-webkit-details-marker {
+  display: none;
+}
 
 
 
