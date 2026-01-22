@@ -1,33 +1,23 @@
 <aside>
 <!-- Start filtering all pages that start with /beamng/ -->
-{% assign beamng_pages = site.pages %}
-{% assign beamng_pages_filtered = "" | split: "" %}
 
-{% for page in beamng_pages %}
-  {% if page.path contains "/beamng/" %}
-    {% assign beamng_pages_filtered = beamng_pages_filtered | push: page %}
-  {% endif %}
-{% endfor %}
-
-{% assign beamng_pages = beamng_pages_filtered %}
-
-<!-- Initialize empty tree -->
 {% assign tree = {} %}
 
-<!-- Build nested folder/file tree -->
-{% for page in beamng_pages %}
-  {% assign parts = page.path | remove_first: "/" | split: "/" %}
-  {% assign current = tree %}
-  {% for part in parts %}
-    {% if forloop.last %}
-      {% assign current = current | merge: {{ part }}: page %}
-    {% else %}
-      {% unless current[part] %}
-        {% assign current = current | merge: {{ part }}: {} %}
-      {% endunless %}
-      {% assign current = current[part] %}
-    {% endif %}
-  {% endfor %}
+{% for page in site.pages %}
+  {% if page.path contains "/beamng/" %}
+    {% assign parts = page.path | remove_first: "/" | split: "/" %}
+    {% assign current = tree %}
+    {% for part in parts %}
+      {% if forloop.last %}
+        {% assign current = current | merge: {{ part }}: page %}
+      {% else %}
+        {% unless current[part] %}
+          {% assign current = current | merge: {{ part }}: {} %}
+        {% endunless %}
+        {% assign current = current[part] %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endfor %}
 
 <!-- Render the tree recursively -->
