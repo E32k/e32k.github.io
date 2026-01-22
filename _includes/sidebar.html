@@ -1,25 +1,47 @@
 <aside id="sidebar">
+  {% assign pages = site.pages | sort: "url" %}
+
+  {% assign rendered_folders = "" | split: "" %}
+
   <ul class="tree">
-    {% assign pages = site.pages | sort: "url" %}
 
     {% for page in pages %}
       {% if page.title %}
-        {% assign url_parts = page.url | split: "/" %}
-        {% assign filename = url_parts | last %}
-        {% assign depth = url_parts.size | minus: 3 %}
 
-        {% if filename == "" or filename == "index.html" %}
-          <!-- Folder with index.md -->
-          <li class="node folder depth-{{ depth }}">
-            <a href="{{ page.url }}">{{ page.title }}</a>
-          </li>
-        {% else %}
-          <!-- Regular file -->
-          <li class="node file depth-{{ depth }}">
-            <a href="{{ page.url }}">{{ page.title }}</a>
-          </li>
+        {% assign parts = page.url | split: "/" %}
+        {% assign depth = parts.size | minus: 2 %}
+        {% assign name = parts | last %}
+        {% assign folder = parts[depth | minus: 1] %}
+
+        {% if name == "index.html" or name == "" %}
+          {% unless rendered_folders contains page.url %}
+            <li class="folder depth-{{ depth }}">
+              <details>
+                <summary>
+                  <a href="{{ page.url }}">{{ page.title }}</a>
+                </summary>
+
+                <ul>
+                  {% for subpage in pages %}
+                    {% if subpage.url contains page.url and subpage.url != page.url and subpage.title %}
+                      {% assign sub_parts = subpage.url | split: "/" %}
+                      {% assign sub_name = sub_parts | last %}
+
+                      {% if sub_name != "index.html" %}
+                        <li class="file">
+                          <a href="{{ subpage.url }}">{{ subpage.title }}</a>
+                        </li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </details>
+            </li>
+          {% endunless %}
         {% endif %}
+
       {% endif %}
     {% endfor %}
+
   </ul>
 </aside>
