@@ -1,45 +1,32 @@
 <aside id="sidebar">
   <ul class="tree">
-
     {% assign pages = site.pages | sort: "url" %}
 
     {% for page in pages %}
-      {% if page.title and page.url != "/" %}
+      {% if page.title and page.url endswith "/" %}
+        <li class="node folder">
+          <details>
+            <summary>
+              <a href="{{ page.url }}">{{ page.title }}</a>
+            </summary>
 
-        {% assign parts = page.url | split: "/" %}
-        {% assign depth = parts.size | minus: 2 %}
-        {% assign name = parts | last %}
-
-        {% if name == "" %}
-          <!-- Folder -->
-          <li class="node folder depth-{{ depth }}">
-            <details>
-              <summary>
-                <a href="{{ page.url }}">{{ page.title }}</a>
-              </summary>
-
-              <ul>
-                {% for subpage in pages %}
-                  {% if subpage.title and subpage.url != page.url %}
-                    {% if subpage.url startswith page.url %}
-                      {% assign subparts = subpage.url | split: "/" %}
-                      {% assign subname = subparts | last %}
-
-                      {% if subname != "" %}
-                        <li class="node file">
-                          <a href="{{ subpage.url }}">{{ subpage.title }}</a>
-                        </li>
-                      {% endif %}
+            <ul>
+              {% for subpage in pages %}
+                {% if subpage.title %}
+                  {% if subpage.url startswith page.url %}
+                    {% if subpage.url != page.url and subpage.url endswith ".html" %}
+                      <li class="node file">
+                        <a href="{{ subpage.url }}">{{ subpage.title }}</a>
+                      </li>
                     {% endif %}
                   {% endif %}
-                {% endfor %}
-              </ul>
-            </details>
-          </li>
-        {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
 
+          </details>
+        </li>
       {% endif %}
     {% endfor %}
-
   </ul>
 </aside>
