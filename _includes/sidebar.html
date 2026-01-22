@@ -1,54 +1,36 @@
 <aside id="sidebar">
   <ul class="tree">
 
-    {% assign pages = site.pages | sort: "url" %}
+    {% assign pages = site.pages | sort: "path" %}
 
     {% for page in pages %}
-      {% if page.title %}
+      {% if page.title and page.path contains "index.md" %}
 
-        {% assign parts = page.url | split: "/" %}
-        {% assign last = parts | last %}
+        {% assign folder_url = page.url %}
 
-        {%- comment -%}
-        A folder:
-        - URL ends with /
-        - last part is empty string
-        {%- endcomment -%}
-        {% if last == "" %}
+        <li class="node folder">
+          <details>
+            <summary>
+              <a href="{{ folder_url }}">{{ page.title }}</a>
+            </summary>
 
-          <li class="node folder">
-            <details>
-              <summary>
-                <a href="{{ page.url }}">{{ page.title }}</a>
-              </summary>
-
-              <ul>
-                {% for subpage in pages %}
-                  {% if subpage.title and subpage.url != page.url %}
-
-                    {% if subpage.url contains page.url %}
-                      {% assign subparts = subpage.url | split: "/" %}
-                      {% assign sublast = subparts | last %}
-
-                      {%- comment -%}
-                      A file:
-                      - last segment contains ".html"
-                      {%- endcomment -%}
-                      {% if sublast contains ".html" %}
-                        <li class="node file">
-                          <a href="{{ subpage.url }}">{{ subpage.title }}</a>
-                        </li>
-                      {% endif %}
-
-                    {% endif %}
+            <ul>
+              {% for subpage in pages %}
+                {% if subpage.title and subpage.url != folder_url %}
+                  {% if subpage.url contains folder_url %}
+                    {% unless subpage.path contains "index.md" %}
+                      <li class="node file">
+                        <a href="{{ subpage.url }}">{{ subpage.title }}</a>
+                      </li>
+                    {% endunless %}
                   {% endif %}
-                {% endfor %}
-              </ul>
+                {% endif %}
+              {% endfor %}
+            </ul>
 
-            </details>
-          </li>
+          </details>
+        </li>
 
-        {% endif %}
       {% endif %}
     {% endfor %}
 
