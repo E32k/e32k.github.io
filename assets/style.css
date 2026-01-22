@@ -4,7 +4,45 @@ header {
 }
 
 
+/* Sidebar container */
+.left-bar {
+  width: 250px;          /* adjust as needed */
+  padding: 10px;
+  background-color: #f7f7f7;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
+/* Remove default summary triangle indentation */
+.left-bar details summary {
+  cursor: pointer;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Indent nested details */
+.left-bar details details {
+  margin-left: 20px; /* increase for deeper levels */
+}
+
+/* Indent direct links inside details */
+.left-bar details > a {
+  display: block;
+  margin-left: 20px; /* matches nested details indentation */
+  text-decoration: none;
+  color: #333;
+}
+
+/* Hover effect for links */
+.left-bar a:hover {
+  text-decoration: underline;
+}
+
+/* Optional: add some spacing between top-level items */
+.left-bar details + details {
+  margin-top: 5px;
+}
 
 
 aside {
