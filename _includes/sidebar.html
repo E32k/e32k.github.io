@@ -1,38 +1,26 @@
-<aside id="sidebar">
-  <ul class="tree">
+<aside>
+  {% assign folders = site.static_files | map: "path" | uniq %}
+  {% assign dirs = "" | split: "" %}
+  
+  {% for f in folders %}
+    {% assign folder = f | split: "/" | slice: 0 %}
+    {% if folder != "" and dirs contains folder == false %}
+      {% assign dirs = dirs | push: folder %}
+    {% endif %}
+  {% endfor %}
 
-    {% assign pages = site.pages | sort: "path" %}
-
-    {% for page in pages %}
-      {% if page.title and page.path contains "index.md" %}
-
-        {% assign folder_url = page.url %}
-
-        <li class="node folder">
-          <details>
-            <summary>
-              <a href="{{ folder_url }}">{{ page.title }}</a>
-            </summary>
-
-            <ul>
-              {% for subpage in pages %}
-                {% if subpage.title and subpage.url != folder_url %}
-                  {% if subpage.url contains folder_url %}
-                    {% unless subpage.path contains "index.md" %}
-                      <li class="node file">
-                        <a href="{{ subpage.url }}">{{ subpage.title }}</a>
-                      </li>
-                    {% endunless %}
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-            </ul>
-
-          </details>
-        </li>
-
-      {% endif %}
-    {% endfor %}
-
-  </ul>
+  {% for dir in dirs %}
+    {% assign index_file = dir | append: "/index.md" %}
+    {% assign has_index = site.static_files | where: "path", index_file %}
+    
+    <details>
+      <summary>
+        {% if has_index.size > 0 %}
+          <a href="{{ dir }}/">{{ dir }}</a>
+        {% else %}
+          {{ dir }}
+        {% endif %}
+      </summary>
+    </details>
+  {% endfor %}
 </aside>
