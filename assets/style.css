@@ -1,3 +1,12 @@
+
+header {
+  border-bottom: darkgray 1px;
+}
+
+
+
+
+
 #sidebar {
   width: 280px;
   padding: 1rem;
@@ -5,58 +14,6 @@
   font-family: monospace;
   overflow-y: auto;
 }
-
-.tree {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.node {
-  position: relative;
-  line-height: 1.6;
-  white-space: nowrap;
-}
-
-/* dotted vertical line */
-.node::before {
-  content: "";
-  position: absolute;
-  left: 0.5rem;
-  top: 0.9em;
-  bottom: 0.4em;
-  border-left: 1px dotted #bbb;
-}
-
-/* depth indentation */
-.depth-0 { margin-left: 0.5rem; }
-.depth-1 { margin-left: 1.5rem; }
-.depth-2 { margin-left: 2.5rem; }
-.depth-3 { margin-left: 3.5rem; }
-.depth-4 { margin-left: 4.5rem; }
-
-a {
-  text-decoration: none;
-  color: #222;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.node details {
-  display: block;
-}
-
-.node summary {
-  cursor: pointer;
-  list-style: none;
-}
-
-.node summary::-webkit-details-marker {
-  display: none;
-}
-
 
 
 
