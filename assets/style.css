@@ -7,8 +7,9 @@ header {
 
 
 
-#sidebar {
+aside {
   width: 280px;
+  min-heigth: 300px;
   padding: 1rem;
   background: #f8f9fa;
   font-family: monospace;
