@@ -1,6 +1,15 @@
 <aside>
-<!-- Filter all pages that start with /beamng/ -->
-{% assign beamng_pages = site.pages | where_exp:"p","p.path contains '/beamng/'" %}
+<!-- Start filtering all pages that start with /beamng/ -->
+{% assign beamng_pages = site.pages %}
+{% assign beamng_pages_filtered = "" | split: "" %}
+
+{% for page in beamng_pages %}
+  {% if page.path contains "/beamng/" %}
+    {% assign beamng_pages_filtered = beamng_pages_filtered | push: page %}
+  {% endif %}
+{% endfor %}
+
+{% assign beamng_pages = beamng_pages_filtered %}
 
 <!-- Initialize empty tree -->
 {% assign tree = {} %}
