@@ -1,22 +1,24 @@
 <aside>
-  {% assign folders = site.static_files | map: "path" | uniq %}
   {% assign dirs = "" | split: "" %}
-  
-  {% for f in folders %}
-    {% assign folder = f | split: "/" | slice: 0 %}
+
+  {% for page in site.pages %}
+    {% assign folder = page.dir | split: "/" | first %}
     {% if folder != "" and dirs contains folder == false %}
       {% assign dirs = dirs | push: folder %}
     {% endif %}
   {% endfor %}
 
   {% for dir in dirs %}
-    {% assign index_file = dir | append: "/index.md" %}
-    {% assign has_index = site.static_files | where: "path", index_file %}
+    {% assign has_index = site.pages | where: "dir", "/" | where: "name", "index.md" %}
+    {% assign index_page = site.pages | where: "dir", "/" | where: "name", "index.md" %}
     
     <details>
       <summary>
-        {% if has_index.size > 0 %}
-          <a href="{{ dir }}/">{{ dir }}</a>
+        {% assign page_index = site.pages | where: "dir", "/" | where: "name", "index.md" | first %}
+        {% assign index_path = dir | append: "/index.html" %}
+        {% assign page_index = site.pages | where: "path", index_path | first %}
+        {% if page_index %}
+          <a href="{{ index_path }}">{{ dir }}</a>
         {% else %}
           {{ dir }}
         {% endif %}
@@ -24,6 +26,7 @@
     </details>
   {% endfor %}
 </aside>
+
 
 <!--
 <aside id="sidebar">
