@@ -24,3 +24,44 @@
     </details>
   {% endfor %}
 </aside>
+
+<!--
+<aside id="sidebar">
+  <ul class="tree">
+
+    {% assign pages = site.pages | sort: "path" %}
+
+    {% for page in pages %}
+      {% if page.title and page.path contains "index.md" %}
+
+        {% assign folder_url = page.url %}
+
+        <li class="node folder">
+          <details>
+            <summary>
+              <a href="{{ folder_url }}">{{ page.title }}</a>
+            </summary>
+
+            <ul>
+              {% for subpage in pages %}
+                {% if subpage.title and subpage.url != folder_url %}
+                  {% if subpage.url contains folder_url %}
+                    {% unless subpage.path contains "index.md" %}
+                      <li class="node file">
+                        <a href="{{ subpage.url }}">{{ subpage.title }}</a>
+                      </li>
+                    {% endunless %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+          </details>
+        </li>
+
+      {% endif %}
+    {% endfor %}
+
+  </ul>
+</aside>
+-->
