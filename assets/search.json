@@ -6,8 +6,7 @@ layout: null
 {% for page in beamng_pages %}
   {
     "title": {{ page.title | jsonify }},
-    "category": {{ page.category | jsonify }},
-    "content": {{ page.content | jsonify }},
+    "content": {{ page.content | strip_html | jsonify }},
     "url": {{ page.url | jsonify }},
     "date": {{ page.date | jsonify }}
   }{% unless forloop.last %},{% endunless %}
