@@ -1,11 +1,10 @@
 (() => {
   const SEARCH_URL = "/assets/search.json";
 
-  // Adjustable settings
   const CONFIG = {
-    contextWords: 20,      // words around the match
-    maxResults: 10,        // max pages shown
-    maxMatchesPerPage: 5,  // max snippets per page
+    contextWords: 20,
+    maxResults: 10,
+    maxMatchesPerPage: 5,
     minQueryLength: 2
   };
 
@@ -13,83 +12,89 @@
   const resultsContainer = document.getElementById("results-container");
 
   let index = [];
+  let ready = false;
 
-  // Load search index once
   fetch(SEARCH_URL)
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
       index = data;
+      ready = true;
     })
     .catch(err => {
-      console.error("Failed to load search index:", err);
+      console.error("Search index failed to load:", err);
     });
 
   input.addEventListener("input", () => {
+    if (!ready) return;
+
     const query = input.value.trim().toLowerCase();
     resultsContainer.innerHTML = "";
 
     if (query.length < CONFIG.minQueryLength) return;
 
-    const words = query.split(/\s+/);
-
+    const queryWords = query.split(/\s+/);
     const results = [];
 
     for (const page of index) {
-      const content = page.content.toLowerCase();
+      if (!page.content && !page.title) continue;
+
+      const haystack =
+        ((page.title || "") + " " + (page.content || "")).toLowerCase();
+
       const matches = [];
 
-      for (const word of words) {
-        let pos = content.indexOf(word);
+      for (const word of queryWords) {
+        let pos = haystack.indexOf(word);
         while (pos !== -1) {
           matches.push(pos);
-          pos = content.indexOf(word, pos + word.length);
+          pos = haystack.indexOf(word, pos + word.length);
         }
       }
 
       if (matches.length) {
-        results.push({
-          page,
-          matches
-        });
+        results.push({ page, matches });
       }
     }
 
-    renderResults(results.slice(0, CONFIG.maxResults), words);
+    render(results.slice(0, CONFIG.maxResults), queryWords);
   });
 
-  function renderResults(results, queryWords) {
+  function render(results, queryWords) {
     if (!results.length) {
       resultsContainer.innerHTML = "<p>No results found.</p>";
       return;
     }
 
     for (const { page, matches } of results) {
-      const pageEl = document.createElement("div");
-      pageEl.className = "search-result";
+      const wrapper = document.createElement("div");
+      wrapper.className = "search-result";
 
       const title = document.createElement("a");
       title.href = page.url;
-      title.textContent = page.title;
+      title.textContent = page.title || page.url;
       title.className = "search-result-title";
 
-      pageEl.appendChild(title);
+      wrapper.appendChild(title);
 
-      const snippets = matches
+      matches
         .slice(0, CONFIG.maxMatchesPerPage)
-        .map(pos => createSnippet(page.content, pos, queryWords));
+        .forEach(pos => {
+          const snippet = makeSnippet(page.content || "", pos, queryWords);
+          if (!snippet) return;
 
-      for (const snippet of snippets) {
-        const p = document.createElement("p");
-        p.className = "search-result-snippet";
-        p.innerHTML = snippet;
-        pageEl.appendChild(p);
-      }
+          const p = document.createElement("p");
+          p.className = "search-result-snippet";
+          p.innerHTML = snippet;
+          wrapper.appendChild(p);
+        });
 
-      resultsContainer.appendChild(pageEl);
+      resultsContainer.appendChild(wrapper);
     }
   }
 
-  function createSnippet(text, position, queryWords) {
+  function makeSnippet(text, position, queryWords) {
+    if (!text) return "";
+
     const words = text.split(/\s+/);
     let charCount = 0;
     let wordIndex = 0;
@@ -104,11 +109,12 @@
 
     let snippet = words.slice(start, end).join(" ");
 
-    // Highlight matches
-    for (const q of queryWords) {
-      const regex = new RegExp(`(${q})`, "gi");
-      snippet = snippet.replace(regex, "<mark>$1</mark>");
-    }
+    queryWords.forEach(q => {
+      snippet = snippet.replace(
+        new RegExp(`(${q})`, "gi"),
+        "<mark>$1</mark>"
+      );
+    });
 
     return `… ${snippet} …`;
   }
