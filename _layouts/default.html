@@ -7,33 +7,29 @@
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-<header>
-  <h1>BeamNG</h1>
-  <input class="header-search" type="search" placeholder="Search...">
-</header>
-
-
+  <header>
+    <h1>BeamNG</h1>
+    <input type="text" id="search-input" placeholder="Search...">
+  </header>
+  <ul id="results-container"></ul>
+  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
+  
   <div class="layout">
     <aside class="sites">
       {% include sites.html %}
     </aside>
-
     <main class="content">
        {{ content }}
     </main>
-
     <aside class="overview">
       <h3 class="overview-top">On This Page:</h3>
       <nav id="TableOfContents"></nav>
     </aside>
   </div>
 
-
-
   <footer>
     <p>&copy; 2026 E32k. All rights reserved.</p>
   </footer>
-
 
   <div id="dark-mode-toggle-wrapper">
     <button id="dark-mode-toggle">
@@ -41,6 +37,6 @@
     </button>
   </div>
 
-  <script src="assets/script.js"></script>
+  <script src="/assets/script.js"></script>
 </body>
 </html>
