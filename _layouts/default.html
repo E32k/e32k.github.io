@@ -3,28 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} - {{ site.title }}</title>
+  <title>{{ page.title }}</title>
   <link rel="stylesheet" href="/assets/style.css">
-<!-- Include Prism JS -->
-<link href="/assets/prism.css" rel="stylesheet" />
+  <!-- <link href="/assets/prism.css" rel="stylesheet" /> -->
 </head>
 <body>
-  {% include header.html %}
+<header>
+  <h1>BeamNG</h1>
+  <input class="header-search" type="search" placeholder="Search...">
+</header>
 
-  <div class="container">
-    {% include sidebar.html %}
 
-    <main>
-      {{ content }}
+  <div class="layout">
+    <aside class="sites">
+      {% include sites.html %}
+    </aside>
+
+    <main class="content">
+       {{ content }}
     </main>
+
+    <aside class="overview">
+      <h3 class="overview-top">On This Page:</h3>
+      <nav id="TableOfContents"></nav>
+    </aside>
   </div>
 
-  {% include footer.html %}
-  <script src="/assets/script.js"></script>
+
+
+  <!-- {% include footer.html %} -->
+  <footer>
+    <p>&copy; 2026 E32k. All rights reserved.</p>
+  </footer>
+
+
+  <div id="dark-mode-toggle-wrapper">
+    <button id="dark-mode-toggle">
+      <span class="emoji">🌙</span>
+    </button>
+  </div>
+
+  <script src="assets/script.js"></script>
   <script src="/assets/prism.js"></script>
-  <script>
-    // Optional: force Prism to highlight dynamically loaded content
-    Prism.highlightAll();
-  </script>
+  <script>Prism.highlightAll();</script>
 </body>
 </html>
