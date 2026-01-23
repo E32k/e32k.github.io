@@ -2,10 +2,12 @@
   const SEARCH_URL = "/assets/search.json";
 
   const CONFIG = {
-    contextWords: 20,
+    contextWords: 30,        // target ~30 words in snippet
     maxResults: 10,
     maxMatchesPerPage: 5,
-    minQueryLength: 2
+    minQueryLength: 2,
+    snippetLinesAbove: 3,    // include these many lines above match
+    snippetLinesBelow: 3     // include these many lines below match
   };
 
   const input = document.getElementById("search-input");
@@ -17,27 +19,21 @@
 
   fetch(SEARCH_URL)
     .then(r => r.json())
-    .then(data => {
-      index = data;
-    })
-    .catch(() => {
-      resultsContainer.innerHTML = "<p>Search unavailable.</p>";
-    });
+    .then(data => index = data)
+    .catch(() => resultsContainer.innerHTML = "<p>Search unavailable.</p>");
 
   input.addEventListener("input", () => {
     const query = input.value.trim().toLowerCase();
     resultsContainer.innerHTML = "";
-
     if (query.length < CONFIG.minQueryLength || !index.length) return;
 
     const queryWords = query.split(/\s+/);
     const results = [];
 
     for (const page of index) {
-      const text = (page.title + " " + page.content).toLowerCase();
+      const text = page.content.toLowerCase();
       const matches = [];
 
-      // Collect match positions
       for (const q of queryWords) {
         let pos = text.indexOf(q);
         while (pos !== -1) {
@@ -47,19 +43,14 @@
       }
 
       if (matches.length) {
-        // Merge close matches into a single snippet
         matches.sort((a, b) => a - b);
         const merged = [];
         let snippetStart = matches[0];
 
         for (let i = 1; i < matches.length; i++) {
-          if (matches[i] - snippetStart <= CONFIG.contextWords * 8) {
-            // Merge if matches are close (~avg word length)
-            continue;
-          } else {
-            merged.push(snippetStart);
-            snippetStart = matches[i];
-          }
+          if (matches[i] - snippetStart <= CONFIG.contextWords * 8) continue;
+          merged.push(snippetStart);
+          snippetStart = matches[i];
         }
         merged.push(snippetStart);
 
@@ -85,15 +76,15 @@
       wrapper.style.color = "inherit";
 
       const h1 = document.createElement("h1");
-      h1.textContent = page.title || page.url;
+      h1.innerHTML = page.title || page.url;
       wrapper.appendChild(h1);
 
       matches.slice(0, CONFIG.maxMatchesPerPage).forEach(pos => {
-        const snippet = makeSnippet(page.content || "", pos, queryWords);
-        if (!snippet) return;
+        const snippetHTML = makeSnippet(page.content, pos, queryWords);
+        if (!snippetHTML) return;
 
         const p = document.createElement("p");
-        p.innerHTML = snippet;
+        p.innerHTML = snippetHTML;
         wrapper.appendChild(p);
       });
 
@@ -101,73 +92,72 @@
     }
   }
 
-function makeSnippet(text, position, queryWords) {
-  // Replace headings with <b>
-  text = text.replace(/<(h[1-6])>(.*?)<\/\1>/gi, "<b>$2</b>");
+  function makeSnippet(html, position, queryWords) {
+    // Split HTML into lines
+    const lines = html.split(/\n/);
 
-  // Split into paragraphs (double line breaks OR <p>)
-  let paragraphs = text.split(/\n\s*\n|<p>/i);
-
-  // Find which paragraph contains the match
-  let matchIndex = 0;
-  let charCount = 0;
-  for (let i = 0; i < paragraphs.length; i++) {
-    if (position < charCount + paragraphs[i].length) {
-      matchIndex = i;
-      break;
+    // Find the line containing the match
+    let matchLineIndex = 0;
+    let charCount = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (position < charCount + lines[i].length + 1) {
+        matchLineIndex = i;
+        break;
+      }
+      charCount += lines[i].length + 1;
     }
-    charCount += paragraphs[i].length + 2; // +2 for \n\n
-  }
 
-  // Decide how many paragraphs to include
-  let snippet = paragraphs[matchIndex].trim();
-  let wordCount = snippet.split(/\s+/).length;
-  let start = matchIndex, end = matchIndex;
+    // Determine snippet range: include lines above/below for context
+    let start = Math.max(0, matchLineIndex - CONFIG.snippetLinesAbove);
+    let end = Math.min(lines.length - 1, matchLineIndex + CONFIG.snippetLinesBelow);
 
-  while (wordCount < 30 && (start > 0 || end < paragraphs.length - 1)) {
-    if (start > 0) {
-      start--;
-      snippet = paragraphs[start].trim() + "\n\n" + snippet;
-      wordCount = snippet.split(/\s+/).length;
+    // Merge lines
+    let snippetLines = lines.slice(start, end + 1);
+
+    // Count words; if less than target, try expanding
+    let wordCount = snippetLines.join(" ").split(/\s+/).filter(Boolean).length;
+    while (wordCount < CONFIG.contextWords) {
+      if (start > 0) start--;
+      if (end < lines.length - 1) end++;
+      snippetLines = lines.slice(start, end + 1);
+      wordCount = snippetLines.join(" ").split(/\s+/).filter(Boolean).length;
+      if (start === 0 && end === lines.length - 1) break;
     }
-    if (wordCount >= 30) break;
-    if (end < paragraphs.length - 1) {
-      end++;
-      snippet += "\n\n" + paragraphs[end].trim();
-      wordCount = snippet.split(/\s+/).length;
+
+    let snippet = snippetLines.join("\n");
+
+    // Replace headings with <b>
+    snippet = snippet.replace(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gi, "<b>$1</b>");
+
+    // Highlight query words
+    for (const q of queryWords) {
+      snippet = snippet.replace(new RegExp(`(${escapeRegExp(q)})`, "gi"), "<mark>$1</mark>");
     }
+
+    // Ensure code blocks end properly
+    snippet = closeTags(snippet);
+
+    return snippet;
   }
 
-  // Highlight query words
-  for (const q of queryWords) {
-    snippet = snippet.replace(new RegExp(`(${q})`, "gi"), "<mark>$1</mark>");
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
-  // Ensure all HTML tags are closed
-  snippet = closeTags(snippet);
-
-  // Replace line breaks with <br> to keep formatting
-  snippet = snippet.replace(/\n/g, "<br>");
-
-  return snippet;
-}
-
-// Helper: close any unclosed HTML tags (simple version)
-function closeTags(html) {
-  const opened = [];
-  html = html.replace(/<([a-z]+)(?: [^>]*)?>/gi, (m, tag) => {
-    opened.push(tag);
-    return m;
-  });
-  html = html.replace(/<\/([a-z]+)>/gi, (m, tag) => {
-    const idx = opened.lastIndexOf(tag);
-    if (idx !== -1) opened.splice(idx, 1);
-    return m;
-  });
-  // Close any remaining
-  for (let i = opened.length - 1; i >= 0; i--) {
-    html += `</${opened[i]}>`;
+  function closeTags(html) {
+    // Basic tag stack to prevent broken HTML in snippets
+    const stack = [];
+    return html.replace(/<(\/?)(\w+)([^>]*)>/g, (match, close, tag) => {
+      tag = tag.toLowerCase();
+      if (close) {
+        const last = stack[stack.length - 1];
+        if (last === tag) stack.pop();
+        return match;
+      } else if (!/br|hr|img|code/.test(tag)) {
+        stack.push(tag);
+        return match;
+      }
+      return match;
+    }) + stack.reverse().map(t => `</${t}>`).join("");
   }
-  return html;
-}
 })();
