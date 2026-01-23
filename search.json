@@ -1,0 +1,16 @@
+---
+layout: none
+---
+[
+  {% for post in site.posts %}
+    {% if post.url startswith '/beamng/' %}
+      {
+        "title"    : "{{ post.title | escape }}",
+        "category" : "{{ post.category }}",
+        "tags"     : "{{ post.tags | join: ', ' }}",
+        "url"      : "{{ site.baseurl }}{{ post.url }}",
+        "date"     : "{{ post.date }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endif %}
+  {% endfor %}
+]
