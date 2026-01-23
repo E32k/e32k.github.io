@@ -28,29 +28,42 @@
     const query = input.value.trim().toLowerCase();
     resultsContainer.innerHTML = "";
 
-    if (query.length < CONFIG.minQueryLength) return;
-    if (!index.length) return;
+    if (query.length < CONFIG.minQueryLength || !index.length) return;
 
     const queryWords = query.split(/\s+/);
     const results = [];
 
     for (const page of index) {
-      const title = (page.title || "").toLowerCase();
-      const content = (page.content || "").toLowerCase();
-      const haystack = `${title} ${content}`;
-
+      const text = (page.title + " " + page.content).toLowerCase();
       const matches = [];
 
-      for (const word of queryWords) {
-        let pos = haystack.indexOf(word);
+      // Collect match positions
+      for (const q of queryWords) {
+        let pos = text.indexOf(q);
         while (pos !== -1) {
           matches.push(pos);
-          pos = haystack.indexOf(word, pos + word.length);
+          pos = text.indexOf(q, pos + q.length);
         }
       }
 
       if (matches.length) {
-        results.push({ page, matches });
+        // Merge close matches into a single snippet
+        matches.sort((a, b) => a - b);
+        const merged = [];
+        let snippetStart = matches[0];
+
+        for (let i = 1; i < matches.length; i++) {
+          if (matches[i] - snippetStart <= CONFIG.contextWords * 8) {
+            // Merge if matches are close (~avg word length)
+            continue;
+          } else {
+            merged.push(snippetStart);
+            snippetStart = matches[i];
+          }
+        }
+        merged.push(snippetStart);
+
+        results.push({ page, matches: merged });
       }
     }
 
@@ -64,7 +77,6 @@
     }
 
     for (const { page, matches } of results) {
-      // Whole result is clickable
       const wrapper = document.createElement("a");
       wrapper.href = page.url;
       wrapper.className = "search-result";
@@ -76,16 +88,14 @@
       h1.textContent = page.title || page.url;
       wrapper.appendChild(h1);
 
-      matches
-        .slice(0, CONFIG.maxMatchesPerPage)
-        .forEach(pos => {
-          const snippet = makeSnippet(page.content || "", pos, queryWords);
-          if (!snippet) return;
+      matches.slice(0, CONFIG.maxMatchesPerPage).forEach(pos => {
+        const snippet = makeSnippet(page.content || "", pos, queryWords);
+        if (!snippet) return;
 
-          const p = document.createElement("p");
-          p.innerHTML = snippet;
-          wrapper.appendChild(p);
-        });
+        const p = document.createElement("p");
+        p.innerHTML = snippet;
+        wrapper.appendChild(p);
+      });
 
       resultsContainer.appendChild(wrapper);
     }
@@ -107,10 +117,7 @@
     let snippet = words.slice(start, end).join(" ");
 
     for (const q of queryWords) {
-      snippet = snippet.replace(
-        new RegExp(`(${q})`, "gi"),
-        "<mark>$1</mark>"
-      );
+      snippet = snippet.replace(new RegExp(`(${q})`, "gi"), "<mark>$1</mark>");
     }
 
     return snippet;
