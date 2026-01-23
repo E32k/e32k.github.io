@@ -49,7 +49,7 @@ header h1 {
 }
 
 /* Search input */
-.header-search {
+#search-input {
   padding: 0.25em 0.5em; /* inside padding */
   width: 75%;
   border:hidden;
@@ -73,7 +73,7 @@ header h1 {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.header-search,
+#search-input,
 .header-button {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   font-size: 1.4em;
@@ -101,7 +101,7 @@ header h1 {
     flex-direction: column;
   }
 
-  .header-search {
+  #search-input {
     width: 100%;
   }
   .header-button {display: none}
@@ -145,7 +145,7 @@ header h1 {
 
 
 .overview {
-  width: 15rem;
+  width: 15em;
   padding: 1em;
 
   display: flex;
@@ -210,26 +210,35 @@ header h1 {
 
 
 
+
+
+
+
+
 /* Sidebar container */
 .sites {
-  width: 15rem;
+  width: fit-content;
   padding: 1rem;
   background-color: var(--bg-color2);
-  transition: background-color 0.3s ease;
-  line-height: 1.2em;
-  font-weight: 400;
-}
-.sites {
   border-right: 1px solid var(--divider);
   transition: background-color 0.3s ease;
 }
-
 .sites, .sites * {user-select: none} /* Disable selecting text*/
 
+/* Font Style */
 .sites a {
   text-decoration: none;
   color: var(--text-color2);
   transition: color 0.15s ease;
+  font-weight: 600;
+}
+
+/* Nested details & links */
+.sites details details {margin-left: 1em}
+.sites-page {
+  margin-left: 1.7em;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Remove default arrow */
@@ -241,30 +250,14 @@ header h1 {
   padding-left: 0.7em; /* space for arrow */
 }
 
-/* Nested details & links */
-.sites details details,
-.sites-page {
-  display: block;
-  position: relative;
-  margin-left: 1em;
-}
-
-.sites-page {
-  margin-left: 1.7em;
-  opacity: 0.8;
-}
-.sites-folder {font-weight: 600}
-
 /* Arrow on the left */
 .sites details[open] > summary::after {transform: rotate(90deg)}
 .sites summary::after {
   font-family: monospace;
-  position: absolute;
+  font-weight: bold;
   content: '>';
+  position: absolute;
   left: 0;
-  line-height: 1.2em;
-  font-weight: 800;
-  transition: transform 0.1s;
 }
 
 
