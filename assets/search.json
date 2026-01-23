@@ -2,15 +2,14 @@
 layout: null
 ---
 [
-{% for page in site.pages %}
-  {% if page.url contains '/beamng/' %}
-    { 
-      "title": {{ page.title | jsonify }},
-      "category": {{ page.category | jsonify }},
-      "content": {{ page.content | strip_html | jsonify }},
-      "url": {{ page.url | jsonify }},
-      "date": {{ page.date | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
-  {% endif %}
+{% assign beamng_pages = site.pages | where_exp: "page", "page.url contains '/beamng/'" %}
+{% for page in beamng_pages %}
+  {
+    "title": {{ page.title | jsonify }},
+    "category": {{ page.category | jsonify }},
+    "content": {{ page.content | strip_html | jsonify }},
+    "url": {{ page.url | jsonify }},
+    "date": {{ page.date | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
