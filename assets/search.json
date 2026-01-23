@@ -3,8 +3,8 @@ layout: null
 ---
 [
 {% for page in site.pages %}
-  {% if page.url startswith '/beamng/' %}
-    {
+  {% if page.url contains '/beamng/' %}
+    { 
       "title": {{ page.title | jsonify }},
       "category": {{ page.category | jsonify }},
       "content": {{ page.content | strip_html | jsonify }},
