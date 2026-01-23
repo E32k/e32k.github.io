@@ -101,25 +101,26 @@
     }
   }
 
-  function makeSnippet(text, position, queryWords) {
-    const words = text.split(/\s+/);
-    let charCount = 0;
-    let wordIndex = 0;
+function makeSnippet(text, position, queryWords) {
+  // Split text into lines
+  const lines = text.split(/\n/);
 
-    while (charCount < position && wordIndex < words.length) {
-      charCount += words[wordIndex].length + 1;
-      wordIndex++;
+  // Find the line that contains the match
+  let matchLine = "";
+  let charCount = 0;
+  for (const line of lines) {
+    if (position < charCount + line.length + 1) {
+      matchLine = line;
+      break;
     }
-
-    const start = Math.max(0, wordIndex - CONFIG.contextWords);
-    const end = Math.min(words.length, wordIndex + CONFIG.contextWords);
-
-    let snippet = words.slice(start, end).join(" ");
-
-    for (const q of queryWords) {
-      snippet = snippet.replace(new RegExp(`(${q})`, "gi"), "<mark>$1</mark>");
-    }
-
-    return snippet;
+    charCount += line.length + 1; // +1 for newline
   }
+
+  // Highlight query words in that line
+  for (const q of queryWords) {
+    matchLine = matchLine.replace(new RegExp(`(${q})`, "gi"), "<mark>$1</mark>");
+  }
+
+  return matchLine.trim();
+}
 })();
