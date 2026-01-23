@@ -3,12 +3,14 @@ layout: null
 ---
 [
 {% for page in site.pages %}
-  {
-    "title": {{ page.title | jsonify }},
-    "category": {{ page.category | jsonify }},
-    "content": {{ page.content | strip_html | strip_newlines | jsonify }},
-    "url": {{ page.url | jsonify }},
-    "date": {{ page.date | jsonify }}
-  }{% unless forloop.last %},{% endunless %}
+  {% if page.url startswith '/beamng/' %}
+    {
+      "title": {{ page.title | jsonify }},
+      "category": {{ page.category | jsonify }},
+      "content": {{ page.content | strip_html | jsonify }},
+      "url": {{ page.url | jsonify }},
+      "date": {{ page.date | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endif %}
 {% endfor %}
 ]
