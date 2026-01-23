@@ -6,7 +6,7 @@ layout: none
     {
       "title"    : "{{ page.title | escape }}",
       "category" : "{{ page.category }}",
-      "content"  : "{{ page.content | strip_html | strip_newlines | remove_chars | escape }}"
+      "content"  : "{{ page.content | strip_html | strip_newlines | remove_chars | escape }}",
       "url"      : "{{ page.baseurl }}{{ page.url }}",
       "date"     : "{{ page.date }}"
     }{% unless forloop.last %},{% endunless %}
