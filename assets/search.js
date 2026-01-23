@@ -61,36 +61,34 @@
     render(results.slice(0, CONFIG.maxResults), queryWords);
   });
 
-  function render(results, queryWords) {
-    if (!results.length) {
-      resultsContainer.innerHTML = "<p>No results found.</p>";
-      return;
-    }
-
-    for (const { page, matches } of results) {
-      const wrapper = document.createElement("a");
-      wrapper.href = page.url;
-      wrapper.className = "search-result";
-      wrapper.style.display = "block";
-      wrapper.style.textDecoration = "none";
-      wrapper.style.color = "inherit";
-
-      const h1 = document.createElement("h1");
-      h1.innerHTML = page.title || page.url;
-      wrapper.appendChild(h1);
-
-      matches.slice(0, CONFIG.maxMatchesPerPage).forEach(pos => {
-        const snippetHTML = makeSnippet(page.content, pos, queryWords);
-        if (!snippetHTML) return;
-
-        const p = document.createElement("p");
-        p.innerHTML = snippetHTML;
-        wrapper.appendChild(p);
-      });
-
-      resultsContainer.appendChild(wrapper);
-    }
+function render(results, queryWords) {
+  if (!results.length) {
+    resultsContainer.innerHTML = "<p>No results found.</p>";
+    return;
   }
+
+  for (const { page, matches } of results) {
+    // Title outside of snippet container
+    const h1 = document.createElement("h1");
+    h1.textContent = page.title || page.url;
+    resultsContainer.appendChild(h1);
+
+    // Container for each result
+    const wrapper = document.createElement("div");
+    wrapper.className = "result";
+
+    matches.slice(0, CONFIG.maxMatchesPerPage).forEach(pos => {
+      const snippetHTML = makeSnippet(page.content, pos, queryWords);
+      if (!snippetHTML) return;
+
+      const p = document.createElement("p");
+      p.innerHTML = snippetHTML;
+      wrapper.appendChild(p);
+    });
+
+    resultsContainer.appendChild(wrapper);
+  }
+}
 
   function makeSnippet(html, position, queryWords) {
     // Split HTML into lines
