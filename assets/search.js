@@ -1,121 +1,61 @@
 (() => {
-  const SEARCH_URL = "/assets/search.json";
-
-  const CONFIG = {
-    contextWords: 20,
-    maxResults: 10,
-    maxMatchesPerPage: 5,
-    minQueryLength: 2
-  };
+  console.log("[search] script loaded");
 
   const input = document.getElementById("search-input");
   const resultsContainer = document.getElementById("results-container");
 
-  let index = [];
-  let ready = false;
+  if (!input) {
+    console.error("[search] #search-input NOT FOUND");
+    return;
+  }
 
-  fetch(SEARCH_URL)
-    .then(r => r.json())
+  if (!resultsContainer) {
+    console.error("[search] #results-container NOT FOUND");
+    return;
+  }
+
+  console.log("[search] input + container found");
+
+  fetch("/assets/search.json")
+    .then(r => {
+      console.log("[search] fetch status:", r.status);
+      return r.json();
+    })
     .then(data => {
-      index = data;
-      ready = true;
+      console.log("[search] index loaded");
+      console.log("[search] entries:", data.length);
+      console.log("[search] first entry:", data[0]);
+
+      input.addEventListener("input", () => {
+        const q = input.value.toLowerCase().trim();
+        console.log("[search] query:", q);
+
+        resultsContainer.innerHTML = "";
+
+        if (!q) return;
+
+        let hits = 0;
+
+        for (const page of data) {
+          const title = (page.title || "").toLowerCase();
+          const content = (page.content || "").toLowerCase();
+
+          if (title.includes(q) || content.includes(q)) {
+            hits++;
+            const el = document.createElement("div");
+            el.innerHTML = `<a href="${page.url}">${page.title || page.url}</a>`;
+            resultsContainer.appendChild(el);
+          }
+        }
+
+        console.log("[search] hits:", hits);
+
+        if (hits === 0) {
+          resultsContainer.innerHTML = "<p>No results found.</p>";
+        }
+      });
     })
     .catch(err => {
-      console.error("Search index failed to load:", err);
+      console.error("[search] fetch FAILED", err);
     });
-
-  input.addEventListener("input", () => {
-    if (!ready) return;
-
-    const query = input.value.trim().toLowerCase();
-    resultsContainer.innerHTML = "";
-
-    if (query.length < CONFIG.minQueryLength) return;
-
-    const queryWords = query.split(/\s+/);
-    const results = [];
-
-    for (const page of index) {
-      if (!page.content && !page.title) continue;
-
-      const haystack =
-        ((page.title || "") + " " + (page.content || "")).toLowerCase();
-
-      const matches = [];
-
-      for (const word of queryWords) {
-        let pos = haystack.indexOf(word);
-        while (pos !== -1) {
-          matches.push(pos);
-          pos = haystack.indexOf(word, pos + word.length);
-        }
-      }
-
-      if (matches.length) {
-        results.push({ page, matches });
-      }
-    }
-
-    render(results.slice(0, CONFIG.maxResults), queryWords);
-  });
-
-  function render(results, queryWords) {
-    if (!results.length) {
-      resultsContainer.innerHTML = "<p>No results found.</p>";
-      return;
-    }
-
-    for (const { page, matches } of results) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "search-result";
-
-      const title = document.createElement("a");
-      title.href = page.url;
-      title.textContent = page.title || page.url;
-      title.className = "search-result-title";
-
-      wrapper.appendChild(title);
-
-      matches
-        .slice(0, CONFIG.maxMatchesPerPage)
-        .forEach(pos => {
-          const snippet = makeSnippet(page.content || "", pos, queryWords);
-          if (!snippet) return;
-
-          const p = document.createElement("p");
-          p.className = "search-result-snippet";
-          p.innerHTML = snippet;
-          wrapper.appendChild(p);
-        });
-
-      resultsContainer.appendChild(wrapper);
-    }
-  }
-
-  function makeSnippet(text, position, queryWords) {
-    if (!text) return "";
-
-    const words = text.split(/\s+/);
-    let charCount = 0;
-    let wordIndex = 0;
-
-    while (charCount < position && wordIndex < words.length) {
-      charCount += words[wordIndex].length + 1;
-      wordIndex++;
-    }
-
-    const start = Math.max(0, wordIndex - CONFIG.contextWords);
-    const end = Math.min(words.length, wordIndex + CONFIG.contextWords);
-
-    let snippet = words.slice(start, end).join(" ");
-
-    queryWords.forEach(q => {
-      snippet = snippet.replace(
-        new RegExp(`(${q})`, "gi"),
-        "<mark>$1</mark>"
-      );
-    });
-
-    return `… ${snippet} …`;
-  }
 })();
