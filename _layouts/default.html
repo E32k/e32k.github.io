@@ -12,16 +12,7 @@
     <input type="text" id="search-input" placeholder="Search...">
   </header>
   <ul id="results-container"></ul>
-  <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
-  <script>
-    var sjs = SimpleJekyllSearch({
-      searchInput: document.getElementById('search-input'),
-      resultsContainer: document.getElementById('results-container'),
-      json: '/assets/search.json',
-      fuzzy: true,
-      searchResultTemplate: '<li><a href="{{ site.url }}{url}">{title}</a></li>'
-    })
-  </script>
+  <script src="/assets/js/search.js"></script>
   
   <div class="layout">
     <aside class="sites">
