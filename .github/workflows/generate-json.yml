@@ -1,0 +1,35 @@
+name: Generate BeamNG JSON
+
+on:
+  push:
+    paths:
+      - 'beamng/**.md'   # Run only if a Markdown file in /beamng/ changes
+      - '.github/workflows/generate-json.yml' # Also run if workflow changes
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate JSON
+        run: node scripts/generate-beamng-json.js
+
+      - name: Commit JSON
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add beamng.json
+          git diff --quiet || git commit -m "Auto-generate beamng.json"
+          git push
