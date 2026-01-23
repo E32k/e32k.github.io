@@ -3,9 +3,9 @@ name: Generate BeamNG JSON
 on:
   push:
     paths:
-      - 'beamng/**.md'   # Run only if Markdown files change
+      - 'beamng/**.md'
       - '.github/workflows/generate-json.yml'
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # ← allows push back
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
