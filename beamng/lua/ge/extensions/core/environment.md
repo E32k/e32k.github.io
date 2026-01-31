@@ -27,15 +27,17 @@ Returns and sets the cloud speed by ID
 
 Returns and sets the cloud "height" by ID
 
-You can use this funciton to apply the settings to all clouds
-```lua
-for _, cloudName in ipairs(scenetree.findClassObjects("CloudLayer")) do
-  local cloudID = scenetree.findObject(cloudName):getID()
-  if cloudID then
-    dump(cloudID)
-  end
-end
-```
+
+> [!TIP]
+> You can use this funciton to apply the settings to all clouds
+> ```lua
+> for _, cloudName in ipairs(scenetree.findClassObjects("CloudLayer")) do
+>   local cloudID = scenetree.findObject(cloudName):getID()
+>   if cloudID then
+>     dump(cloudID)
+>   end
+> end
+> ```
 
 ## LevelInfo
 
