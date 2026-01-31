@@ -1,19 +1,60 @@
 # Documentation
+
 environment.lua
+## ScatterSky
+
+
+## Clouds
+
+### setWindSpeed(windSpeed) getWindSpeed() setCloudCover(cloud) getCloudCover()
+
+These functions only affect the first cloud object (this is what environment settings use).
+
+
+### getCloudCoverByID(objectID) setCloudCoverByID(objectID, coverage)
+
+Returns and sets the cloud density/coverage by ID
+
+### getCloudExposureByID(objectID) setCloudExposureByID(objectID, exposure)
+
+Returns and sets the cloud brightness by ID
+
+### getCloudWindByID(objectID) setCloudWindByID(objectID, windSpeed)
+
+Returns and sets the cloud speed by ID
+
+### getCloudHeightByID(objectID) setCloudHeightByID(objectID, height)
+
+Returns and sets the cloud "height" by ID
+
+You can use this funciton to apply the settings to all clouds
+```lua
+for _, cloudName in ipairs(scenetree.findClassObjects("CloudLayer")) do
+  local cloudID = scenetree.findObject(cloudName):getID()
+  if cloudID then
+    dump(cloudID)
+  end
+end
+```
+
 ## LevelInfo
+
 ### setFogDensity(fog) getFogDensity()
 Sets and returns the starting distance of the fog. `getFogDensity` also returns the `LevelInfo` object  
 - 0.0001 is the default for most levels  
 - 0.01 is an very dense fog  
+
 ### setFogDensityOffset(fogOffset) getFogDensityOffset()  
 Sets and returns the starting distance of the fog (meters).  
+
 ### setFogAtmosphereHeight(fogHeight) getFogAtmosphereHeight()  
 Sets and returns the height of the fog (meters).  
 
 ### setGravity(grav) getGravity()  
-Sets and returns tthe gravity
+Sets and returns the gravity. Same numbers as in the environment settings, default is `-9.81`
 
 ## Precipitation
+
 ### setPrecipitation() getPrecipitation()
 These two dont work
 
