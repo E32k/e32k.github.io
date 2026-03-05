@@ -28,7 +28,7 @@ These are all the functions that are in the obj after calling getPlayerVehicle()
     <td class="desc">Returns the absolute world position of a node</td>
   </tr><tr>
     <td colspan="4" class="details">
-      This function returns three numbers and thus doesnt generate garbage
+      This function returns three numbers and thus doesn't generate garbage
     </td>
   </tr>
 </table>

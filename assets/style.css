@@ -402,9 +402,9 @@ MARK: Function API Table
 
 table.api {
   border-collapse: collapse;
-  margin-bottom: 1em;
+  margin: 0 auto 1em auto;
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
-  width: 50%;
+  width: 80%;
 }
 
 table.api tr:first-child {
