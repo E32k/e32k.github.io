@@ -414,6 +414,23 @@ table.api td.details {
   border-left: 5px solid #ddd;
 }
 
+/* fixed widths for top row */
+table.api th.func {
+  width: 30%;
+}
+
+table.api th.args {
+  width: 20%;
+}
+
+table.api th.rets {
+  width: 20%;
+}
+
+table.api th.desc {
+  width: 50%;
+}
+
 table.api th,
 table.api td {
   border: 1px solid #ddd;
