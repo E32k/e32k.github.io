@@ -424,7 +424,7 @@ table.api td {
 /* function name */
 .func {
   background-color: #e6ffe6;
-  width: 30%;
+  width: 25%;
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
@@ -434,7 +434,6 @@ table.api td {
 /* arguments */
 .args {
   background-color: #dae8ff;
-  width: 20%;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
 }
@@ -442,7 +441,6 @@ table.api td {
 /* returns */
 .rets {
   background-color: #d6ffff;
-  width: 20%;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
 }
@@ -451,6 +449,7 @@ table.api td {
 .desc {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
+  width: 50%;
 }
 
 /* extra notes */
