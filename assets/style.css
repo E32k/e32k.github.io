@@ -414,23 +414,6 @@ table.api td.details {
   border-left: 5px solid #ddd;
 }
 
-/* fixed widths for top row */
-table.api th.func {
-  width: 30%;
-}
-
-table.api th.args {
-  width: 20%;
-}
-
-table.api th.rets {
-  width: 20%;
-}
-
-table.api th.desc {
-  width: 50%;
-}
-
 table.api th,
 table.api td {
   border: 1px solid #ddd;
@@ -441,6 +424,7 @@ table.api td {
 /* function name */
 .func {
   background-color: #e6ffe6;
+  width: 50%;
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
@@ -450,6 +434,7 @@ table.api td {
 /* arguments */
 .args {
   background-color: #dae8ff;
+  width: 20%;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
 }
@@ -457,12 +442,14 @@ table.api td {
 /* returns */
 .rets {
   background-color: #d6ffff;
+  width: 20%;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
 }
 
 /* description */
 .desc {
+  width: 50%;
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
 }
@@ -489,3 +476,20 @@ table.api td {
 .func::after { content: "function"; }
 .args::after { content: "arguments"; }
 .rets::after { content: "returns"; }
+
+/*
+.keyword { color: #C586C0; }
+.special { color: #569CD6; }
+.number { color: #B5CEA8; }
+.string { color: #CE9178; }
+.escape { color: #D7BA7D; }
+.operator { color: #D4D4D4; }
+.function { color: #DCDCAA; }
+.method { color: #4EC9B0; }
+.comment { color: #6A9955; }
+.variable { color: #9CDCFE; }
+.bracket1 { color: #FFD700; }
+.bracket2 { color: #DA70D6; }
+.bracket3 { color: #179FFF; }
+.invalid { color: #D21414; } 
+*/
