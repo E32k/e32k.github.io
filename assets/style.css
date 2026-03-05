@@ -26,6 +26,12 @@ body.dark-mode {
   --link-color: #ccc;
 }
 
+
+
+/*
+MARK: Header and Navigation Bar
+*/
+
 header {
   display: flex;
   align-items: center;           /* vertically center all items */
@@ -36,7 +42,6 @@ header {
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 
 /* Site title */
 header h1 {
@@ -109,15 +114,10 @@ header h1 {
 
 
 
+/*
+MARK: Container for the search results
+*/
 
-
-
-
-
-
-
-
-/* Container for the search results */
 #results-container {
   position: absolute;
   top: 60px;
@@ -178,16 +178,6 @@ mark {
 
 
 
-
-
-
-
-
-
-
-
-
-
 .layout {
   display: flex;
   min-height: 60vh;
@@ -206,8 +196,6 @@ mark {
   background: var(--bg-color1);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-
 
 
 
@@ -280,12 +268,10 @@ mark {
 
 
 
+/*
+MARK: Sidebar Container
+*/
 
-
-
-
-
-/* Sidebar container */
 .sites {
   width: fit-content;
   padding: 1rem;
@@ -332,19 +318,10 @@ mark {
 
 
 
+/*
+MARK: Font Styles
+*/
 
-
-
-
-
-
-
-
-
-
-
-
-/*  typography */
 body {
   margin: 0;
   background-color: var(--bg-color2);
@@ -384,7 +361,10 @@ i, i * { font-style: italic; }
 
 
 
-/* Style for the button */
+/*
+MARK: Dark Mode Toggle Button
+*/
+
 #dark-mode-toggle {
   position: fixed;
   bottom: 20px;
@@ -413,3 +393,79 @@ i, i * { font-style: italic; }
 #dark-mode-toggle .emoji {
   font-size: 14px;
 }
+
+
+
+/*
+MARK: Function API Table
+*/
+
+table.api {
+  border-collapse: collapse;
+  margin-bottom: 1em;
+  font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
+  width: 50%;
+}
+
+table.api tr:first-child {
+  border-left: 5px solid #ffaaaa;
+  border-top: 5px solid #ddd;
+}
+table.api td.details {
+  border-left: 5px solid #ddd;
+}
+
+table.api th,
+table.api td {
+  border: 1px solid #ddd;
+  padding: 0.5em;
+  position: relative;
+}
+
+/* function name */
+.func {
+  background-color: #e6ffe6;
+  text-align: left;
+  font-family: "Roboto Mono", monospace;
+  padding-bottom: 1em;
+}
+
+/* arguments */
+.args {
+  background-color: #dae8ff;
+  font-family: "Roboto Mono", monospace;
+}
+
+/* returns */
+.rets {
+  background-color: #d6ffff;
+  font-family: "Roboto Mono", monospace;
+}
+
+/* description */
+.desc {
+  background-color: #eee;
+}
+
+/* extra notes */
+.details {
+  background: white;
+  font-weight: 400;
+}
+
+/* bottom labels */
+.func::after,
+.args::after,
+.rets::after {
+  position: absolute;
+  left: 5px;
+  bottom: 0;
+  font-size: 0.6em;
+  color: #666;
+  font-family: "Roboto Mono", monospace;
+  font-weight: lighter;
+}
+
+.func::after { content: "function"; }
+.args::after { content: "arguments"; }
+.rets::after { content: "returns"; }
