@@ -424,7 +424,7 @@ table.api td {
 /* function name */
 .func {
   background-color: #e6ffe6;
-  width: 50%;
+  width: 30%;
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
@@ -449,7 +449,6 @@ table.api td {
 
 /* description */
 .desc {
-  width: 50%;
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
 }
