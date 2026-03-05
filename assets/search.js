@@ -1,161 +1,116 @@
 (() => {
-  const SEARCH_URL = "/assets/search.json";
 
-  const CONFIG = {
-    contextWords: 30,        // target ~30 words in snippet
-    maxResults: 10,
-    maxMatchesPerPage: 5,
-    minQueryLength: 2,
-    snippetLinesAbove: 3,    // include these many lines above match
-    snippetLinesBelow: 3     // include these many lines below match
-  };
+const CONFIG = {
+  resultsContainer: document.getElementById("results-container"),
+  searchInput: document.getElementById("search-input"),
+  searchJson: "/assets/search.json",
+  linesAround: 2,
+  minQueryLength: 2,
+};
 
-  const input = document.getElementById("search-input");
-  const resultsContainer = document.getElementById("results-container");
+if (!CONFIG.searchInput || !CONFIG.resultsContainer) return;
 
-  if (!input || !resultsContainer) return;
+let index = [];
 
-  let index = [];
+fetch(CONFIG.searchJson)
+  .then(r => r.json())
+  .then(data => index = data)
+  .catch(() => CONFIG.resultsContainer.innerHTML = "<p>Search unavailable.</p>");
 
-  fetch(SEARCH_URL)
-    .then(r => r.json())
-    .then(data => index = data)
-    .catch(() => resultsContainer.innerHTML = "<p>Search unavailable.</p>");
+CONFIG.searchInput.addEventListener("input", () => {
+  const query = CONFIG.searchInput.value.trim().toLowerCase();
 
-  input.addEventListener("input", () => {
-    const query = input.value.trim().toLowerCase();
-    resultsContainer.innerHTML = "";
-    if (query.length < CONFIG.minQueryLength || !index.length) return;
-
-    const queryWords = query.split(/\s+/);
-    const results = [];
-
-    for (const page of index) {
-      const text = page.content.toLowerCase();
-      const matches = [];
-
-      for (const q of queryWords) {
-        let pos = text.indexOf(q);
-        while (pos !== -1) {
-          matches.push(pos);
-          pos = text.indexOf(q, pos + q.length);
-        }
-      }
-
-      if (matches.length) {
-        matches.sort((a, b) => a - b);
-        const merged = [];
-        let snippetStart = matches[0];
-
-        for (let i = 1; i < matches.length; i++) {
-          if (matches[i] - snippetStart <= CONFIG.contextWords * 8) continue;
-          merged.push(snippetStart);
-          snippetStart = matches[i];
-        }
-        merged.push(snippetStart);
-
-        results.push({ page, matches: merged });
-      }
-    }
-
-    render(results.slice(0, CONFIG.maxResults), queryWords);
-  });
-
-function render(results, queryWords) {
-  if (!results.length) {
-    resultsContainer.innerHTML = "<p>No results found.</p>";
+  if (!query || query.length < CONFIG.minQueryLength) {
+    CONFIG.resultsContainer.innerHTML = "";
+    CONFIG.resultsContainer.style.display = "none";
     return;
   }
 
-  for (const { page, matches } of results) {
-    // Title outside of snippet container
-    const h1 = document.createElement("h1");
-    h1.textContent = page.title || page.url;
-    resultsContainer.appendChild(h1);
+  const queryWords = query.split(/\s+/);
+  const results = [];
 
-    // Container for each result
+  for (const page of index) {
+    const lines = page.content.split("\n").filter(line => line.trim().length > 0);
+    const matchPositions = [];
+
+    lines.forEach((line, i) => {
+      const lower = line.toLowerCase();
+      // Only match if all query words are on the same line
+      const allFound = queryWords.every(q => lower.includes(q));
+      if (allFound) matchPositions.push(i);
+    });
+
+    if (matchPositions.length) {
+      // Build snippets around matches
+      const snippets = matchPositions.map(i => {
+        const start = Math.max(0, i - CONFIG.linesAround);
+        const end = Math.min(lines.length - 1, i + CONFIG.linesAround);
+        return { start, end };
+      });
+
+      // Merge overlapping snippets
+      snippets.sort((a, b) => a.start - b.start);
+      const merged = [];
+      for (const s of snippets) {
+        if (!merged.length) merged.push(s);
+        else {
+          const last = merged[merged.length - 1];
+          if (s.start <= last.end) last.end = Math.max(last.end, s.end);
+          else merged.push(s);
+        }
+      }
+
+      results.push({ page, snippets: merged });
+    }
+  }
+
+  render(results, queryWords);
+});
+
+function render(results, queryWords) {
+  CONFIG.resultsContainer.innerHTML = "";
+  if (!results.length) {
+    CONFIG.resultsContainer.innerHTML = "<p>No results found.</p>";
+    CONFIG.resultsContainer.style.display = "block";
+    return;
+  }
+
+  CONFIG.resultsContainer.style.display = "block";
+
+  for (const { page, snippets } of results) {
     const wrapper = document.createElement("div");
     wrapper.className = "result";
 
-    matches.slice(0, CONFIG.maxMatchesPerPage).forEach(pos => {
-      const snippetHTML = makeSnippet(page.content, pos, queryWords);
-      if (!snippetHTML) return;
+    const title = document.createElement("h3");
+    title.className = "search-title";
+    title.textContent = page.title || page.url;
+    wrapper.appendChild(title);
 
+    for (const snip of snippets) {
+      const snippetLines = page.content.split("\n").slice(snip.start, snip.end + 1);
+      let snippetText = snippetLines.join("<br>");
+
+      // Highlight each query word
+      queryWords.forEach(q => {
+        const regex = new RegExp(`(${escapeRegExp(q)})`, "gi");
+        snippetText = snippetText.replace(regex, "<mark>$1</mark>");
+      });
+
+      const snipDiv = document.createElement("div");
+      snipDiv.className = "search-match";
       const p = document.createElement("p");
-      p.innerHTML = snippetHTML;
-      wrapper.appendChild(p);
-    });
+      p.innerHTML = snippetText;
+      snipDiv.appendChild(p);
 
-    resultsContainer.appendChild(wrapper);
+      wrapper.appendChild(snipDiv);
+    }
+
+    CONFIG.resultsContainer.appendChild(wrapper);
   }
 }
 
-  function makeSnippet(html, position, queryWords) {
-    // Split HTML into lines
-    const lines = html.split(/\n/);
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
-    // Find the line containing the match
-    let matchLineIndex = 0;
-    let charCount = 0;
-    for (let i = 0; i < lines.length; i++) {
-      if (position < charCount + lines[i].length + 1) {
-        matchLineIndex = i;
-        break;
-      }
-      charCount += lines[i].length + 1;
-    }
-
-    // Determine snippet range: include lines above/below for context
-    let start = Math.max(0, matchLineIndex - CONFIG.snippetLinesAbove);
-    let end = Math.min(lines.length - 1, matchLineIndex + CONFIG.snippetLinesBelow);
-
-    // Merge lines
-    let snippetLines = lines.slice(start, end + 1);
-
-    // Count words; if less than target, try expanding
-    let wordCount = snippetLines.join(" ").split(/\s+/).filter(Boolean).length;
-    while (wordCount < CONFIG.contextWords) {
-      if (start > 0) start--;
-      if (end < lines.length - 1) end++;
-      snippetLines = lines.slice(start, end + 1);
-      wordCount = snippetLines.join(" ").split(/\s+/).filter(Boolean).length;
-      if (start === 0 && end === lines.length - 1) break;
-    }
-
-    let snippet = snippetLines.join("\n");
-
-    // Replace headings with <b>
-    snippet = snippet.replace(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gi, "<b>$1</b>");
-
-    // Highlight query words
-    for (const q of queryWords) {
-      snippet = snippet.replace(new RegExp(`(${escapeRegExp(q)})`, "gi"), "<mark>$1</mark>");
-    }
-
-    // Ensure code blocks end properly
-    snippet = closeTags(snippet);
-
-    return snippet;
-  }
-
-  function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
-
-  function closeTags(html) {
-    // Basic tag stack to prevent broken HTML in snippets
-    const stack = [];
-    return html.replace(/<(\/?)(\w+)([^>]*)>/g, (match, close, tag) => {
-      tag = tag.toLowerCase();
-      if (close) {
-        const last = stack[stack.length - 1];
-        if (last === tag) stack.pop();
-        return match;
-      } else if (!/br|hr|img|code/.test(tag)) {
-        stack.push(tag);
-        return match;
-      }
-      return match;
-    }) + stack.reverse().map(t => `</${t}>`).join("");
-  }
 })();
