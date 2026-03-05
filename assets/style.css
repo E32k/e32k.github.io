@@ -403,7 +403,6 @@ MARK: Function API Table
 table.api {
   border-collapse: collapse;
   margin: 0 auto 1em auto;
-  font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   width: 80%;
 }
 
@@ -427,6 +426,7 @@ table.api td {
   background-color: #e6ffe6;
   text-align: left;
   font-family: "Roboto Mono", monospace;
+  font-weight: bold;
   padding-bottom: 1em;
 }
 
@@ -434,23 +434,26 @@ table.api td {
 .args {
   background-color: #dae8ff;
   font-family: "Roboto Mono", monospace;
+  font-weight: normal;
 }
 
 /* returns */
 .rets {
   background-color: #d6ffff;
   font-family: "Roboto Mono", monospace;
+  font-weight: normal;
 }
 
 /* description */
 .desc {
+  font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
 }
 
 /* extra notes */
 .details {
+  font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background: white;
-  font-weight: 400;
 }
 
 /* bottom labels */
