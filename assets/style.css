@@ -36,7 +36,7 @@ header {
   display: flex;
   align-items: center;           /* vertically center all items */
   justify-content: space-between; /* h1 left, others right */
-  padding: 1.5rem;
+  padding: 0;
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
   color: var(--text-color);
@@ -50,6 +50,8 @@ header > div {
 }
 
 header img {
+  margin-left:  1.5rem;
+  margin-right: 0.5rem;
   height: 5em;
   width: auto;
 }
@@ -60,10 +62,14 @@ header h1 {
   font-weight: 600;
   display: flex;
   align-items: center;
-  margin: 0;
-  gap: 0.5em; /* for icon spacing if needed */
+  margin: 1.5rem 0;
 }
 
+.search-section {
+  margin-left:  0.5rem;
+  margin-right: 1.5rem;
+  width: 60%;
+}
 /* Search input */
 #search-input {
   padding: 0.25em 0.5em; /* inside padding */
@@ -107,7 +113,7 @@ header a:hover {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   header img {
     height: 3em; /* smaller on mobile */
   }
