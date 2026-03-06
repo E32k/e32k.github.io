@@ -31,64 +31,46 @@ body.dark-mode {
 /*
 MARK: Header and Navigation Bar
 */
-/*
+
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.6rem 1.5rem;
+  align-items: center;           /* vertically center all items */
+  justify-content: space-between; /* h1 left, others right */
+  padding: 1.5rem;
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* both header groups *//*
-header > div {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* title controls vertical spacing *//*
+/* Site title */
 header h1 {
   font-size: 2.4em;
   font-weight: 600;
-  margin: 0;
-  padding: 0.4em 0;
   display: flex;
   align-items: center;
-}
-
-/* logo matches h1 height *//*
-header img {
-  width: auto;
   margin: 0;
-  padding: 0;
+  gap: 0.5em; /* for icon spacing if needed */
 }
 
-/* second group elements stretch vertically *//*
-#search-input,
-header a {
-  align-self: stretch;
-}
-
-/* Search input *//*
+/* Search input */
 #search-input {
-  padding: 0.25em 0.5em; /* inside padding *//*
-  flex: 1;
+  padding: 0.25em 0.5em; /* inside padding */
+  width: 75%;
   border:hidden;
   outline: none;
   background-color: var(--bg-color1);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Buttons *//*
+/* Buttons */
 header a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 0 1em;
   text-decoration: none;
-  white-space: nowrap;          /* prevent text from wrapping *//*
+  white-space: nowrap;          /* prevent text from wrapping */
   cursor: pointer;
   color: var(--bng-orange);
   border: 1px solid var(--bng-orange);
@@ -102,12 +84,6 @@ header a {
   font-size: 1.4em;
   font-weight: 600;
   border-radius: 4px;
-}
-
-#search-input,
-header a {
-  height: 100%;
-  align-self: stretch;
 }
 
 header a:hover {
@@ -135,52 +111,7 @@ header a:hover {
   }
   header a {display: none}
 }
-*/
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-}
-
-.brand h1 {
-  margin: 10px 0;
-  font-size: 24px;
-  line-height: 1;
-}
-
-.brand img {
-  height: calc(1em + 20px); /* text height + vertical margins */
-  width: auto;
-  margin-right: 10px;
-}
-
-.search-area {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  justify-content: flex-end;
-}
-
-#search-input {
-  flex: 1;
-  max-width: 500px;
-  height: 24px;
-  padding: 6px 10px;
-}
-
-header a {
-  padding: 6px 12px;
-  white-space: nowrap;
-  text-decoration: none;
-}
 
 
 /*
