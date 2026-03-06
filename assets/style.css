@@ -35,11 +35,10 @@ MARK: Header and Navigation Bar
 header {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
-  padding: 0 1.5rem;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
-  color: var(--text-color);
 }
 
 /* both header groups */
@@ -60,8 +59,7 @@ header h1 {
 }
 
 /* logo matches h1 height */
-.header-image {
-  height: calc(2.4em * 1.1); /* matches h1 line-height */
+header img {
   width: auto;
   margin: 0;
   padding: 0;
@@ -69,7 +67,7 @@ header h1 {
 
 /* second group elements stretch vertically */
 #search-input,
-.header-button {
+header a {
   align-self: stretch;
 }
 
@@ -84,7 +82,7 @@ header h1 {
 }
 
 /* Buttons */
-.header-button {
+header a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -99,7 +97,7 @@ header h1 {
 }
 
 #search-input,
-.header-button {
+header a {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   font-size: 1.4em;
   font-weight: 600;
@@ -107,13 +105,12 @@ header h1 {
 }
 
 #search-input,
-.header-button {
+header a {
   height: 100%;
   align-self: stretch;
 }
-.header-image { width: auto; }
 
-.header-button:hover {
+header a:hover {
   background-color: var(--bng-orange);
   color: var(--bg-color3);
 }
@@ -136,7 +133,7 @@ header h1 {
   #search-input {
     width: 100%;
   }
-  .header-button {display: none}
+  header a {display: none}
 }
 
 
