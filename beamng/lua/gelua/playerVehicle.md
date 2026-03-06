@@ -27,21 +27,21 @@ These are all the functions that are in the obj after calling getPlayerVehicle()
 
 <table class="api"><tr>
   <th class="func">getPosition()</th>
-  <td class="rets">vec3()</td>
+  <td class="rets">vec3() + XYZ alternative</td>
   <td class="desc">Returns the position of the object</td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">getNodePosition</th>
   <td class="args">nodeID</td>
-  <td class="rets">vec3()</td>
+  <td class="rets">vec3() + XYZ alternative</td>
   <td class="desc">Returns the position of a node relative to the object position</td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">getNodeAbsPosition</th>
   <td class="args">nodeID</td>
-  <td class="rets">vec3()</td>
+  <td class="rets">vec3() + XYZ alternative</td>
   <td class="desc">Returns the absolute world position of a node</td>
   </tr><tr><td colspan="4" class="details">
   Same as doing getNodePosition(nodeID) + getPosition()
@@ -49,7 +49,7 @@ These are all the functions that are in the obj after calling getPlayerVehicle()
 
 <table class="api"><tr>
   <th class="func">getRefNodeAbsPosition()</th>
-  <td class="rets">vec3()</td>
+  <td class="rets">vec3() + XYZ alternative</td>
   <td class="desc">Returns the absolute world position of the refnode</td>
   </tr><tr><td colspan="4" class="details">
   Same as doing getNodePosition(getRefNodeId()) + getPosition()
