@@ -31,35 +31,52 @@ body.dark-mode {
 /*
 MARK: Header and Navigation Bar
 */
-.header-image {
-  height: auto;
-}
 
 header {
   display: flex;
-  align-items: stretch;           
-  justify-content: space-between; 
-  padding: 1.5rem;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0 1.5rem;
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
   color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Site title */
+/* both header groups */
+header > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* title controls vertical spacing */
 header h1 {
   font-size: 2.4em;
   font-weight: 600;
+  margin: 0;
+  padding: 0.4em 0;
   display: flex;
   align-items: center;
+}
+
+/* logo matches h1 height */
+.header-image {
+  height: calc(2.4em * 1.1); /* matches h1 line-height */
+  width: auto;
   margin: 0;
-  gap: 0.5em; /* for icon spacing if needed */
+  padding: 0;
+}
+
+/* second group elements stretch vertically */
+#search-input,
+.header-button {
+  align-self: stretch;
 }
 
 /* Search input */
 #search-input {
   padding: 0.25em 0.5em; /* inside padding */
-  width: 75%;
+  flex: 1;
   border:hidden;
   outline: none;
   background-color: var(--bg-color1);
@@ -89,9 +106,8 @@ header h1 {
   border-radius: 4px;
 }
 
-#seach-input,
-.header-button,
-.header-image {
+#search-input,
+.header-button {
   height: 100%;
   align-self: stretch;
 }
