@@ -8,24 +8,55 @@ layout: default
 These are all the functions that are in the obj after calling getPlayerVehicle()
 
 ## Functions
+
+### Nodes
+
+<table class="api"><tr>
+  <th class="func">getNodeCount()</th>
+  <td class="rets">number</td>
+  <td class="desc">Returns the number of nodes</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">getRefNodeId()</th>
+  <td class="rets">number</td>
+  <td class="desc">Returns the id of the ref node</td>
+</tr></table>
+
+### Positions
+
+<table class="api"><tr>
+  <th class="func">getPosition()</th>
+  <td class="rets">vec3()</td>
+  <td class="desc">Returns the position of the object</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">getNodePosition</th>
+  <td class="args">nodeID</td>
+  <td class="rets">vec3()</td>
+  <td class="desc">Returns the position of a node relative to the object position</td>
+</tr></table>
+
 <table class="api"><tr>
   <th class="func">getNodeAbsPosition</th>
   <td class="args">nodeID</td>
   <td class="rets">vec3()</td>
   <td class="desc">Returns the absolute world position of a node</td>
   </tr><tr><td colspan="4" class="details">
-  You should prefer using the -XYZ function to save on gc  
+  Same as doing getNodePosition(nodeID) + getPosition()
 </td></tr></table>
-
 
 <table class="api"><tr>
-  <th class="func">getNodeAbsPositionXYZ</th>
-  <td class="args">nodeID</td>
-  <td class="rets">XYZ tuple</td>
-  <td class="desc">Returns the absolute world position of a node</td>
+  <th class="func">getRefNodeAbsPosition()</th>
+  <td class="rets">vec3()</td>
+  <td class="desc">Returns the absolute world position of the refnode</td>
   </tr><tr><td colspan="4" class="details">
-  This function returns three numbers and thus doesn't generate garbage
+  Same as doing getNodePosition(getRefNodeId()) + getPosition()
 </td></tr></table>
+
+
+### Node Clusters
 
 <table class="api"><tr>
   <th class="func">getNodeClusterGeneration()</th>
