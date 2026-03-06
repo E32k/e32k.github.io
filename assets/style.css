@@ -34,10 +34,11 @@ MARK: Header and Navigation Bar
 .header-image {
   height: auto;
 }
+
 header {
   display: flex;
-  align-items: center;           /* vertically center all items */
-  justify-content: space-between; /* h1 left, others right */
+  align-items: stretch;           
+  justify-content: space-between; 
   padding: 1.5rem;
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
@@ -87,6 +88,14 @@ header h1 {
   font-weight: 600;
   border-radius: 4px;
 }
+
+#seach-input,
+.header-button,
+.header-image {
+  height: 100%;
+  align-self: stretch;
+}
+.header-image { width: auto; }
 
 .header-button:hover {
   background-color: var(--bng-orange);
