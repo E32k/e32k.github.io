@@ -31,7 +31,9 @@ body.dark-mode {
 /*
 MARK: Header and Navigation Bar
 */
-
+.header-image {
+  height: auto;
+}
 header {
   display: flex;
   align-items: center;           /* vertically center all items */
