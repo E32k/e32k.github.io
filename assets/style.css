@@ -44,7 +44,8 @@ header {
 }
 
 header > div {
-  display: inline;
+  display: flex;
+  align-items: center;
   gap: 1em;
 }
 
