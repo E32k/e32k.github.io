@@ -1,18 +1,8 @@
 ---
-title: gelua
+title: GELua
 layout: default
 ---
 
-# Game Engine Lua (gelua)
+# Game Engine Lua (GELua)
 
-GE Lua runs on the **engine side**, not tied to vehicles.
-
-## Use cases
-
-- Spawning
-- UI logic
-- World control
-
-## Warning
-
-> GE Lua can affect the entire simulation.
+This lua is run from the main VM and is used for controlling global things.

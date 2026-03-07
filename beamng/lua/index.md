@@ -5,16 +5,31 @@ layout: default
 
 # BeamNG Lua
 
-This section contains **all Lua APIs** exposed by BeamNG.
+I will try to document most game functions
 
 ## Sections
 
-- **vlua** – Vehicle-side Lua
-- **gelua** – Game-engine Lua
+- **Vlua** – Vehicle Lua
+- **GELua** – Game Engine Lua
 
 ## Example Code
 
 ```lua
-print("Hello from BeamNG Lua")
+print("Hello World!")
+
+local function hello(test)
+    test.x = test[4] * 1.2
+end
+
+local hi = [[
+hello
+]]
+
+--test
+
+--[[
+test
+]]
+
 ```
 very good
