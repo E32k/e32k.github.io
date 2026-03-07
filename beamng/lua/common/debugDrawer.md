@@ -7,14 +7,28 @@ layout: default
 
 These functions are meant to help modders by visualizing objects in 3D.<br>
 Colors are `ColorF(r, g, b, a)` if not mentioned.<br>
-Positions are alaways `vec3(x, y, z)`.<br>
-useZ defaults to true, but if set to false, the item is alaways drawn on top.<br>
+Positions are always `vec3(x, y, z)`.<br>
+useZ defaults to true, but if set to false, the item is always drawn on top.<br>
 Call like this: `DebugDrawer:function()`
 
 ## Functions
 
 ### Drawing
 
+<table class="api"><tr>
+  <th class="func">drawText</th>
+  <td class="args">pos, text, ColorF</td>
+  <td class="desc">Draws text</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">drawTextAdvanced</th>
+  <td class="args">pos, string, ColorF, background, onScreen, ColorI</td>
+  <td class="desc">Draws text</td>
+  </tr><tr><td colspan="4" class="details">
+  If <code>background</code> is false, its probably identical to drawText (ColorI still required for some reason)<br>
+  If <code>onScreen</code> is true, the text position is in pixels on screen (dependent on screen resolution, still vec3).
+</td></tr></table>
 
 <table class="api"><tr>
   <th class="func">drawDot</th>
@@ -33,7 +47,7 @@ Call like this: `DebugDrawer:function()`
 <table class="api"><tr>
   <th class="func">drawLine</th>
   <td class="args">posFrom, posTo, ColorF, number?</td>
-  <td class="desc">Draws a 1px line, alaways on top, unknown 4th argument</td>
+  <td class="desc">Draws a 1px line, always on top, unknown 4th argument</td>
 </tr></table>
 
 <table class="api"><tr>
@@ -69,11 +83,40 @@ Call like this: `DebugDrawer:function()`
 </td></tr></table>
 
 <table class="api"><tr>
-  <th class="func">drawTriSolid</th>
-  <td class="args">pos1, pos2, pos3, color, useZ</td>
-  <td class="desc">Draws a filled triangle. Uses <code>color(r, g, b, a)</code> (0-255)</td>
+  <th class="func">drawTri</th>
+  <td class="args">pos1, pos2, pos3, ColorF, useZ</td>
+  <td class="desc">Draws a 1px triangle border.</td>
 </tr></table>
 
+<table class="api"><tr>
+  <th class="func">drawTriSolid</th>
+  <td class="args">pos1, pos2, pos3, color, useZ</td>
+  <td class="desc">Draws a double-sided triangle. Uses <code>color(r, g, b, a)</code> (0-255)</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">drawQuadSolid</th>
+  <td class="args">pos1, pos2, pos3, pos4, color, useZ</td>
+  <td class="desc">Draws a double-sided quad</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">drawBox</th>
+  <td class="args">pos1, pos2, ColorF, useZ</td>
+  <td class="desc">Draws an axis aligned box</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">drawSquarePrism</th>
+  <td class="args">pos1, pos2, Point2F, Point2F, ColorF, useZ</td>
+  <td class="desc">Draws a square prism</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">drawFrustum</th>
+  <td class="args">MatrixF, Frustum, ColorF</td>
+  <td class="desc">Draws the frustum borders, forward and up arrows.</td>
+</tr></table>
 
 <table class="api"><tr>
   <th class="func">drawAxisGizmo()</th>
