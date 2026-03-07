@@ -5,7 +5,7 @@ layout: default
 
 # Player Vehicle
 
-These are all the functions that are in the obj after calling getPlayerVehicle()
+Functions that are in the userdata after calling getPlayerVehicle(0)
 
 ## Functions
 
