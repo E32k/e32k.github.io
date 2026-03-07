@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!main || !toc) return;
 
-  const headings = Array.from(main.querySelectorAll("h1, h2"));
+  const headings = Array.from(main.querySelectorAll("h2, h3"));
   const links = new Map();
   const usedIds = new Map();
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const rootList = document.createElement("ul");
   toc.appendChild(rootList);
 
-  let currentH1Item = null;
+  let currentHeading = null;
 
   headings.forEach((heading) => {
     // Ensure unique IDs
@@ -59,16 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const li = document.createElement("li");
     li.appendChild(link);
 
-    if (heading.tagName === "H1") {
+    if (heading.tagName === "H2") {
       // Top-level entry
       rootList.appendChild(li);
-      currentH1Item = li;
-    } else if (heading.tagName === "H2" && currentH1Item) {
+      currentHeading = li;
+    } else if (heading.tagName === "H3" && currentHeading) {
       // Nested under last H1
-      let sublist = currentH1Item.querySelector("ul");
+      let sublist = currentHeading.querySelector("ul");
       if (!sublist) {
         sublist = document.createElement("ul");
-        currentH1Item.appendChild(sublist);
+        currentHeading.appendChild(sublist);
       }
       sublist.appendChild(li);
     }
