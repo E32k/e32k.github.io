@@ -9,7 +9,7 @@ These functions are meant to help modders by visualizing objects in 3D.<br>
 Colors are `ColorF(r, g, b, a)` if not mentioned.<br>
 Positions are always `vec3(x, y, z)`.<br>
 useZ defaults to true, but if set to false, the item is always drawn on top.<br>
-Call like this: `DebugDrawer:function()`
+Call like this: `debugDrawer:function()`
 
 ## Functions
 
