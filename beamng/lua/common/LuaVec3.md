@@ -60,6 +60,12 @@ These are all the functions you can use on LuaVec3()
 ## Converting
 
 <table class="api"><tr>
+    <th class="func">tostring(LuaVec3)</th>
+    <td class="rets">string</td>
+    <td class="desc">Returns a string like <code>"vec3(x,y,z)"</code></td>
+</tr></table>
+
+<table class="api"><tr>
   <th class="func">LuaVec3:xyz()</th>
   <td class="rets">self.x, self.y, self.z</td>
   <td class="desc">Returns a XYZ tuple</td>
@@ -69,12 +75,6 @@ These are all the functions you can use on LuaVec3()
   <th class="func">LuaVec3:xy()</th>
   <td class="rets">self.x, self.y</td>
   <td class="desc">Returns a XY tuple</td>
-</tr></table>
-
-<table class="api"><tr>
-    <th class="func">tostring(LuaVec3)</th>
-    <td class="rets">string</td>
-    <td class="desc">Returns a string like <code>"vec3(x,y,z)"</code></td>
 </tr></table>
 
 <table class="api"><tr>
