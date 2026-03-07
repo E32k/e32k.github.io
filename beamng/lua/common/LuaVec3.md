@@ -24,7 +24,7 @@ These are all the functions you can use on LuaVec3()
 
 <table class="api"><tr>
   <th class="func">LuaVec3:set</th>
-  <td class="args">x, y, z or LuaVec3</td>
+  <td class="args">x, y, z <small>or</small> LuaVec3</td>
   <td class="desc">Changes the values of the vector (0 garbage)</td>
   </tr><tr><td colspan="4" class="details">
   Commonly used with XYZ functions to avoid garbage.<br>
