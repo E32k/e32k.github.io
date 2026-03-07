@@ -7,17 +7,30 @@ layout: default
 
 These are all the functions you can use on LuaVec3()
 
-## creating, setting and copying
-
+## Creating
 
 <table class="api"><tr>
   <th class="func">vec3</th>
   <td class="args">see below</td>
   <td class="rets">LuaVec3</td>
-  <td class="desc">Creates a new LuaVec3 object (creates garbage)</td>
+  <td class="desc">Returns a new LuaVec3 object (creates garbage)</td>
   </tr><tr><td colspan="4" class="details">
-  <code>vec3()</code>, <code>vec3(x, y)</code> (z=0), <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code>, <code>vec3({x=x, y=y, z=z})</code>
+  Supports <code>vec3()</code>, <code>vec3(x, y)</code>, <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code> and <code>vec3({x=x, y=y, z=z})</code>
 </td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:copy()</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 object (creates garbage) with the same values</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:z0()</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 object (creates garbage) with <code>x, y, 0</code></td>
+</tr></table>
+
+## Modifying
 
 <table class="api"><tr>
   <th class="func">LuaVec3:set</th>
@@ -27,12 +40,70 @@ These are all the functions you can use on LuaVec3()
   Commonly used with XYZ functions to avoid garbage.<br>
 </td></tr></table>
 
-### Construction
+<table class="api"><tr>
+  <th class="func">LuaVec3:setFromTable</th>
+  <td class="args">{x, y, z}</td>
+  <td class="desc">same as :set but for an array</td>
+</tr></table>
 
-- `vec3(x, y, z)` - Creates a vector with given components. `z` defaults to 0 if not provided.
-- `vec3({x=?, y=?, z=?})` - Creates a vector from a dictionary.
-- `vec3({?, ?, ?})` - Creates a vector from a list.
-- `vec3()` - Defaults to (0,0,0).
+<table class="api"><tr>
+  <th class="func">LuaVec3:fromString</th>
+  <td class="args">string</td>
+  <td class="rets">self</td>
+  <td class="desc">Modifies itself and returns self</td>
+  </tr><tr><td colspan="4" class="details">
+  Parses three numbers from the string, separated by commas or whitespace.<br>
+  Numbers can be anything that works with <code>tonumber()</code>.<br>
+  Non-numeric or missing values are treated as 0.
+</td></tr></table>
+
+## Converting
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:xyz()</th>
+  <td class="rets">self.x, self.y, self.z</td>
+  <td class="desc">Returns a XYZ tuple</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:xy()</th>
+  <td class="rets">self.x, self.y</td>
+  <td class="desc">Returns a XY tuple</td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">tostring(LuaVec3)</th>
+    <td class="rets">string</td>
+    <td class="desc">Returns a string like <code>"vec3(x,y,z)"</code></td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:toTable()</th>
+    <td class="rets">{self.x, self.y, self.z}</td>
+    <td class="desc">Self explanatory (get it?)</td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:toDict()</th>
+    <td class="rets">{x = self.x, y = self.y, z = self.z}</td>
+    <td class="desc">Self explanatory (get it?)</td>
+</tr></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 ### LuaVec3:projectToOriginPlane(pnorm)
