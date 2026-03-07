@@ -115,10 +115,24 @@ Call like this: `DebugDrawer:function()`
 <table class="api"><tr>
   <th class="func">drawFrustum</th>
   <td class="args">MatrixF, Frustum, ColorF</td>
-  <td class="desc">Draws the frustum borders, forward and up arrows.</td>
+  <td class="desc">Draws the frustum borders, forward and up arrows</td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">drawAxisGizmo()</th>
   <td class="desc">Draws the axis gizmo. See <code>ge/extensions/editor/api/gizmo.lua</code></td>
+</tr></table>
+
+### Drawing Control
+
+<table class="api"><tr>
+  <th class="func">getDrawingEnabled</th>
+  <td class="rets">bool</td>
+  <td class="desc">Returns if drawing is enabled or disabled</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">setDrawingEnabled</th>
+  <td class="args">bool</td>
+  <td class="desc">Enables or disables drawing</td>
 </tr></table>
