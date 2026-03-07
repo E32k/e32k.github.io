@@ -16,8 +16,7 @@ These are all the functions you can use on LuaVec3()
   <td class="rets">LuaVec3</td>
   <td class="desc">Creates a new LuaVec3 object (creates garbage)</td>
   </tr><tr><td colspan="4" class="details">
-  You can use: <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code>, <code>vec3({x=x, y=y, z=z})</code>,<br>
-  <code>vec3(x, y)</code> returns a  <code>x, y, 0</code> vector and <code>vec3()</code> returns a <code>0, 0, 0</code> vector
+  <code>vec3()</code>, <code>vec3(x, y)</code> (z=0), <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code>, <code>vec3({x=x, y=y, z=z})</code>
 </td></tr></table>
 
 <table class="api"><tr>
