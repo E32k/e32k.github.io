@@ -16,10 +16,11 @@ These are all the functions you can use on LuaVec3()
   <td class="rets">LuaVec3</td>
   <td class="desc">Creates a new LuaVec3 object (creates garbage)</td>
   </tr><tr><td colspan="4" class="details">
-  <code>vec3()</code>: returns a <code>0, 0, 0</code> vector<br>
-  <code>vec3(x, y, z)</code>: returns a <code>x, y, z</code> vector (<small><code>z = 0</code> if omitted</small>)<br>
-  <code>vec3(LuaVec3)</code>: copies values from the vector<br>
-  <code>vec3({x, y, z})</code> or <code>vec3({x = x, y = y, z = z})</code>: values taken from table
+  Depending on the arguments, it returns a vector:<br>
+  <code>vec3()</code>: <code>0, 0, 0</code><br>
+  <code>vec3(x, y, z)</code>: <code>x, y, z</code> (<small><code>z = 0</code> if omitted</small>)<br>
+  <code>vec3(LuaVec3)</code>: copied values<br>
+  <code>vec3(array or dictionary)</code>: <code>[1], [2], [3]</code> or <code>.x, .y, .z</code>
 </td></tr></table>
 
 <table class="api"><tr>
