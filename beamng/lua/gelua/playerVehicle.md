@@ -122,3 +122,64 @@ These are all the functions that are in the obj after calling getPlayerVehicle()
   </tr><tr><td colspan="4" class="details">
   At the start it retuns 0, after you for example break a part, it becomes 1.
 </td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">getNodeClusterId()</th>
+  <td class="args">number</td>
+  <td class="rets">number</td>
+  <td class="desc">Returns a number from the table</td>
+  </tr><tr><td colspan="4" class="details">
+  Its the same as doing getNodeClusters()[number] probably.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">getNodeClusters()</th>
+  <td class="rets">table</td>
+  <td class="desc">Returns a table with numbers</td>
+  </tr><tr><td colspan="4" class="details">
+  Idk what the numbers are exactly.
+</td></tr></table>
+
+### Forces And Teleporting
+
+<table class="api"><tr>
+  <th class="func">applyForceTorque</th>
+  <td class="args">idk</td>
+  <td class="desc">Applies a torque probably</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">applyForceTorqueStaticPoint</th>
+  <td class="args">idk</td>
+  <td class="desc">Applies a torque probably</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">getClusterRotationSlow</th>
+  <td class="args">nodeID</td>
+  <td class="rets">QuatF</td>
+  <td class="desc">Returns the world rotation of the cluster</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">setClusterPosRelRot</th>
+  <td class="args">nodeID, posX, posY, posZ, rotX, rotY, rotZ, rotW</td>
+  <td class="desc">Sets the position and relative roation of a node cluster</td>
+  </tr><tr><td colspan="4" class="details">
+  Sets the global position of the node cluster at the node, and applies relative rotation.<br>
+  You can set just the position with (nodeID, x, y, z, 0, 0, 0, 1)<br>
+  You can use getRefNodeId to apply it to the "whole" car.<br>
+  Does not reset the car or cancel motion.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">applyClusterVelocityScaleAdd</th>
+  <td class="args">nodeID, originalVelocityScale, velX, velY, velZ</td>
+  <td class="desc">Applies a force to a node cluster</td>
+  </tr><tr><td colspan="4" class="details">
+  Cancel all velocity: nodeID, 0, 0, 0, 0<br>
+  Double velocity: nodeID, 2, 0, 0, 0<br>
+  Set velocity: nodeID, 0, x, y, z<br>
+  Add velocity: nodeID, 1, x, y, z<br>
+  You can use getRefNodeId to apply it to the "whole" car.
+</td></tr></table>
