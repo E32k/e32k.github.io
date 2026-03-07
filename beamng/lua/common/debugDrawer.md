@@ -38,13 +38,11 @@ Call like this: `DebugDrawer:function()`
   <td class="args">pos, size, color, borderColor, borderSize</td>
   <td class="desc">Draws a dot.</td>
   </tr><tr><td colspan="4" class="details">
-  borderColor and borderThickness is optional and reduces performance if used
+  borderColor and borderThickness is optional and increases vert count if used
 </td></tr></table>
 
 <table class="api"><tr>
   <th class="func">drawCircle</th>
   <td class="args">pos, radius, resolution, color</td>
-  <td class="desc">Draws a circle.</td>
-  </tr><tr><td colspan="4" class="details">
-  Didn't find a way to rotate it
-</td></tr></table>
+  <td class="desc">Draws a circle, didn't find a way to rotate it</td>
+</tr></table>

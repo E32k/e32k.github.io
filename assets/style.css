@@ -26,6 +26,12 @@ body.dark-mode {
   --link-color: #ccc;
 }
 
+* {
+  scroll-behavior: smooth;
+  scrollbar-width: thin; }
+*::-webkit-scrollbar {
+  width: 7Q;
+  height: 7Q; }
 
 
 /*
@@ -40,37 +46,31 @@ header {
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
   color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+  transition: background-color 0.3s ease, color 0.3s ease; }
 
 header > div {
   display: flex;
   align-items: center;
-  gap: 1em;
-}
+  gap: 1em; }
 
 header img {
   margin-left:  1.5rem;
   margin-right: 0.5rem;
   height: 4em;
-  width: auto;
-}
+  width: auto; }
 
-/* Site title */
 header h1 {
   font-size: 2.4em;
   font-weight: 600;
   display: flex;
   align-items: center;
-  margin: 1.5rem 0;
-}
+  margin: 1.5rem 0; }
 
 .search-section {
   margin-left:  0.5rem;
   margin-right: 1.5rem;
-  width: 60%;
-}
-/* Search input */
+  width: 60%; }
+
 #search-input {
   padding: 0.25em 0.5em; /* inside padding */
   width: 100%;
@@ -78,10 +78,8 @@ header h1 {
   outline: none;
   background-color: var(--bg-color1);
   transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 0 4px -2px;
-}
+  box-shadow: 0 0 4px -2px; }
 
-/* Buttons */
 header a {
   display: inline-flex;
   justify-content: center;
@@ -93,22 +91,18 @@ header a {
   color: var(--bng-orange);
   border: 1px solid var(--bng-orange);
   background-color: var(--bg-color3);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+  transition: background-color 0.3s ease, color 0.3s ease; }
 
-#search-input,
-header a {
+#search-input, header a {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   font-size: 1em;
   font-weight: 600;
   border-radius: 4px;
-  height: 2em;
-}
+  height: 2em; }
 
 header a:hover {
   background-color: var(--bng-orange);
-  color: var(--bg-color3);
-}
+  color: var(--bg-color3); }
 
 @media (max-width: 700px) {
   header {
@@ -497,6 +491,38 @@ table.api td {
 .func::after { content: "function"; }
 .args::after { content: "arguments"; }
 .rets::after { content: "returns"; }
+
+/*
+MARK: code blocks
+*/
+
+
+.content blockquote {
+  font-size: 20px !important;
+  color: #222;
+  padding: 20px 40px;
+  border-left: 2px solid #FF6800;
+  margin: 40px 0;
+  font-weight: bold;
+  background: #FBFBFB; }
+  .content blockquote p {
+    margin-bottom: 0 !important; }
+
+.content pre {
+  display: block;
+  white-space: pre-wrap; }
+
+.content code {
+  margin-bottom: 0 !important;
+  padding: 0.125em 0.5em;
+  background: #E5E9F2;
+  border: 1px solid #CAD2E5;
+  border-radius: 2px;
+  font-family: "Overpass Mono", "Lucida Console", monospace;
+  line-height: 1.335em;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: #000; }
 
 /*
 .keyword { color: #C586C0; }
