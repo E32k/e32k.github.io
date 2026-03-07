@@ -89,13 +89,73 @@ These are all the functions you can use on LuaVec3()
     <td class="desc">Self explanatory (get it?)</td>
 </tr></table>
 
+## Math
 
+## Lenght
 
+<table class="api"><tr>
+    <th class="func">LuaVec3:length()</th>
+    <td class="rets">number</td>
+    <td class="desc">Returns the length of the vector</td>
+</tr></table>
 
+<table class="api"><tr>
+    <th class="func">LuaVec3:lengthGuarded()</th>
+    <td class="rets">number</td>
+    <td class="desc">Returns the length of the vector + 1e-30 making it safe to use with division</td>
+</tr></table>
 
+<table class="api"><tr>
+    <th class="func">LuaVec3:squaredLength()</th>
+    <td class="rets">number</td>
+    <td class="desc">Returns the squared length of the vector, avoiding a square root</td>
+</tr></table>
 
+## Resizing
 
+<table class="api"><tr>
+    <th class="func">LuaVec3:normalize()</th>
+    <td class="desc">Modifies the vector so its 1 meter long</td>
+</tr></table>
 
+<table class="api"><tr>
+    <th class="func">LuaVec3:normalized()</th>
+    <td class="desc">Returns a new LuaVec3 object (creates garbage) thats 1 meter long</td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:resize</th>
+    <td class="args">number</td>
+    <td class="desc">Modifies the vector so its x meters long</td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:resized</th>
+    <td class="args">number</td>
+    <td class="desc">Returns a new LuaVec3 object (creates garbage) thats x meters long</td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:ropeRock</th>
+    <td class="args">number</td>
+    <td class="desc">Clamps the vector to x meters long (if its shorter, it doesnt resize it)</td>
+</tr></table>
+
+## Distances
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:distance</th>
+    <td class="args">LuaVec3</td>
+    <td class="rets">number</td>
+    <td class="desc">Returns the distance between two vectors</td>
+</tr></table>
+
+<table class="api"><tr>
+    <th class="func">LuaVec3:squaredDistance</th>
+    <td class="args">LuaVec3</td>
+    <td class="rets">number</td>
+    <td class="desc">Returns the squared distance between two vectors, avoiding a square root</td>
+</tr></table>
 
 
 
