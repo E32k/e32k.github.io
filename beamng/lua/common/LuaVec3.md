@@ -12,15 +12,17 @@ These are all the functions you can use on LuaVec3()
 
 <table class="api"><tr>
   <th class="func">vec3</th>
-  <td class="args">x, y, z</td>
+  <td class="args">x, y, z <small>or</small> LuaVec3 <small>or</small> {x, y, z} <small>or</small> {x = x, y = y, z = z} <small>or</small> nil</td>
   <td class="rets">LuaVec3</td>
   <td class="desc">Creates a new LuaVec3 object (creates garbage)</td>
-  </tr><tr><td colspan="4" class="details">
-  <code>vec3()</code>: creates a <code>0, 0, 0</code> vector<br>
-  <code>vec3(x, y, z)</code>: creates a <code>x, y, z</code> vector (<small><code>z</code>: defaults to <code>0</code> if omitted</small>)<br>
-  <code>vec3(LuaVec3)</code>: copies values from the vector<br>
-  <code>vec3({x, y, z})</code> or <code>vec3({x = x, y = y, z = z})</code>: values taken from table
-</td></tr></table>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">vec3</th>
+  <td class="args">x, y, z<br>LuaVec3<br>{x, y, z}<br>{x = x, y = y, z = z}<br>nil</td>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Creates a new LuaVec3 object (creates garbage)</td>
+</tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:set</th>
