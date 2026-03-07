@@ -5,7 +5,7 @@ layout: default
 
 # Player Vehicle
 
-Functions that are in the userdata after calling getPlayerVehicle(0)
+Functions that are in the userdata after calling `getPlayerVehicle(0)`
 
 ## Functions
 
@@ -51,10 +51,8 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
 <table class="api"><tr>
   <th class="func">getPosition()</th>
   <td class="rets">LuaVec3</td>
-  <td class="desc">Returns the position of the object</td>
-  </tr><tr><td colspan="4" class="details">
-  Prefer using the 0-gc alternative below
-</td></tr></table>
+  <td class="desc">Returns the position of the object, prefer the 0-gc XYZ alternative below</td>
+</tr></table>
 
 <table class="api"><tr>
   <th class="func">getPositionXYZ()</th>
@@ -66,10 +64,8 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <th class="func">getNodePosition</th>
   <td class="args">nodeID</td>
   <td class="rets">LuaVec3</td>
-  <td class="desc">Returns the position of a node relative to the object position</td>
-  </tr><tr><td colspan="4" class="details">
-  Prefer using the 0-gc alternative below
-</td></tr></table>
+  <td class="desc">Returns the position of a node relative to the object position, prefer the 0-gc XYZ alternative below</td>
+</tr></table>
 
 <table class="api"><tr>
   <th class="func">getNodePositionXYZ</th>
@@ -82,9 +78,9 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <th class="func">getNodeAbsPosition</th>
   <td class="args">nodeID</td>
   <td class="rets">LuaVec3</td>
-  <td class="desc">Returns the absolute world position of a node</td>
+  <td class="desc">Returns the absolute world position of a node, prefer the 0-gc XYZ alternative below</td>
   </tr><tr><td colspan="4" class="details">
-  Prefer using the 0-gc alternative below
+  Same as doing `getNodePosition(nodeID) + getPosition()`
 </td></tr></table>
 
 <table class="api"><tr>
@@ -93,15 +89,15 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <td class="rets">x, y, z</td>
   <td class="desc">Returns the absolute world position of a node</td>
   </tr><tr><td colspan="4" class="details">
-  Same as doing getNodePosition(nodeID) + getPosition()
+  Same as doing `getNodePosition(nodeID) + getPosition()`
 </td></tr></table>
 
 <table class="api"><tr>
   <th class="func">getRefNodeAbsPosition()</th>
   <td class="rets">LuaVec3</td>
-  <td class="desc">Returns the absolute world position of the refnode</td>
+  <td class="desc">Returns the absolute world position of the refnode, prefer the 0-gc XYZ alternative below</td>
   </tr><tr><td colspan="4" class="details">
-  Prefer using the 0-gc alternative below
+  Same as doing `getNodePosition(getRefNodeId()) + getPosition()`
 </td></tr></table>
 
 <table class="api"><tr>
@@ -109,7 +105,7 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <td class="rets">x, y, z</td>
   <td class="desc">Returns the absolute world position of the refnode</td>
   </tr><tr><td colspan="4" class="details">
-  Same as doing getNodePosition(getRefNodeId()) + getPosition()
+  Same as doing `getNodePosition(getRefNodeId()) + getPosition()`
 </td></tr></table>
 
 
@@ -129,7 +125,7 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <td class="rets">number</td>
   <td class="desc">Returns a number from the table</td>
   </tr><tr><td colspan="4" class="details">
-  Its the same as doing getNodeClusters()[number] probably.
+  Its the same as doing `getNodeClusters()[number]` probably.
 </td></tr></table>
 
 <table class="api"><tr>
@@ -167,8 +163,8 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <td class="desc">Sets the position and relative roation of a node cluster</td>
   </tr><tr><td colspan="4" class="details">
   Sets the global position of the node cluster at the node, and applies relative rotation.<br>
-  You can set just the position with (nodeID, x, y, z, 0, 0, 0, 1)<br>
-  You can use getRefNodeId to apply it to the "whole" car.<br>
+  You can set just the position with `nodeID, x, y, z, 0, 0, 0, 1`<br>
+  You can use `getRefNodeId` to apply it to the "whole" car.<br>
   Does not reset the car or cancel motion.
 </td></tr></table>
 
@@ -177,9 +173,9 @@ Functions that are in the userdata after calling getPlayerVehicle(0)
   <td class="args">nodeID, originalVelocityScale, velX, velY, velZ</td>
   <td class="desc">Applies a force to a node cluster</td>
   </tr><tr><td colspan="4" class="details">
-  Cancel all velocity: nodeID, 0, 0, 0, 0<br>
-  Double velocity: nodeID, 2, 0, 0, 0<br>
-  Set velocity: nodeID, 0, x, y, z<br>
-  Add velocity: nodeID, 1, x, y, z<br>
-  You can use getRefNodeId to apply it to the "whole" car.
+  Cancel all velocity: `nodeID, 0, 0, 0, 0`<br>
+  Double velocity: `nodeID, 2, 0, 0, 0`<br>
+  Set velocity: `nodeID, 0, x, y, z`<br>
+  Add velocity: `nodeID, 1, x, y, z`<br>
+  You can use `getRefNodeId` to apply it to the "whole" car.
 </td></tr></table>

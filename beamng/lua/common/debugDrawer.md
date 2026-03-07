@@ -6,7 +6,7 @@ layout: default
 # Debug Drawer
 
 These functions are meant to help modders by visualizing objects in 3D.<br>
-Colors are alaways a ColorF and positions are alaways LuaVec3.<br>
+Colors are alaways a `ColorF(r, g, b, a)` and positions are alaways `vec3(x, y, z)`.<br>
 useZ defaults to true, but if set to false, the item is alaways drawn on top.<br>
 Call like this: `DebugDrawer:function()`
 
