@@ -1,3 +1,8 @@
+---
+title: Debug Drawer - BeamNG.lua
+layout: default
+---
+
 # Lua vec3 and quat Library Documentation
 
 This library provides 3D mathematics utilities in Lua, including vectors (`vec3`) and quaternions (`quat`), along with temporary stack vectors and random point generators.
@@ -36,11 +41,11 @@ end
 Projects the vector onto a plane that passes through the **origin**, defined by its normal.
 - `pnorm` - plane normal (`LuaVec3`)
 
-**Notes:**  
-- Removes the component of the vector along the plane normal.  
-- The resulting vector lies entirely in the plane perpendicular to `pnorm`.  
-- Returns a **new vector** (allocates).  
-- Equivalent to subtracting the projection onto the normal.  
+**Notes:**
+- Removes the component of the vector along the plane normal.
+- The resulting vector lies entirely in the plane perpendicular to `pnorm`.
+- Returns a **new vector** (allocates).
+- Equivalent to subtracting the projection onto the normal.
 - Related: [Vector projection - Wikipedia](https://en.wikipedia.org/wiki/Vector_projection)
 
 
@@ -55,14 +60,14 @@ function LuaVec3:xnormPlaneWithLine(pnorm, a, b)
 end
 ```
 Computes the **normalized intersection parameter** between a line segment and a plane.
-- `pnorm` - plane normal  
+- `pnorm` - plane normal
 - `a`, `b` - line start and end points
 
-**Notes:**  
-- Treats `self` as a point on the plane.  
-- Returns the parameter `t` such that `a + (b - a) * t` lies on the plane.  
-- Useful for ray/line-plane intersection tests.  
-- The value is clamped to avoid division overflow.  
+**Notes:**
+- Treats `self` as a point on the plane.
+- Returns the parameter `t` such that `a + (b - a) * t` lies on the plane.
+- Useful for ray/line-plane intersection tests.
+- The value is clamped to avoid division overflow.
 - Related: [Line-plane intersection - Wikipedia](https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection)
 
 
@@ -85,14 +90,14 @@ function LuaVec3:xnormsSphereWithLine(radius, a, b)
 end
 ```
 Computes the **intersection parameters** between a line and a sphere.
-- `radius` - sphere radius  
+- `radius` - sphere radius
 - `a`, `b` - line start and end points
 
-**Notes:**  
-- Treats `self` as the center of the sphere.  
-- Returns two normalized parameters `(low, high)` along the line.  
-- If no intersection exists, returns `(1, 0)`.  
-- Commonly used for ray-sphere collision tests.  
+**Notes:**
+- Treats `self` as the center of the sphere.
+- Returns two normalized parameters `(low, high)` along the line.
+- If no intersection exists, returns `(1, 0)`.
+- Commonly used for ray-sphere collision tests.
 - Related: [Line-sphere intersection - Wikipedia](https://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection)
 
 
@@ -109,11 +114,11 @@ end
 Converts the vector into **coordinates relative to a custom basis**.
 - `c1`, `c2`, `c3` - basis vectors
 
-**Notes:**  
-- Solves the linear system `self = x*c1 + y*c2 + z*c3`.  
-- Uses scalar triple products (cross + dot).  
-- Returns a **new vector** containing the basis coordinates.  
-- The basis vectors must be linearly independent.  
+**Notes:**
+- Solves the linear system `self = x*c1 + y*c2 + z*c3`.
+- Uses scalar triple products (cross + dot).
+- Returns a **new vector** containing the basis coordinates.
+- The basis vectors must be linearly independent.
 - Related: [Change of basis - Wikipedia](https://en.wikipedia.org/wiki/Change_of_basis)
 
 
@@ -139,9 +144,9 @@ end
 Transforms the vector **from local coordinates into world space** using a basis.
 - `nx`, `ny`, `nz` - basis vectors
 
-**Notes:**  
-- Interprets the vector’s components as weights of the basis vectors.  
-- `LuaVec3:setToBase(nx, ny, nz)` Modifies the vector **in-place** (0-GC).  
+**Notes:**
+- Interprets the vector’s components as weights of the basis vectors.
+- `LuaVec3:setToBase(nx, ny, nz)` Modifies the vector **in-place** (0-GC).
 - `LuaVec3:toBase(nx, ny, nz)` returns a new vector, which means it produces garbage.
 - Equivalent to a linear combination of the basis vectors.
 
@@ -203,10 +208,10 @@ Updates the vector by **adding** values component-wise.
 - `LuaVec3:setAdd(a)` - adds another vector
 - `LuaVec3:setAdd2(a, b)` - sets to sum of two vectors
 
-**Replacements:**  
-- `myVectorA.x = myVectorA.x + x`, `myVectorA.y = myVectorA.y + y`, `myVectorA.z = myVectorA.z + z` = `myVectorA:setAddXYZ(x, y, z)`  
-- `myVectorA = myVectorA + myVectorB` = `myVectorA:setAdd(myVectorB)`  
-- `myVectorA = myVectorB + myVectorC` = `myVectorA:setAdd2(myVectorB, myVectorC)`  
+**Replacements:**
+- `myVectorA.x = myVectorA.x + x`, `myVectorA.y = myVectorA.y + y`, `myVectorA.z = myVectorA.z + z` = `myVectorA:setAddXYZ(x, y, z)`
+- `myVectorA = myVectorA + myVectorB` = `myVectorA:setAdd(myVectorB)`
+- `myVectorA = myVectorB + myVectorC` = `myVectorA:setAdd2(myVectorB, myVectorC)`
 
 
 ---
@@ -228,9 +233,9 @@ Updates the vector by **subtracting** values component-wise.
 - `LuaVec3:setSub(a)` - subtracts another vector
 - `LuaVec3:setSub2(a, b)` - sets to difference of two vectors
 
-**Replacements:**  
-- `myVectorA = myVectorA - myVectorB` = `myVectorA:setSub(myVectorB)`  
-- `myVectorA = myVectorB - myVectorC` = `myVectorA:setSub2(myVectorB, myVectorC)`  
+**Replacements:**
+- `myVectorA = myVectorA - myVectorB` = `myVectorA:setSub(myVectorB)`
+- `myVectorA = myVectorB - myVectorC` = `myVectorA:setSub2(myVectorB, myVectorC)`
 
 
 ---
@@ -256,7 +261,7 @@ Updates the vector by **multiplying** values component-wise.
 - `LuaVec3:setScaled2(a, b)` - sets to vector * number
 - `LuaVec3:setComponentMul(a)` - scales the vector by another vector
 
-**Replacements:**  
+**Replacements:**
 - `myVectorA = myVectorA * myNumber` = `myVectorA:setScaled(myNumber)`
 - `myVectorA = myVectorB * myNumber` = `myVectorA:setScaled2(myVectorB, myNumber)`
 - `myVectorA = myVectorA * myVectorB` = `myVectorA:setComponentMul(myVectorB)`
@@ -280,10 +285,10 @@ Updates the vector by **linearly interpolating** between two vectors.
   - `to` - ending vec3
   - `t` - interpolation factor (0 = from, 1 = to, 0.5 = in the middle)
 
-**Notes:**  
-- You can visualize this as a **straight line connecting `from` and `to`**, and the vector moves along this line as `t` goes from 0 to 1.  
-- `from` and `to` Vectors are not modified.  
-- `myVectorA = myVectorB*(1-t) + myVectorC*t` = `myVectorA:setLerp(myVectorB, myVectorC, t)`  
+**Notes:**
+- You can visualize this as a **straight line connecting `from` and `to`**, and the vector moves along this line as `t` goes from 0 to 1.
+- `from` and `to` Vectors are not modified.
+- `myVectorA = myVectorB*(1-t) + myVectorC*t` = `myVectorA:setLerp(myVectorB, myVectorC, t)`
 
 
 ---
@@ -299,9 +304,9 @@ end
 Updates the vector by **computing the cross product** of two vectors.
 - `LuaVec3:setCross(a, b)` - sets the vector to the cross product of `a` and `b`
 
-**Notes:**  
-- The resulting vector is perpendicular to both `a` and `b`.  
-- For more on the cross product, see [Cross Product - Wikipedia](https://en.wikipedia.org/wiki/Cross_product). 
+**Notes:**
+- The resulting vector is perpendicular to both `a` and `b`.
+- For more on the cross product, see [Cross Product - Wikipedia](https://en.wikipedia.org/wiki/Cross_product).
 
 
 
@@ -318,9 +323,9 @@ end
 Updates the vector by **rotating it with a quaternion**.
 - `LuaVec3:setRotate(q, a)` - rotates `a` (or itself if `a` is nil) by quaternion `q`
 
-**Notes:**  
-- Uses quaternion rotation formula for 3D vectors.  
-- If `a` is omitted, the vector rotates itself.  
+**Notes:**
+- Uses quaternion rotation formula for 3D vectors.
+- If `a` is omitted, the vector rotates itself.
 - For more on quaternion rotations, see [Quaternions and spatial rotation - Wikipedia](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation)
 
 
@@ -338,9 +343,9 @@ end
 Updates the vector by **converting a quaternion to Euler angles** in YXZ order.
 - `LuaVec3:setEulerYXZ(q)` - sets the vector components to the Euler angles derived from quaternion `q`
 
-**Notes:**  
-- Computes rotation angles around Y, X, and Z axes in YXZ order.  
-- Handles gimbal lock by clamping the input to `asin` between -1 and 1.  
+**Notes:**
+- Computes rotation angles around Y, X, and Z axes in YXZ order.
+- Handles gimbal lock by clamping the input to `asin` between -1 and 1.
 
 
 ---
@@ -354,14 +359,14 @@ function LuaVec3:setProjectToOriginPlane(pnorm, a)
   self.x, self.y, self.z = x - t*px, y - t*py, z - t*pz
 end
 ```
-Projects the vector onto a plane that passes through the origin, defined by its normal vector.  
-- `LuaVec3:setProjectToOriginPlane(pnorm, a)`  
-  - `pnorm` - normal vector of the plane  
-  - `a` - optional vector to project (defaults to `self`)  
+Projects the vector onto a plane that passes through the origin, defined by its normal vector.
+- `LuaVec3:setProjectToOriginPlane(pnorm, a)`
+  - `pnorm` - normal vector of the plane
+  - `a` - optional vector to project (defaults to `self`)
 
-**Notes:**  
-- The resulting vector lies in the plane and is perpendicular to `pnorm`.  
-- Only `self` is modified; `pnorm` and `a` are preserved.  
+**Notes:**
+- The resulting vector lies in the plane and is perpendicular to `pnorm`.
+- Only `self` is modified; `pnorm` and `a` are preserved.
 
 
 ---
@@ -375,11 +380,11 @@ function LuaVec3:setPerpendicular(a)
   self.x, self.y, self.z = -y, x - k*z, k*y
 end
 ```
-Sets the vector to be **perpendicular** to another vector.  
-- `LuaVec3:setPerpendicular(a)`  
-  - `a` - optional vector to base perpendicular calculation on (defaults to `self`)  
+Sets the vector to be **perpendicular** to another vector.
+- `LuaVec3:setPerpendicular(a)`
+  - `a` - optional vector to base perpendicular calculation on (defaults to `self`)
 
-**Notes:**  
-- The resulting vector is perpendicular to `a` (or `self` if `a` is omitted).  
-- Useful for generating an orthogonal vector in 3D space.  
-- Only `self` is modified; the original vector is preserved.  
+**Notes:**
+- The resulting vector is perpendicular to `a` (or `self` if `a` is omitted).
+- Useful for generating an orthogonal vector in 3D space.
+- Only `self` is modified; the original vector is preserved.
