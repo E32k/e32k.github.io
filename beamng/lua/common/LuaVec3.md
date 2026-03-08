@@ -92,6 +92,55 @@ Non-numeric or missing values are treated as 0.
 
 ## Math
 
+### Basic Operations
+
+All of these operations return a new LuaVec3, which means it creates garbage. You should instead prefer using the :set functions for 0-gc.
+
+<table class="api"><tr>
+  <th class="func">LuaVec3 + LuaVec3</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 representing the component-wise sum of two vectors</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3 - LuaVec3</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 representing the component-wise difference of two vectors</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">-LuaVec3</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 with all components negated</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3 * number</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 where each component is scaled by the number (order can be reversed)</td>
+</tr><tr><td colspan="4" class="details">
+Doing LuaVec3 * LuaVec3 is a lua error, so you need to do LuaVec3:componentMul(LuaVec3) instead.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:componentMul</th>
+  <td class="args">LuaVec3</td>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 where each component is multiplied by the corresponding component of <code>b</code></td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3 / number</th>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 where each component is divided by the number</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3 == LuaVec3</th>
+  <td class="rets">boolean</td>
+  <td class="desc">Returns true if all components are exactly equal, false otherwise</td>
+</tr></table>
+
 ### Length
 
 <table class="api"><tr>
@@ -247,7 +296,7 @@ Coordinates are **clamped** to ensure the point lies on the triangle or its edge
 Coordinates are clamped, so the resulting point is always on the triangle or its edges.
 </td></tr></table>
 
-### Quad
+### Quads and Polygons
 
 <table class="api"><tr>
   <th class="func">LuaVec3:invBilinear2D</th>
@@ -256,25 +305,26 @@ Coordinates are clamped, so the resulting point is always on the triangle or its
   <td class="desc">Returns the UV coordinates of the point inside the quad defined by the four vectors</td>
 </tr><tr><td colspan="4" class="details">
 Coordinates can be used to reconstruct the point using bilinear interpolation:<br>
-<code>p = (1-u)*(1-v)*a1 + u*(1-v)*a2 + (1-u)*v*b1 + u*v*b2</code>.<br>
-Useful for mapping points onto skewed quadrilaterals in 2D space.
+<code>p = (1-u)*(1-v)*a1 + u*(1-v)*a2 + (1-u)*v*b1 + u*v*b2</code>.
+Only the <code>x</code> and <code>y</code> components of the vector are used, <code>z</code> is ignored.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:inPolygon</th>
+  <td class="args">see below</td>
+  <td class="rets">bool</td>
+  <td class="desc">Returns true if the vector lies inside the 2D polygon defined by the points, false otherwise</td>
+</tr><tr><td colspan="4" class="details">
+The function accepts either a single table of points or multiple points as separate arguments.<br>
+Points should be in order around the polygon (clockwise or counterclockwise).<br>
+Only the <code>x</code> and <code>y</code> components of the vector are used, <code>z</code> is ignored.
 </td></tr></table>
 
 ### Planes
 
 <table class="api"><tr>
-  <th class="func">LuaVec3:inPolygon</th>
-  <td class="args">table of LuaVec3 points <small>or</small> multiple LuaVec3 arguments</td>
-  <td class="rets">bool</td>
-  <td class="desc">Returns true if the vector lies inside the 2D polygon defined by the points, false otherwise</td>
-</tr><tr><td colspan="4" class="details">
-Points should be in order around the polygon (clockwise or counterclockwise). Only the <code>x</code> and <code>y</code> components of the vector are used; <code>z</code> is ignored.<br>
-The function accepts either a single table of points or multiple points as separate arguments.
-</td></tr></table>
-
-<table class="api"><tr>
   <th class="func">LuaVec3:projectToOriginPlane</th>
-  <td class="args">pnorm</td>
+  <td class="args">LuaVec3 (pnorm)</td>
   <td class="rets">LuaVec3</td>
   <td class="desc">Projects the vector onto the plane passing through the origin with the given normal</td>
 </tr><tr><td colspan="4" class="details">
@@ -284,7 +334,7 @@ Effectively removes the component of the vector in the direction of the plane's 
 
 <table class="api"><tr>
   <th class="func">LuaVec3:xnormPlaneWithLine</th>
-  <td class="args">pnorm, LuaVec3 a, LuaVec3 b</td>
+  <td class="args">LuaVec3 (pnorm), LuaVec3 (a), LuaVec3 (b)</td>
   <td class="rets">xnorm</td>
   <td class="desc">Computes the normalized intersection of the line segment from <code>a</code> to <code>b</code> with the plane defined by <code>self</code> and <code>pnorm</code></td>
 </tr><tr><td colspan="4" class="details">
@@ -294,7 +344,46 @@ The function clamps extreme values to ±1e300 to avoid overflow.
 Useful for projecting a line onto a plane and getting the relative position along the line.
 </td></tr></table>
 
+### Spheres
 
+<table class="api"><tr>
+  <th class="func">LuaVec3:xnormsSphereWithLine</th>
+  <td class="args">radius, LuaVec3 a, LuaVec3 b</td>
+  <td class="rets">lowXnorm, highXnorm</td>
+  <td class="desc">Computes the intersection of the line segment <code>a, b</code> with the sphere centered at <code>self</code> with the given radius</td>
+</tr><tr><td colspan="4" class="details">
+Returns two normalized positions along the line segment:<br>
+- <code>lowXnorm</code> corresponds to the first intersection, <code>highXnorm</code> to the second.<br>
+- <code>xnorm = 0</code> at <code>a</code>, <code>xnorm = 1</code> at <code>b</code>.<br>
+If the line does not intersect the sphere, returns <code>1, 0</code>.<br>
+Useful for finding entry and exit points of a line through a sphere.
+</td></tr></table>
+
+### Basis and Base Coordinates
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:basisCoordinates</th>
+  <td class="args">c1, c2, c3</td>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns the coordinates of the vector in the basis defined by <code>c1, c2, c3</code></td>
+</tr><tr><td colspan="4" class="details">
+The returned vector <code>v</code> satisfies: <code>v.x * c1 + v.y * c2 + v.z * c3 = self</code>.<br>
+Useful for converting a vector from the global frame into an arbitrary basis.<br>
+Produces quite a bit of gc load.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:setToBase</th>
+  <td class="args">nx, ny, nz</td>
+  <td class="desc">Transforms the vector from a local basis to world coordinates using the basis vectors <code>nx, ny, nz</code></td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:toBase</th>
+  <td class="args">nx, ny, nz</td>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Same as above, returns a new LuaVec3 (garbage)</td>
+</tr></table>
 
 
 
