@@ -7,7 +7,8 @@ layout: default
 
 These are all the functions you can use on LuaVec3()
 
-## Creating
+## Basic Operations
+### Creating
 
 <table class="api"><tr>
   <th class="func">vec3</th>
@@ -30,7 +31,7 @@ These are all the functions you can use on LuaVec3()
   <td class="desc">Returns a new LuaVec3 object (creates garbage) with <code>x, y, 0</code></td>
 </tr></table>
 
-## Modifying
+### Modifying
 
 <table class="api"><tr>
   <th class="func">LuaVec3:set</th>
@@ -57,7 +58,7 @@ These are all the functions you can use on LuaVec3()
   Non-numeric or missing values are treated as 0.
 </td></tr></table>
 
-## Converting
+### Converting
 
 <table class="api"><tr>
     <th class="func">tostring(LuaVec3)</th>
@@ -91,7 +92,7 @@ These are all the functions you can use on LuaVec3()
 
 ## Math
 
-## Lenght
+### Lenght
 
 <table class="api"><tr>
     <th class="func">LuaVec3:length()</th>
@@ -111,7 +112,7 @@ These are all the functions you can use on LuaVec3()
     <td class="desc">Returns the squared length of the vector, avoiding a square root</td>
 </tr></table>
 
-## Resizing
+### Resizing
 
 <table class="api"><tr>
     <th class="func">LuaVec3:normalize()</th>
@@ -141,7 +142,7 @@ These are all the functions you can use on LuaVec3()
     <td class="desc">Clamps the vector to x meters long (if its shorter, it doesnt resize it)</td>
 </tr></table>
 
-## Distances
+### Distances
 
 <table class="api"><tr>
     <th class="func">LuaVec3:distance</th>
