@@ -41,6 +41,12 @@ body::-webkit-scrollbar, body *::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb, body *::-webkit-scrollbar-thumb {
   background: #f60; }
 
+.moddate {
+  margin-top: 4em;
+  padding: 0.5em 1em;
+  font-size: 0.7em;
+  font-style: italic;
+  background-color: #eee; }
 /*
 MARK: Header and Navigation Bar
 */
