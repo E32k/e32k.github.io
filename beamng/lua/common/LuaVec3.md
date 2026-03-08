@@ -211,24 +211,43 @@ Non-numeric or missing values are treated as 0.
 ### Triangles
 
 <table class="api"><tr>
+  <th class="func">LuaVec3:setTrianglePointFromUV</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3, u, v</td>
+  <td class="desc">Sets the vector to the point inside the triangle using barycentric coordinates</td>
+</tr><tr><td colspan="4" class="details">
+If <code>0 ≤ u,v,w ≤ 1</code>, then the point lies inside the triangle, else outside.
+</td></tr></table>
+
+<table class="api"><tr>
   <th class="func">LuaVec3:triangleBarycentricNorm</th>
   <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
   <td class="rets">u, v, normal</td>
   <td class="desc">Returns the barycentric coordinates of the point relative to the triangle and the triangle normal</td>
 </tr><tr><td colspan="4" class="details">
 The third barycentric coordinate can be obtained with: <code>w = 1 - u - v</code>.<br>
-Coordinates are **not clamped**, so points outside the triangle may have negative or >1 coordinates.<br>
+Coordinates are not clamped, so points outside the triangle may have negative or >1 coordinates.<br>
 For more information, see <a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system" target="_blank">Barycentric coordinate system</a>.
 </td></tr></table>
 
 <table class="api"><tr>
-  <th class="func">LuaVec3:setTrianglePointFromUV</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3, u, v</td>
-  <td class="desc">Sets the vector to the point inside the triangle using barycentric coordinates</td>
+  <th class="func">LuaVec3:triangleClosestPointUV</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
+  <td class="rets">u, v</td>
+  <td class="desc">Returns the barycentric coordinates (u,v) of the closest point on the triangle to the vector</td>
 </tr><tr><td colspan="4" class="details">
-The resulting point can be reconstructed as <code>u*a + v*b + (1-u-v)*c</code>.<br>
-When <code>0 ≤ u,v,w ≤ 1</code>, the point lies inside the triangle; otherwise, it lies outside.
+Coordinates are **clamped** to ensure the point lies on the triangle or its edges.
 </td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:triangleClosestPoint</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
+  <td class="rets">LuaVec3, u, v</td>
+  <td class="desc">Returns a new LuaVec3 representing the closest point on the triangle to the vector, along with its barycentric coordinates u and v</td>
+</tr><tr><td colspan="4" class="details">
+Coordinates are clamped, so the resulting point is always on the triangle or its edges.
+</td></tr></table>
+
+### Quad
 
 <table class="api"><tr>
   <th class="func">LuaVec3:invBilinear2D</th>
@@ -239,73 +258,6 @@ When <code>0 ≤ u,v,w ≤ 1</code>, the point lies inside the triangle; otherwi
 Coordinates can be used to reconstruct the point using bilinear interpolation:<br>
 <code>p = (1-u)*(1-v)*a1 + u*(1-v)*a2 + (1-u)*v*b1 + u*v*b2</code>.<br>
 Useful for mapping points onto skewed quadrilaterals in 2D space.
-</td></tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:triangleClosestPointUV</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
-  <td class="rets">u, v</td>
-  <td class="desc">Returns the barycentric coordinates (u,v) of the closest point on the triangle to the vector</td>
-</tr><tr><td colspan="4" class="details">
-The resulting point can be reconstructed as <code>u*a + v*b + (1-u-v)*c</code>.<br>
-Coordinates are **clamped** to ensure the point lies on the triangle or its edges.
-</td></tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:triangleClosestPoint</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
-  <td class="rets">LuaVec3, u, v</td>
-  <td class="desc">Returns a new LuaVec3 representing the closest point on the triangle to the vector, along with its barycentric coordinates u and v</td>
-</tr><tr><td colspan="4" class="details">
-The point can be reconstructed as <code>u*a + v*b + (1-u-v)*c</code>.<br>
-Coordinates are clamped, so the resulting point is always on the triangle or its edges.
-</td></tr></table>
-
-### Triangles
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:triangleBarycentricNorm</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
-  <td class="rets">u, v, normal</td>
-  <td class="desc">Returns the barycentric coordinates of the point relative to the triangle and the triangle normal</td>
-</tr><tr><td colspan="4" class="details">
-The third barycentric coordinate can be obtained with: <code>w = 1 - u - v</code>.<br>
-For more information, see <a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system" target="_blank">Barycentric coordinate system</a>
-</td></tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:setTrianglePointFromUV</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3, u, v</td>
-  <td class="desc">Sets the vector to the point inside the triangle using barycentric
-  coordinates</td>
-</tr><tr><td colspan="4" class="details">
-The resulting point lies inside the triangle when <code>0 ≤ u,v,w ≤ 1</code>.
-</td></tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:invBilinear2D</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3, LuaVec3</td>
-  <td class="rets">u, v</td>
-  <td class="desc">Returns the UV coordinates of the point inside the quad defined by the four vectors</td>
-</tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:triangleClosestPointUV</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
-  <td class="rets">u, v</td>
-  <td class="desc">Returns the barycentric coordinates (u,v) of the closest point on the triangle to the vector</td>
-</tr><tr><td colspan="4" class="details">
-The resulting point on the triangle can be reconstructed as <code>u*a + v*b + (1-u-v)*c</code>.<br>
-Coordinates are clamped so the closest point lies on the triangle or its edges.
-</td></tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3:triangleClosestPoint</th>
-  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
-  <td class="rets">LuaVec3, u, v</td>
-  <td class="desc">Returns a new LuaVec3 representing the closest point on the triangle to the vector, along with its barycentric coordinates u and v</td>
-</tr><tr><td colspan="4" class="details">
-Coordinates are clamped so the point always lies on the triangle or its edges.
 </td></tr></table>
 
 ### Planes
