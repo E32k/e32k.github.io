@@ -5,90 +5,55 @@ layout: default
 
 # Extension Structure
 
-This section will explain how do extensions work.
+This section explains how extensions work, how they are loaded, and how they interact with the extension manager.
 
-## Vehicle Position Predictor
+## How do extensions work?
 
-This is a simple code example, that gets the players vehicle, reads its position and velocity, adds them togedher and then draws a sphere in that position.
+Extensions are Lua files that return a table containing functions. These functions act as hooks that the extension manager calls at specific times.
 
-### Original code
+The extension manager `extensions` is responsible for loading, managing, and executing extensions. It provides functions such as:
+- loading extensions
+- resolving dependencies
+- calling extension hooks
+- unloading extensions
+- serializing extension state
+- dispatching events to extensions
+
+When an extension is loaded, the manager executes the Lua file using `require`. The file must return a table, which becomes the extension module.
+
 ```lua
 local M = {}
 
-local function onUpdate()
-  -- Get the players vehicle object
-  local playerVeh = be:getPlayerVehicle(0)
-  if playerVeh then
-
-    -- Get the position and velocity, to predict where the player will be
-    local playerPos = playerVeh:getPosition()
-    local playerVel = playerVeh:getVelocity()
-    local nextPlayerPos = playerPos + playerVelocity
-
-    -- Draw the predicted position
-    debugDrawer:drawSphere(nextPlayerPos, 0.1, ColorF(1, 1, 0, 1))
-  end
-end
-
-M.onUpdate = onUpdate
 return M
 ```
 
-### Optimizing process
-The original code produces 5 temporary objects (garbage) each frame:
-- `be:getPlayerVehicle()` returns a new object from the C++ territory each call. Not only this produces garbage, its also slow. Using the cached function `getPlayerVehicle()` avoids this and is effectively 0-GC.
-- `ColorF()` creates a new object each frame. Preallocating it once and reusing it eliminates this allocation.
-- `:getPosition()` and `:getVelocity()` return a new LuaVec3 object every call. Using their XYZ alternatives avoids this.
--  Adding the two vectors creates a new object. We will use the `:setAdd2()` function instead which modifies the vector.
+Once the extension is loaded, the returned table is stored internally and also exposed globally using the extension name.
+The extension name is generated like this:
+for an extension: `ui/myExetnsion.lua` the extension will be aviable under `ui_myExtension`.
 
-I will also inverse the if statement into an early exit like this: `if not playerVeh then return end`.<br>
-This doesn't make the code faster, but it makes it (in my opinion) cleaner.
 
-### 0-GC Code
-This is how the code looks like translated into 0-gc literally:
+
+When the game loads you extension, it runs the whole lua file once and then never touches it again. So first you create a new local variable named M (name doesnt matter but consistency does) and you make it a table.
 ```lua
 local M = {}
+```
+Then you define your local variables and other stuff. For example your functions and variables
+```lua
+local welcome = "hi"
 
--- Preallocate variables
-local yellow = ColorF(1, 1, 0, 1)
-local playerPosition = vec3()
-local playerVelocity = vec3()
-local nextPlayerPos = vec3()
-
-local function onUpdate()
-  local playerVeh = getPlayerVehicle(0)
-  if not playerVeh then return end -- Early exit if no vehicle
-
-  playerPosition:set(playerVeh:getPositionXYZ())
-  playerVelocity:set(playerVeh:getVelocityXYZ())
-
-  nextPlayerPos:setAdd2(playerPosition, playerVelocity)
-
-  debugDrawer:drawSphere(nextPlayerPos, 0.1, yellow)
+local function hello()
+  print(welcome)
 end
-
-M.onUpdate = onUpdate
-return M
 ```
 
-### Final Optimized Code
-For maximum performance, we can allocate only a single vector and perform all operations on it:
+Then you assign the functions to the table
+
 ```lua
-local M = {}
+M.onUpdate = hello
+```
 
-local yellow = ColorF(1, 1, 0, 1)
-local nextPlayerPos = vec3()
+You can also define functions directly in the M table
 
-local function onUpdate()
-  local playerVeh = getPlayerVehicle(0)
-  if not playerVeh then return end
-
-  nextPlayerPos:set(playerVeh:getPositionXYZ())
-  nextPlayerPos:setAddXYZ(playerVeh:getVelocityXYZ())
-
-  debugDrawer:drawSphere(nextPlayerPos, 0.1, yellow)
-end
-
-M.onUpdate = onUpdate
-return M
+```lua
+M.onExtensionLoaded = function() print("Hello World!") end
 ```
