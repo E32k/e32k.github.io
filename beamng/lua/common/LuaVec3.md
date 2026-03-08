@@ -14,9 +14,9 @@ These are all the functions you can use on LuaVec3()
   <th class="func">vec3</th>
   <td class="args">see below</td>
   <td class="rets">LuaVec3</td>
-  <td class="desc">Returns a new LuaVec3 object (creates garbage)</td>
-  </tr><tr><td colspan="4" class="details">
-  Supports <code>vec3()</code>, <code>vec3(x, y)</code>, <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code> and <code>vec3({x=x, y=y, z=z})</code>
+<td class="desc">Returns a new LuaVec3 object (creates garbage)</td>
+</tr><tr><td colspan="4" class="details">
+Supports <code>vec3()</code>, <code>vec3(x, y)</code>, <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code> and <code>vec3({x=x, y=y, z=z})</code>
 </td></tr></table>
 
 <table class="api"><tr>
@@ -37,8 +37,8 @@ These are all the functions you can use on LuaVec3()
   <th class="func">LuaVec3:set</th>
   <td class="args">x, y, z <small>or</small> LuaVec3</td>
   <td class="desc">Changes the values of the vector (0 garbage)</td>
-  </tr><tr><td colspan="4" class="details">
-  Commonly used with XYZ functions to avoid garbage.<br>
+</tr><tr><td colspan="4" class="details">
+Commonly used with XYZ functions to avoid garbage.<br>
 </td></tr></table>
 
 <table class="api"><tr>
@@ -52,18 +52,18 @@ These are all the functions you can use on LuaVec3()
   <td class="args">string</td>
   <td class="rets">self</td>
   <td class="desc">Modifies itself and returns self</td>
-  </tr><tr><td colspan="4" class="details">
-  Parses three numbers from the string, separated by commas or whitespace.<br>
-  Numbers can be anything that works with <code>tonumber()</code>.<br>
-  Non-numeric or missing values are treated as 0.
+</tr><tr><td colspan="4" class="details">
+Parses three numbers from the string, separated by commas or whitespace.<br>
+Numbers can be anything that works with <code>tonumber()</code>.<br>
+Non-numeric or missing values are treated as 0.
 </td></tr></table>
 
 ### Converting
 
 <table class="api"><tr>
-    <th class="func">tostring(LuaVec3)</th>
-    <td class="rets">string</td>
-    <td class="desc">Returns a string like <code>"vec3(x,y,z)"</code></td>
+  <th class="func">tostring(LuaVec3)</th>
+  <td class="rets">string</td>
+  <td class="desc">Returns a string like <code>"vec3(x,y,z)"</code></td>
 </tr></table>
 
 <table class="api"><tr>
@@ -79,84 +79,189 @@ These are all the functions you can use on LuaVec3()
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:toTable()</th>
-    <td class="rets">{self.x, self.y, self.z}</td>
-    <td class="desc">Self explanatory (get it?)</td>
+  <th class="func">LuaVec3:toTable()</th>
+  <td class="rets">{self.x, self.y, self.z}</td>
+  <td class="desc">Self explanatory (get it?)</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:toDict()</th>
-    <td class="rets">{x = self.x, y = self.y, z = self.z}</td>
-    <td class="desc">Self explanatory (get it?)</td>
+  <th class="func">LuaVec3:toDict()</th>
+  <td class="rets">{x = self.x, y = self.y, z = self.z}</td>
+  <td class="desc">Self explanatory (get it?)</td>
 </tr></table>
 
 ## Math
 
-### Lenght
+### Length
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:length()</th>
-    <td class="rets">number</td>
-    <td class="desc">Returns the length of the vector</td>
+  <th class="func">LuaVec3:length()</th>
+  <td class="rets">number</td>
+  <td class="desc">Returns the length of the vector</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:lengthGuarded()</th>
-    <td class="rets">number</td>
-    <td class="desc">Returns the length of the vector + 1e-30 making it safe to use with division</td>
+  <th class="func">LuaVec3:lengthGuarded()</th>
+  <td class="rets">number</td>
+  <td class="desc">Returns the length of the vector + 1e-30 making it safe to use with division</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:squaredLength()</th>
-    <td class="rets">number</td>
-    <td class="desc">Returns the squared length of the vector, avoiding a square root</td>
+  <th class="func">LuaVec3:squaredLength()</th>
+  <td class="rets">number</td>
+  <td class="desc">Returns the squared length of the vector, avoiding a square root</td>
 </tr></table>
 
 ### Resizing
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:normalize()</th>
-    <td class="desc">Modifies the vector so its 1 meter long</td>
+  <th class="func">LuaVec3:normalize()</th>
+  <td class="desc">Modifies the vector so its 1 meter long</td>
+</tr></table>
+<table class="api"><tr>
+  <th class="func">LuaVec3:normalized()</th>
+  <td class="desc">Returns a new LuaVec3 object (creates garbage) thats 1 meter long</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:normalized()</th>
-    <td class="desc">Returns a new LuaVec3 object (creates garbage) thats 1 meter long</td>
+  <th class="func">LuaVec3:resize</th>
+  <td class="args">length</td>
+  <td class="desc">Modifies the vector so its x meters long</td>
+</tr></table>
+<table class="api"><tr>
+  <th class="func">LuaVec3:resized</th>
+  <td class="args">length</td>
+  <td class="desc">Returns a new LuaVec3 object (creates garbage) thats x meters long</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:resize</th>
-    <td class="args">number</td>
-    <td class="desc">Modifies the vector so its x meters long</td>
+  <th class="func">LuaVec3:ropeRock</th>
+  <td class="args">maxLength</td>
+  <td class="desc">Clamps the vector to x meters long (if its shorter, it doesnt resize it)</td>
+</tr></table>
+
+### Distances and Lines
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:distance</th>
+  <td class="args">LuaVec3</td>
+  <td class="rets">distance</td>
+  <td class="desc">Returns the distance between two vectors</td>
+</tr></table>
+<table class="api"><tr>
+  <th class="func">LuaVec3:squaredDistance</th>
+  <td class="args">LuaVec3</td>
+  <td class="rets">squaredDistance</td>
+  <td class="desc">Returns the squared distance between two vectors, avoiding a square root</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:resized</th>
-    <td class="args">number</td>
-    <td class="desc">Returns a new LuaVec3 object (creates garbage) thats x meters long</td>
+  <th class="func">LuaVec3:distanceToLine</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="rets">distance</td>
+  <td class="desc">Returns the distance to the infinite line defined by the two points</td>
+</tr></table>
+<table class="api"><tr>
+  <th class="func">LuaVec3:squaredDistanceToLine</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="rets">squaredDistance</td>
+  <td class="desc">Same as above, avoiding a square root</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:ropeRock</th>
-    <td class="args">number</td>
-    <td class="desc">Clamps the vector to x meters long (if its shorter, it doesnt resize it)</td>
+  <th class="func">LuaVec3:distanceToLineSegment</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="rets">distance</td>
+  <td class="desc">Returns the distance to the line segment defined by the two points</td>
 </tr></table>
-
-### Distances
-
 <table class="api"><tr>
-    <th class="func">LuaVec3:distance</th>
-    <td class="args">LuaVec3</td>
-    <td class="rets">number</td>
-    <td class="desc">Returns the distance between two vectors</td>
+  <th class="func">LuaVec3:squaredDistanceToLineSegment</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="rets">squaredDistance</td>
+  <td class="desc">Same as above, avoiding a square root</td>
 </tr></table>
 
 <table class="api"><tr>
-    <th class="func">LuaVec3:squaredDistance</th>
-    <td class="args">LuaVec3</td>
-    <td class="rets">number</td>
-    <td class="desc">Returns the squared distance between two vectors, avoiding a square root</td>
+  <th class="func">LuaVec3:xnormDistanceToLineSegment</th>
+  <td class="args">LuaVec3 (a), LuaVec3 (b)</td>
+  <td class="rets">xnorm, distance</td>
+  <td class="desc">Returns the normalized projection and distance to the line segment defined by the two points</td>
+</tr><tr><td colspan="4" class="details">
+<code>xnorm</code> is the normalized position of the perpendicular projection on the line from <code>a</code> to <code>b</code>.<br>
+<code>xnorm = 0</code> at <code>a</code>, <code>xnorm = 1</code> at <code>b</code>. Values outside this range mean the closest point lies beyond the segment ends.
+</td></tr></table>
+<table class="api"><tr>
+  <th class="func">LuaVec3:xnormSquaredDistanceToLineSegment</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="rets">xnorm, squaredDistance</td>
+  <td class="desc">Same as above, avoiding a square root</td>
 </tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:xnormOnLine</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="rets">xnorm</td>
+  <td class="desc">Same as above, withouth computing the distance</td>
+</tr></table>
+
+### Triangles
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:triangleBarycentricNorm</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
+  <td class="rets">u, v, normal</td>
+  <td class="desc">Returns the barycentric coordinates of the point relative to the triangle and the triangle normal</td>
+</tr><tr><td colspan="4" class="details">
+The third barycentric coordinate can be obtained with: <code>w = 1 - u - v</code>.<br>
+For more information, see <a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system" target="_blank">Barycentric coordinate system</a>
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:setTrianglePointFromUV</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3, u, v</td>
+  <td class="desc">Sets the vector to the point inside the triangle using barycentric
+  coordinates</td>
+</tr><tr><td colspan="4" class="details">
+The resulting point lies inside the triangle when <code>0 ≤ u,v,w ≤ 1</code>.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:invBilinear2D</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3, LuaVec3</td>
+  <td class="rets">u, v</td>
+  <td class="desc">Returns the UV coordinates of the point inside the quad defined by the four vectors</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:triangleClosestPointUV</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
+  <td class="rets">u, v</td>
+  <td class="desc">Returns the barycentric coordinates (u,v) of the closest point on the triangle to the vector</td>
+</tr><tr><td colspan="4" class="details">
+The resulting point on the triangle can be reconstructed as <code>u*a + v*b + (1-u-v)*c</code>.<br>
+Coordinates are clamped so the closest point lies on the triangle or its edges.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:triangleClosestPoint</th>
+  <td class="args">LuaVec3, LuaVec3, LuaVec3</td>
+  <td class="rets">LuaVec3, u, v</td>
+  <td class="desc">Returns a new LuaVec3 representing the closest point on the triangle to the vector, along with its barycentric coordinates u and v</td>
+</tr><tr><td colspan="4" class="details">
+Coordinates are clamped so the point always lies on the triangle or its edges.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:inPolygon</th>
+  <td class="args">table of LuaVec3 points <small>or</small> multiple LuaVec3 arguments</td>
+  <td class="rets">boolean</td>
+  <td class="desc">Returns true if the vector lies inside the 2D polygon defined by the points, false otherwise</td>
+</tr><tr><td colspan="4" class="details">
+Points should be in order around the polygon (clockwise or counterclockwise). Only the <code>x</code> and <code>y</code> components of the vector are used; <code>z</code> is ignored.<br>
+The function accepts either a single table of points or multiple points as separate arguments.
+</td></tr></table>
+
+
 
 
 
@@ -193,7 +298,7 @@ Projects the vector onto a plane that passes through the **origin**, defined by 
 -- self is a plane' point, pnorm is plane's normal
 function LuaVec3:xnormPlaneWithLine(pnorm, a, b)
   return (pnorm.x*(self.x-a.x) + pnorm.y*(self.y-a.y) + pnorm.z*(self.z-a.z)) *
-          max(min(1 / (pnorm.x*(b.x-a.x) + pnorm.y*(b.y-a.y) + pnorm.z*(b.z-a.z)), 1e300), -1e300) -- pnorm:dot(self-a)/pnorm:dot(b-a)
+      max(min(1 / (pnorm.x*(b.x-a.x) + pnorm.y*(b.y-a.y) + pnorm.z*(b.z-a.z)), 1e300), -1e300) -- pnorm:dot(self-a)/pnorm:dot(b-a)
 end
 ```
 Computes the **normalized intersection parameter** between a line segment and a plane.
@@ -219,10 +324,10 @@ function LuaVec3:xnormsSphereWithLine(radius, a, b)
   local dotab = -ac:dot(lDif) * invDif2len
   local D = dotab * dotab + (radius * radius - ac:squaredLength()) * invDif2len
   if D >= 0 then
-    D = sqrt(D)
-    return dotab - D, dotab + D
+  D = sqrt(D)
+  return dotab - D, dotab + D
   else
-    return 1, 0
+  return 1, 0
   end
 end
 ```
