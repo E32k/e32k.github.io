@@ -31,9 +31,11 @@
     <aside class="sites">{% include sites.html %}</aside>
     <main class="content">
       {{ content }}
-      <div class="moddate">
-        Last modified: {% last_modified_at %}
-      </div>
+      {% if page.date %}
+        <div class="moddate">
+          Last modified: {{ page.date | date: "%B %-d, %Y" }}
+        </div>
+      {% endif %}
     </main>
     <aside class="overview">
       <h3 class="overview-top">On This Page:</h3>
