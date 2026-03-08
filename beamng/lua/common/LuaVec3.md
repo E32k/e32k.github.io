@@ -81,64 +81,29 @@ Non-numeric or missing values are treated as 0.
 <table class="api"><tr>
   <th class="func">LuaVec3:toTable()</th>
   <td class="rets">{self.x, self.y, self.z}</td>
-  <td class="desc">Self explanatory (get it?)</td>
+  <td class="desc">Returns an array</td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:toDict()</th>
   <td class="rets">{x = self.x, y = self.y, z = self.z}</td>
-  <td class="desc">Self explanatory (get it?)</td>
+  <td class="desc">Returns a dictionary</td>
 </tr></table>
 
 ## Math
 
 ### Basic Operations
 
-All of these operations return a new LuaVec3, which means it creates garbage. You should instead prefer using the :set functions for 0-gc.
+All of these operations return a new LuaVec3, which means it creates garbage. You should instead prefer using the :set functions for 0-gc.<br>
+These functions are pretty self explanatory so i will just list them here. Doing anything else will result in an error.
+<code>LuaVec3 + LuaVec3</code>, <code>LuaVec3 - LuaVec3</code>, <code>-LuaVec3</code>, <code>LuaVec3 * number</code>, <code>number * LuaVec3</code>, <code>LuaVec3 / number</code>, <code>LuaVec3 == LuaVec3</code>, <code></code>
 
-<table class="api"><tr>
-  <th class="func">LuaVec3 + LuaVec3</th>
-  <td class="rets">LuaVec3</td>
-  <td class="desc">Returns a new LuaVec3 representing the component-wise sum of two vectors</td>
-</tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3 - LuaVec3</th>
-  <td class="rets">LuaVec3</td>
-  <td class="desc">Returns a new LuaVec3 representing the component-wise difference of two vectors</td>
-</tr></table>
-
-<table class="api"><tr>
-  <th class="func">-LuaVec3</th>
-  <td class="rets">LuaVec3</td>
-  <td class="desc">Returns a new LuaVec3 with all components negated</td>
-</tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3 * number</th>
-  <td class="rets">LuaVec3</td>
-  <td class="desc">Returns a new LuaVec3 where each component is scaled by the number (order can be reversed)</td>
-</tr><tr><td colspan="4" class="details">
-Doing LuaVec3 * LuaVec3 is a lua error, so you need to do LuaVec3:componentMul(LuaVec3) instead.
-</td></tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:componentMul</th>
   <td class="args">LuaVec3</td>
   <td class="rets">LuaVec3</td>
   <td class="desc">Returns a new LuaVec3 where each component is multiplied by the corresponding component of <code>b</code></td>
-</tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3 / number</th>
-  <td class="rets">LuaVec3</td>
-  <td class="desc">Returns a new LuaVec3 where each component is divided by the number</td>
-</tr></table>
-
-<table class="api"><tr>
-  <th class="func">LuaVec3 == LuaVec3</th>
-  <td class="rets">boolean</td>
-  <td class="desc">Returns true if all components are exactly equal, false otherwise</td>
 </tr></table>
 
 ### Length
