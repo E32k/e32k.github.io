@@ -1,6 +1,7 @@
 ---
 title: Lua
 layout: default
+date: 2026-02-26
 ---
 
 # BeamNG Lua

@@ -1,6 +1,7 @@
 ---
 title: LuaVec3 - BeamNG.lua
 layout: default
+date: 2026-03-08
 ---
 
 # The LuaVec3 library

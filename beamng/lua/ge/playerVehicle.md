@@ -1,6 +1,7 @@
 ---
 title: Player Vehicle - GELUA
 layout: default
+date: 2026-02-08
 ---
 
 # Player Vehicle

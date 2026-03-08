@@ -1,6 +1,7 @@
 ---
 title: Common - BeamNG.lua
 layout: default
+date: 2026-02-08
 ---
 
 # Common lua

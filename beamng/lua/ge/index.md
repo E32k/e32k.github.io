@@ -1,6 +1,7 @@
 ---
 title: GELUA
 layout: default
+date: 2026-02-08
 ---
 
 # Game Engine Lua (GELUA)

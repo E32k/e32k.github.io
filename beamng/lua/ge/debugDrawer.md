@@ -1,6 +1,7 @@
 ---
 title: Debug Drawer - GELUA
 layout: default
+date: 2026-03-08
 ---
 
 # Debug Drawer

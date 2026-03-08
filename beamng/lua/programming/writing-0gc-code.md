@@ -1,6 +1,7 @@
 ---
 title: Writing 0-GC Code - BeamNG.lua
 layout: default
+date: 2026-03-08
 ---
 
 # Writing Zero-Garbage Code
