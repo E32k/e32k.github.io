@@ -120,7 +120,7 @@ Use the following function if you want to do `LuaVec3 * LuaVec3`:
 ### Zero-Garbage set Functions
 
 These functions modify the vector in place, avoiding memory allocation. Examples are provided for clarity.<br>
-`a` and `b` are alaways LuaVec3
+`a` and `b` are always LuaVec3 objects.
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setMin</th>
@@ -137,13 +137,13 @@ These functions modify the vector in place, avoiding memory allocation. Examples
 <table class="api"><tr>
   <th class="func">LuaVec3:setAddXYZ</th>
   <td class="args">x, y, z</td>
-  <td class="desc">Adds the given values to the vector components</td>
+  <td class="desc">Adds the given values to self</td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setAdd</th>
   <td class="args">a</td>
-  <td class="desc">Sets the vector to <code>self + a</code></td>
+  <td class="desc">Adds vector <code>a</code> to self</td>
 </tr></table>
 
 <table class="api"><tr>
@@ -155,7 +155,7 @@ These functions modify the vector in place, avoiding memory allocation. Examples
 <table class="api"><tr>
   <th class="func">LuaVec3:setSub</th>
   <td class="args">a</td>
-  <td class="desc">Sets the vector to <code>self - a</code></td>
+  <td class="desc">Subtracts vector <code>a</code> from self</td>
 </tr></table>
 
 <table class="api"><tr>
@@ -167,13 +167,13 @@ These functions modify the vector in place, avoiding memory allocation. Examples
 <table class="api"><tr>
   <th class="func">LuaVec3:setScaled</th>
   <td class="args">scale</td>
-  <td class="desc">Sets the vector to <code>self:xyz() * scale</code></td>
+  <td class="desc">Scales self by <code>scale</code></td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setScaled2</th>
   <td class="args">a, scale</td>
-  <td class="desc">Sets the vector to <code>a:xyz() * scale</code></td>
+  <td class="desc">Sets self to <code>a</code> scaled by <code>scale</code></td>
 </tr></table>
 
 <table class="api"><tr>
