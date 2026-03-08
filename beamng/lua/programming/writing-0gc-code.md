@@ -92,3 +92,100 @@ end
 M.onUpdate = onUpdate
 return M
 ```
+
+## Raycasting function
+
+This function computes the intersection of a ray with a triangle in 3D space using the Möller–Trumbore algorithm.<br>
+It returns the distance along the ray to the intersection point and the barycentric coordinates (u, v) of the hit on the triangle, or 0 if the ray does not intersect the triangle.<br>
+Functions like these are particularly susceptible to performance issues caused by Garbage Collection.
+
+### Original code
+```lua
+local function raycastTriangle(pos, dir, triA, triB, triC)
+
+  -- triangle edges
+  local edgeAB = triB - triA
+  local edgeAC = triC - triA
+
+  -- vector perpendicular to ray and AC
+  local pVec = dir:cross(edgeAC)
+
+  -- determinant (checks if ray is parallel)
+  local det = edgeAB:dot(pVec)
+  if math.abs(det) < 1e-6 then return 0, 0, 0 end
+
+  local invDet = 1 / det
+
+  -- vector from A to ray origin
+  local tVec = pos - triA
+
+  -- barycentric coordinate u
+  local u = tVec:dot(pVec) * invDet
+  if u < 0 or u > 1 then return 0, 0, 0 end
+
+  -- helper vector for v
+  local qVec = tVec:cross(edgeAB)
+
+  -- barycentric coordinate v
+  local v = dir:dot(qVec) * invDet
+  if v < 0 or (u + v) > 1 then return 0, 0, 0 end
+
+  -- distance along the ray
+  local dist = edgeAC:dot(qVec) * invDet
+  if dist < 1e-6 then return 0, 0, 0 end
+
+  return dist, u, v
+end
+```
+
+### Optimizing Process
+First we declare all vectors above the function.<br>
+Then we can replace:
+- `a = b - c` with `a:setSub2(b, c)`
+- `a = b:cross(c)` with `a:setCross(b, c)`
+
+### 0-GC Code
+```lua
+local edgeAB = vec3()
+local edgeAC = vec3()
+
+local pVec = vec3()
+local tVec = vec3()
+local qvec = vec3()
+
+local function raycastTriangle(pos, dir, triA, triB, triC)
+
+  -- triangle edges
+  edgeAB:setSub2(triB, triA)
+  edgeAC:setSub2(triC, triA)
+
+  -- vector perpendicular to ray and AC
+  pVec:setCross(dir, edgeAC)
+
+  -- determinant (checks if ray is parallel)
+  local det = edgeAB:dot(pVec)
+  if math.abs(det) < 1e-6 then return 0, 0, 0 end
+
+  local invDet = 1 / det
+
+  -- vector from A to ray origin
+  tVec:setSub2(pos, triA)
+
+  -- barycentric coordinate u
+  local u = tVec:dot(pVec) * invDet
+  if u < 0 or u > 1 then return 0, 0, 0 end
+
+  -- helper vector for v
+  qvec:setCross(tVec, edgeAB)
+
+  -- barycentric coordinate v
+  local v = dir:dot(qvec) * invDet
+  if v < 0 or (u + v) > 1 then return 0, 0, 0 end
+
+  -- distance along the ray
+  local dist = edgeAC:dot(qvec) * invDet
+  if dist < 1e-6 then return 0, 0, 0 end
+
+  return dist, u, v
+end
+```
