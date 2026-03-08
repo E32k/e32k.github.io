@@ -533,150 +533,335 @@ MARK: code blocks
 .content pre {
   margin: 1em 0;
   padding: 0.5em 1em;
-  border: 1px solid #2B2B2B;
-  background-color: #1F1F1F;
+  border: 1px solid #CAD2E5;
+  background-color: #E5E9F2;
   cursor: text; }
 .content pre code {
   padding: 0;
-  background: #FF1F1F;
+  background: inherit;
   border: none;
   line-height: 1.25rem; }
 
 
-/* Errors */
+
+/* Other */
+/* Error */
 .highlight code .err {
-  color: #D21414;
-}
+  background-color: #ff67676e; }
 
-/* Line Table / Numbers */
-.highlight code .lntd,
-.highlight code .lntable,
-.highlight code .lnt,
-.highlight code .ln {
-  margin: 0;
+/* LineTableTD */
+.highlight code .lntd {
+  vertical-align: top;
   padding: 0;
-  border: 0;
-}
-.highlight code .lnt {
-  margin-right: 0.4em;
-  padding: 0 0.4em;
-  color: #6A9955;
-}
+  margin: 0;
+  border: 0; }
 
-/* Highlighted Line */
+/* LineTable */
+.highlight code .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: auto;
+  overflow: auto;
+  display: block; }
+
+/* LineHighlight */
 .highlight code .hl {
   display: block;
   width: 100%;
-  background-color: #FFD70033; /* light highlight (adjust alpha if needed) */
-}
+  background-color: #ffe0b0; }
 
-/* Keywords */
-.highlight code .k,
-.highlight code .kd,
-.highlight code .kn,
-.highlight code .kp,
-.highlight code .kr,
+/* LineNumbersTable */
+.highlight code .lnt {
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: #7f7f7f; }
+
+/* LineNumbers */
+.highlight code .ln {
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: #7f7f7f; }
+
+/* Keyword */
+.highlight code .k {
+  color: #2838b0; }
+
+/* KeywordConstant */
+.highlight code .kc {
+  color: #444444;
+  font-style: italic; }
+
+/* KeywordDeclaration */
+.highlight code .kd {
+  color: #2838b0;
+  font-style: italic; }
+
+/* KeywordNamespace */
+.highlight code .kn {
+  color: #2838b0; }
+
+/* KeywordPseudo */
+.highlight code .kp {
+  color: #2838b0; }
+
+/* KeywordReserved */
+.highlight code .kr {
+  color: #2838b0; }
+
+/* KeywordType */
 .highlight code .kt {
-  color: #C586C0;
-  font-style: italic; /* only for kd and kt, optional */
-}
+  color: #2838b0;
+  font-style: italic; }
 
-/* Names */
-.highlight code .na,
-.highlight code .nb,
-.highlight code .nc,
-.highlight code .nd,
-.highlight code .ni,
-.highlight code .ne,
-.highlight code .nf,
-.highlight code .fm,
-.highlight code .nl,
-.highlight code .nn,
-.highlight code .nt,
-.highlight code .nv,
-.highlight code .vg,
+/* Name */
+/* NameAttribute */
+.highlight code .na {
+  color: #388038; }
+
+/* NameBuiltin */
+.highlight code .nb {
+  color: #388038; }
+
+/* NameBuiltinPseudo */
+.highlight code .bp {
+  font-style: italic; }
+
+/* NameClass */
+.highlight code .nc {
+  color: #287088; }
+
+/* NameConstant */
+.highlight code .no {
+  color: #b85820; }
+
+/* NameDecorator */
+.highlight code .nd {
+  color: #287088; }
+
+/* NameEntity */
+.highlight code .ni {
+  color: #709030; }
+
+/* NameException */
+.highlight code .ne {
+  color: #908828; }
+
+/* NameFunction */
+.highlight code .nf {
+  color: #785840; }
+
+/* NameFunctionMagic */
+.highlight code .fm {
+  color: #b85820; }
+
+/* NameLabel */
+.highlight code .nl {
+  color: #289870; }
+
+/* NameNamespace */
+.highlight code .nn {
+  color: #289870; }
+
+/* NameOther */
+/* NameProperty */
+/* NameTag */
+.highlight code .nt {
+  color: #2838b0; }
+
+/* NameVariable */
+.highlight code .nv {
+  color: #b04040; }
+
+/* NameVariableClass */
+/* NameVariableGlobal */
+.highlight code .vg {
+  color: #908828; }
+
+/* NameVariableInstance */
+/* NameVariableMagic */
 .highlight code .vm {
-  color: #DCDCAA; /* general function/name color */
-}
+  color: #b85820; }
 
-/* Strings */
-.highlight code .s,
-.highlight code .sa,
-.highlight code .sb,
-.highlight code .sc,
-.highlight code .dl,
-.highlight code .sd,
-.highlight code .s1,
-.highlight code .s2,
-.highlight code .se,
-.highlight code .sh,
-.highlight code .si,
-.highlight code .sx,
-.highlight code .sr {
-  color: #CE9178;
-}
+/* Literal */
+/* LiteralDate */
+/* LiteralString */
+.highlight code .s {
+  color: #b83838; }
+
+/* LiteralStringAffix */
+.highlight code .sa {
+  color: #444444; }
+
+/* LiteralStringBacktick */
+.highlight code .sb {
+  color: #b83838; }
+
+/* LiteralStringChar */
+.highlight code .sc {
+  color: #a848a8; }
+
+/* LiteralStringDelimiter */
+.highlight code .dl {
+  color: #b85820; }
+
+/* LiteralStringDoc */
+.highlight code .sd {
+  color: #b85820;
+  font-style: italic; }
+
+/* LiteralStringDouble */
+.highlight code .s2 {
+  color: #b83838; }
+
+/* LiteralStringEscape */
+.highlight code .se {
+  color: #709030; }
+
+/* LiteralStringHeredoc */
+.highlight code .sh {
+  color: #b83838; }
+
+/* LiteralStringInterpol */
 .highlight code .si {
-  text-decoration: underline;
-}
+  color: #b83838;
+  text-decoration: underline; }
 
-/* Numbers */
-.highlight code .m,
-.highlight code .mb,
-.highlight code .mf,
-.highlight code .mh,
-.highlight code .mi,
-.highlight code .il,
+/* LiteralStringOther */
+.highlight code .sx {
+  color: #a848a8; }
+
+/* LiteralStringRegex */
+.highlight code .sr {
+  color: #a848a8; }
+
+/* LiteralStringSingle */
+.highlight code .s1 {
+  color: #b83838; }
+
+/* LiteralStringSymbol */
+.highlight code .ss {
+  color: #b83838; }
+
+/* LiteralNumber */
+.highlight code .m {
+  color: #444444; }
+
+/* LiteralNumberBin */
+.highlight code .mb {
+  color: #444444; }
+
+/* LiteralNumberFloat */
+.highlight code .mf {
+  color: #444444; }
+
+/* LiteralNumberHex */
+.highlight code .mh {
+  color: #444444; }
+
+/* LiteralNumberInteger */
+.highlight code .mi {
+  color: #444444; }
+
+/* LiteralNumberIntegerLong */
+.highlight code .il {
+  color: #444444; }
+
+/* LiteralNumberOct */
 .highlight code .mo {
-  color: #B5CEA8;
-}
+  color: #444444; }
 
-/* Operators / Punctuation */
-.highlight code .o,
-.highlight code .ow,
+/* Operator */
+.highlight code .o {
+  color: #666666; }
+
+/* OperatorWord */
+.highlight code .ow {
+  color: #a848a8; }
+
+/* Punctuation */
 .highlight code .p {
-  color: #D4D4D4;
-}
+  color: #888888; }
 
-/* Comments */
-.highlight code .c,
-.highlight code .ch,
-.highlight code .cm,
-.highlight code .c1,
-.highlight code .cs,
-.highlight code .cp,
+/* Comment */
+.highlight code .c {
+  color: #888888;
+  font-style: italic; }
+
+/* CommentHashbang */
+.highlight code .ch {
+  color: #287088;
+  font-style: italic; }
+
+/* CommentMultiline */
+.highlight code .cm {
+  color: #888888;
+  font-style: italic; }
+
+/* CommentSingle */
+.highlight code .c1 {
+  color: #888888;
+  font-style: italic; }
+
+/* CommentSpecial */
+.highlight code .cs {
+  color: #888888;
+  font-style: italic; }
+
+/* CommentPreproc */
+.highlight code .cp {
+  color: #289870; }
+
+/* CommentPreprocFile */
 .highlight code .cpf {
-  color: #6A9955;
-  font-style: italic;
-}
+  color: #289870; }
 
-/* Generic / Misc */
-.highlight code .gd,
-.highlight code .gr {
-  color: #D21414;
-}
+/* Generic */
+/* GenericDeleted */
+.highlight code .gd {
+  color: #c02828; }
+
+/* GenericEmph */
 .highlight code .ge {
-  font-style: italic;
-}
-.highlight code .gi {
-  color: #4EC9B0;
-}
-.highlight code .gp,
-.highlight code .gu {
-  color: #9CDCFE;
-}
-.highlight code .gh,
-.highlight code .go,
-.highlight code .gt {
-  color: #569CD6;
-}
-.highlight code .gs {
-  font-weight: bold;
-}
-.highlight code .gl {
-  text-decoration: underline;
-}
+  font-style: italic; }
 
-/* Whitespace */
+/* GenericError */
+.highlight code .gr {
+  color: #c02828; }
+
+/* GenericHeading */
+.highlight code .gh {
+  color: #666666; }
+
+/* GenericInserted */
+.highlight code .gi {
+  color: #388038; }
+
+/* GenericOutput */
+.highlight code .go {
+  color: #666666; }
+
+/* GenericPrompt */
+.highlight code .gp {
+  color: #444444; }
+
+/* GenericStrong */
+.highlight code .gs {
+  font-weight: bold; }
+
+/* GenericSubheading */
+.highlight code .gu {
+  color: #444444; }
+
+/* GenericTraceback */
+.highlight code .gt {
+  color: #2838b0; }
+
+/* GenericUnderline */
+.highlight code .gl {
+  text-decoration: underline; }
+
+/* TextWhitespace */
 .highlight code .w {
-  color: #DA70D6;
-}
+  color: #a89028; }
