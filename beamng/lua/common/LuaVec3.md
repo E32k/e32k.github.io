@@ -453,7 +453,7 @@ Produces quite a bit of gc load.
 
 
 
-
+<!---
 # other stuff
 ---
 ### LuaVec3:projectToOriginPlane(pnorm)
@@ -814,3 +814,4 @@ Sets the vector to be **perpendicular** to another vector.
 - The resulting vector is perpendicular to `a` (or `self` if `a` is omitted).
 - Useful for generating an orthogonal vector in 3D space.
 - Only `self` is modified; the original vector is preserved.
+-->
