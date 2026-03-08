@@ -119,25 +119,20 @@ Use the following function if you want to do `LuaVec3 * LuaVec3`:
 
 ### Zero-Garbage set Functions
 
-These functions modify the vector in place, avoiding memory allocation. Examples are provided for clarity.
+These functions modify the vector in place, avoiding memory allocation. Examples are provided for clarity.<br>
+`a` and `b` are alaways LuaVec3
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setMin</th>
-  <td class="args">LuaVec3</td>
+  <td class="args">a</td>
   <td class="desc">Sets each component to the minimum of itself and <code>a</code></td>
 </tr></table>
 
-<pre><code>v:setMin(vec3(1, 5, 2)) -- v.x = min(v.x,1), v.y = min(v.y,5), v.z = min(v.z,2)
-</code></pre>
-
 <table class="api"><tr>
   <th class="func">LuaVec3:setMax</th>
-  <td class="args">LuaVec3</td>
+  <td class="args">a</td>
   <td class="desc">Sets each component to the maximum of itself and <code>a</code></td>
 </tr></table>
-
-<pre><code>v:setMax(vec3(10, 3, 7)) -- v.x = max(v.x,10), etc.
-</code></pre>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setAddXYZ</th>
@@ -145,35 +140,23 @@ These functions modify the vector in place, avoiding memory allocation. Examples
   <td class="desc">Adds the given values to the vector components</td>
 </tr></table>
 
-<pre><code>v:setAddXYZ(1, 2, 3) -- v.x += 1, v.y += 2, v.z += 3
-</code></pre>
-
 <table class="api"><tr>
   <th class="func">LuaVec3:setAdd</th>
-  <td class="args">LuaVec3</td>
-  <td class="desc">Adds another vector <code>a</code> to this vector</td>
+  <td class="args">a</td>
+  <td class="desc">Adds another vector to this vector</td>
 </tr></table>
-
-<pre><code>v:setAdd(vec3(1,2,3)) -- component-wise addition
-</code></pre>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setAdd2</th>
-  <td class="args">LuaVec3 a, LuaVec3 b</td>
+  <td class="args">a, b</td>
   <td class="desc">Sets the vector to <code>a + b</code></td>
 </tr></table>
-
-<pre><code>v:setAdd2(vec3(1,2,3), vec3(4,5,6)) -- v = (1+4, 2+5, 3+6)
-</code></pre>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setSub</th>
   <td class="args">LuaVec3</td>
-  <td class="desc">Subtracts <code>a</code> from this vector</td>
+  <td class="desc">Subtracts another vector from this vector</td>
 </tr></table>
-
-<pre><code>v:setSub(vec3(1,2,3)) -- v = v - a
-</code></pre>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setSub2</th>
@@ -181,35 +164,23 @@ These functions modify the vector in place, avoiding memory allocation. Examples
   <td class="desc">Sets the vector to <code>a - b</code></td>
 </tr></table>
 
-<pre><code>v:setSub2(vec3(5,5,5), vec3(1,2,3)) -- v = (4,3,2)
-</code></pre>
-
 <table class="api"><tr>
   <th class="func">LuaVec3:setScaled</th>
-  <td class="args">number</td>
-  <td class="desc">Scales the vector by <code>b</code></td>
+  <td class="args">scale</td>
+  <td class="desc">Scales the components of this vector</td>
 </tr></table>
-
-<pre><code>v:setScaled(2) -- v = v * 2
-</code></pre>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setScaled2</th>
-  <td class="args">LuaVec3 a, number b</td>
-  <td class="desc">Sets the vector to <code>a * b</code></td>
+  <td class="args">a, scale</td>
+  <td class="desc">Sets the vector to <code>a * scale</code></td>
 </tr></table>
-
-<pre><code>v:setScaled2(vec3(1,2,3), 4) -- v = (4,8,12)
-</code></pre>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setComponentMul</th>
   <td class="args">LuaVec3</td>
   <td class="desc">Multiplies each component by the corresponding component of <code>a</code></td>
 </tr></table>
-
-<pre><code>v:setComponentMul(vec3(2,3,4)) -- v.x *= 2, v.y *= 3, v.z *= 4
-</code></pre>
 
 ### Length
 
