@@ -3,11 +3,12 @@ title: LuaVec3 - BeamNG.lua
 layout: default
 ---
 
-# Lua vec3 and quat Library Documentation
+# The LuaVec3 library
 
-These are all the functions you can use on LuaVec3()
+These are all the functions you can use on vec3()
 
 ## Basic Operations
+
 ### Creating
 
 <table class="api"><tr>
@@ -94,10 +95,20 @@ Non-numeric or missing values are treated as 0.
 
 ### Basic Operations
 
-All of these operations return a new LuaVec3, which means it creates garbage. You should instead prefer using the :set functions for 0-gc.<br>
-These functions are pretty self explanatory so i will just list them here. Doing anything else will result in an error.
-<code>LuaVec3 + LuaVec3</code>, <code>LuaVec3 - LuaVec3</code>, <code>-LuaVec3</code>, <code>LuaVec3 * number</code>, <code>number * LuaVec3</code>, <code>LuaVec3 / number</code>, <code>LuaVec3 == LuaVec3</code>, <code></code>
+These return a **new LuaVec3** (creates garbage). For zero-garbage alternatives, prefer the corresponding `:set` functions described in the next section.
 
+Supported operators:
+
+- `LuaVec3 + LuaVec3`
+- `LuaVec3 - LuaVec3`
+- `LuaVec3 * number` or `number * LuaVec3`
+- `LuaVec3 / number`
+- `-LuaVec3`
+- `LuaVec3 == LuaVec3`
+
+All other uses will result in an error.
+
+Use the following function if you want to do `LuaVec3 * LuaVec3`:
 
 <table class="api"><tr>
   <th class="func">LuaVec3:componentMul</th>
@@ -105,6 +116,8 @@ These functions are pretty self explanatory so i will just list them here. Doing
   <td class="rets">LuaVec3</td>
   <td class="desc">Returns a new LuaVec3 where each component is multiplied by the corresponding component of <code>b</code></td>
 </tr></table>
+
+### Zero-Garbage set Functions
 
 ### Length
 
@@ -167,6 +180,28 @@ These functions are pretty self explanatory so i will just list them here. Doing
   <td class="args">LuaVec3</td>
   <td class="rets">squaredDistance</td>
   <td class="desc">Returns the squared distance between two vectors, avoiding a square root</td>
+</tr></table>
+
+### Vector Products
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:dot</th>
+  <td class="args">LuaVec3</td>
+  <td class="rets">number</td>
+  <td class="desc">Returns the dot product of the vector with another vector <code>a</code></td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:cross</th>
+  <td class="args">LuaVec3</td>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Returns a new LuaVec3 representing the cross product of the vector with <code>a</code> (creates garbage)</td>
+</tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:setCross</th>
+  <td class="args">LuaVec3, LuaVec3</td>
+  <td class="desc">Sets the vector to the cross product of <code>a</code> and <code>b</code> (0-gc)</td>
 </tr></table>
 
 ## Shapes and stuff
@@ -356,7 +391,7 @@ Produces quite a bit of gc load.
 
 
 
-
+# other stuff
 ---
 ### LuaVec3:projectToOriginPlane(pnorm)
 ```lua
