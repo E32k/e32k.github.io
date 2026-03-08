@@ -143,7 +143,7 @@ These functions modify the vector in place, avoiding memory allocation. Examples
 <table class="api"><tr>
   <th class="func">LuaVec3:setAdd</th>
   <td class="args">a</td>
-  <td class="desc">Adds another vector to this vector</td>
+  <td class="desc">Sets the vector to <code>self + a</code></td>
 </tr></table>
 
 <table class="api"><tr>
@@ -154,32 +154,32 @@ These functions modify the vector in place, avoiding memory allocation. Examples
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setSub</th>
-  <td class="args">LuaVec3</td>
-  <td class="desc">Subtracts another vector from this vector</td>
+  <td class="args">a</td>
+  <td class="desc">Sets the vector to <code>self - a</code></td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setSub2</th>
-  <td class="args">LuaVec3 a, LuaVec3 b</td>
+  <td class="args">a, b</td>
   <td class="desc">Sets the vector to <code>a - b</code></td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setScaled</th>
   <td class="args">scale</td>
-  <td class="desc">Scales the components of this vector</td>
+  <td class="desc">Sets the vector to <code>self:xyz() * scale</code></td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setScaled2</th>
   <td class="args">a, scale</td>
-  <td class="desc">Sets the vector to <code>a * scale</code></td>
+  <td class="desc">Sets the vector to <code>a:xyz() * scale</code></td>
 </tr></table>
 
 <table class="api"><tr>
   <th class="func">LuaVec3:setComponentMul</th>
-  <td class="args">LuaVec3</td>
-  <td class="desc">Multiplies each component by the corresponding component of <code>a</code></td>
+  <td class="args">a</td>
+  <td class="desc">Sets the vector to <code>self * a</code> (multiplies each component separately)</td>
 </tr></table>
 
 ### Length
