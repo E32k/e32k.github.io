@@ -31,6 +31,9 @@
     <aside class="sites">{% include sites.html %}</aside>
     <main class="content">
       {{ content }}
+      <div class="moddate">
+        Last modified: {% last_modified_at %}
+      </div>
     </main>
     <aside class="overview">
       <h3 class="overview-top">On This Page:</h3>
