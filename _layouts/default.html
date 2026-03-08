@@ -33,8 +33,13 @@
       {{ content }}
       <div class="moddate">
         Last modified:
-        {% if page.last_modified_at %}{{ page.last_modified_at | date: "%B %-d, %Y" }}
-        {% else %}{{ page.date | date: "%B %-d, %Y" }}{% endif %}
+        {% if page.last_modified_at %}
+          {{ page.last_modified_at | date: "%B %-d, %Y" }}
+        {% elsif page.date %}
+          {{ page.date | date: "%B %-d, %Y" }}
+        {% else %}
+          Unknown
+        {% endif %}
       </div>
     </main>
     <aside class="overview">
