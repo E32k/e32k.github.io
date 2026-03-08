@@ -136,3 +136,14 @@ Call like this: `debugDrawer:function()`
   <td class="args">bool</td>
   <td class="desc">Enables or disables drawing</td>
 </tr></table>
+
+<div class="moddate">
+  Last modified:
+  {% if page.last_modified_at %}
+    {{ page.last_modified_at | date: "%B %-d, %Y" }}
+  {% elsif page.date %}
+    {{ page.date | date: "%B %-d, %Y" }}
+  {% else %}
+    Unknown
+  {% endif %}
+</div>
