@@ -313,13 +313,34 @@ Coordinates are clamped so the point always lies on the triangle or its edges.
 <table class="api"><tr>
   <th class="func">LuaVec3:inPolygon</th>
   <td class="args">table of LuaVec3 points <small>or</small> multiple LuaVec3 arguments</td>
-  <td class="rets">boolean</td>
+  <td class="rets">bool</td>
   <td class="desc">Returns true if the vector lies inside the 2D polygon defined by the points, false otherwise</td>
 </tr><tr><td colspan="4" class="details">
 Points should be in order around the polygon (clockwise or counterclockwise). Only the <code>x</code> and <code>y</code> components of the vector are used; <code>z</code> is ignored.<br>
 The function accepts either a single table of points or multiple points as separate arguments.
 </td></tr></table>
 
+<table class="api"><tr>
+  <th class="func">LuaVec3:projectToOriginPlane</th>
+  <td class="args">pnorm</td>
+  <td class="rets">LuaVec3</td>
+  <td class="desc">Projects the vector onto the plane passing through the origin with the given normal</td>
+</tr><tr><td colspan="4" class="details">
+The returned vector lies on the plane defined by <code>pnorm</code>.<br>
+Effectively removes the component of the vector in the direction of the plane's normal.
+</td></tr></table>
+
+<table class="api"><tr>
+  <th class="func">LuaVec3:xnormPlaneWithLine</th>
+  <td class="args">pnorm, LuaVec3 a, LuaVec3 b</td>
+  <td class="rets">xnorm</td>
+  <td class="desc">Computes the normalized intersection of the line segment from <code>a</code> to <code>b</code> with the plane defined by <code>self</code> and <code>pnorm</code></td>
+</tr><tr><td colspan="4" class="details">
+Returns a scalar <code>xnorm</code> where:<br>
+<code>xnorm = 0</code> at <code>a</code>, <code>xnorm = 1</code> at <code>b</code>.<br>
+The function clamps extreme values to ±1e300 to avoid overflow.
+Useful for projecting a line onto a plane and getting the relative position along the line.
+</td></tr></table>
 
 
 
