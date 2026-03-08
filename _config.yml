@@ -1,4 +1,7 @@
 title: Unofficial BeamNG lua documentation
 description: My personal GitHub Pages site
+
 plugins:
   - jekyll-last-modified-at
+last-modified-at:
+    date-format: '%B %-d, %Y'
