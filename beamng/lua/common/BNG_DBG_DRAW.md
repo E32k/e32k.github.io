@@ -5,7 +5,7 @@ date: 2026-03-09
 ---
 
 # BNG_DBG_DRAW
-`common/cdefDebugDraw.lua`
+Source: `common/cdefDebugDraw.lua`
 
 These functions are significantly faster than their `debugDrawer` alternatives.<br>
 It is recommended to cache this into a local variable to improve performance, for example `local drawSphere = ffi.C.BNG_DBG_DRAW_Sphere`.<br>
