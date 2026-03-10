@@ -1,7 +1,7 @@
 ---
 title: BNG_DBG_DRAW - GELUA
 layout: default
-date: 2026-03-09
+date: 2026-03-10
 ---
 
 # BNG_DBG_DRAW
@@ -49,7 +49,7 @@ If useZ, then the item is always drawn on top.
 <table class="api"><tr>
   <th class="func">ffi.C.BNG_DBG_DRAW_SquarePrism</th>
   <td class="args">x1, y1, z1, x2, y2, z2, x3, y3, x4, y4, packedCol, useZ</td>
-  <td class="desc">Draws a square prism. xy3 is width, xy4 is height.</td>
+  <td class="desc">Draws a square prism.</td>
 </tr></table>
 
 ### Text
