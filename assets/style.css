@@ -442,6 +442,7 @@ MARK: Function API Table
   border-top: 5px solid #ddd;
   border-top-left-radius: 5px;
   display: inline-flex;
+  width: 100%;
 }
 
 .funcTable div>div,
