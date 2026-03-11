@@ -1,8 +1,10 @@
 ---
 title: Player Vehicle - GELUA
 layout: default
-date: 2026-03-07
+date: 2026-03-11
 ---
+
+<img src="/images/under-construction.gif" alt="Under Construction GIF">
 
 # Player Vehicle
 

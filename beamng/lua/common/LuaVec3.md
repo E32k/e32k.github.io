@@ -1,8 +1,10 @@
 ---
 title: LuaVec3 - BeamNG.lua
 layout: default
-date: 2026-03-08
+date: 2026-03-11
 ---
+
+<img src="/images/under-construction.gif" alt="Under Construction GIF">
 
 # The LuaVec3 library
 
