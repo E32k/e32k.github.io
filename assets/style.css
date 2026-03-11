@@ -430,22 +430,19 @@ MARK: Dark Mode Toggle Button
 MARK: Function API Table
 */
 
-table.api {
+.funcTable {
   border-collapse: collapse;
   margin: 0 auto 1em auto;
   width: 80%;
 }
 
-table.api tr:first-child {
+.headerRow {
   border-left: 5px solid #ffaaaa;
   border-top: 5px solid #ddd;
 }
-table.api td.details {
-  border-left: 5px solid #ddd;
-}
 
-table.api th,
-table.api td {
+.funcTable div>div,
+.funcTable.details {
   border: 1px solid #ddd;
   padding: 0.5em;
   position: relative;
@@ -485,6 +482,7 @@ table.api td {
 /* extra notes */
 .details {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
+  border-left: 5px solid #ddd;
   background: white;
 }
 

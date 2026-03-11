@@ -20,12 +20,12 @@ This is the main userdata, that includes functions which control the vehicles jb
 
 ### Forces
 
-<div class="argTable"><div class="header">
+<div class="funcTable"><div class="headerRow">
     <div class="func">dragCoef</div>
     <div class="args">number</div>
-    <div class="col defaultField">100</div>
-    <div class="col descrField">Drag coefficient of the triangle as a percentage of a flat plate of the same size.</div>
-  </div><div class="desc">
+    <div class="rets">100</div>
+    <div class="desc">Drag coefficient of the triangle as a percentage of a flat plate of the same size.</div>
+  </div><div class="details">
     Typical values are around 10 for most exposed body panels.
 </div></div>
 
