@@ -434,12 +434,13 @@ MARK: Function API Table
   border-collapse: collapse;
   margin: 0 auto 1em auto;
   width: 100%;
-  max-width: 1000px;
+  max-width: 2000px;
 }
 
 .headerRow {
   border-left: 5px solid #ffaaaa;
   border-top: 5px solid #ddd;
+  border-top-left-radius: 5px;
   display: inline-flex;
 }
 
@@ -448,6 +449,11 @@ MARK: Function API Table
   border: 1px solid #ddd;
   padding: 0.5em;
   position: relative;
+}
+
+.func, .args,
+.rets, .desc {
+  flex-grow: 1;
 }
 
 /* function name */
