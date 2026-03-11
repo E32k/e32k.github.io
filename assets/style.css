@@ -439,6 +439,7 @@ MARK: Function API Table
 .headerRow {
   border-left: 5px solid #ffaaaa;
   border-top: 5px solid #ddd;
+  display: inline-flex;
 }
 
 .funcTable div>div,
