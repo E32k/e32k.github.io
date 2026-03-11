@@ -459,11 +459,11 @@ MARK: Function API Table
 /* function name */
 .func {
   background-color: #e6ffe6;
-  width: 25%;
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
   padding-bottom: 1em;
+  flex: 0 0 25%;
 }
 
 /* arguments */
@@ -471,6 +471,7 @@ MARK: Function API Table
   background-color: #dae8ff;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
+  flex: 1 1 0;
 }
 
 /* returns */
@@ -478,13 +479,14 @@ MARK: Function API Table
   background-color: #d6ffff;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
+  flex: 1 1 0;
 }
 
 /* description */
 .desc {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
-  width: 50%;
+  flex: 0 0 35%;
 }
 
 /* extra notes */
