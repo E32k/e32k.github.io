@@ -445,8 +445,7 @@ MARK: Function API Table
   width: 100%;
 }
 
-.funcTable div>div,
-.funcTable.details {
+.funcTable div>div {
   border: 1px solid #ddd;
   padding: 0.5em;
   position: relative;
@@ -495,6 +494,7 @@ MARK: Function API Table
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   border-left: 5px solid #ddd;
   background: white;
+  padding: 0.5em;
 }
 
 /* bottom labels */
