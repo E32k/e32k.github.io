@@ -54,7 +54,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
+  gap: 1rem;
+  padding: 1rem;
   background-color: var(--bg-color3);
   border-bottom: 1px solid var(--divider);
   color: var(--text-color);
@@ -62,7 +63,7 @@ header {
 
 header img {
   height: 4em;
-  width: auto; }
+  width:auto; }
 
 .search-section {
   margin-left:  0.5rem;
@@ -111,16 +112,13 @@ header a:hover {
   }
 
   header img {
-    height: 3em; /* smaller on mobile */
+    width: fit-content;
+    align-self: center;
   }
 
-  header h1 {
-    justify-content: center;
-  }
-
-  .header-right {
+  .search-section {
     width: 100%;
-    flex-direction: column;
+    margin: 0;
   }
 
   #search-input {
