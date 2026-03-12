@@ -47,8 +47,7 @@ body::-webkit-scrollbar-thumb, body *::-webkit-scrollbar-thumb {
   font-size: 0.7em;
   font-style: italic;
   background-color: #eee; }
-/*
-MARK: Header and Navigation Bar
+/* MARK: Header and Navigation Bar
 */
 
 header {
@@ -82,7 +81,7 @@ header h1 {
 .search-section {
   margin-left:  0.5rem;
   margin-right: 1.5rem;
-  width: 60%; }
+  width: 30rem; }
 
 #search-input {
   padding: 0.25em 0.5em; /* inside padding */
@@ -144,8 +143,7 @@ header a:hover {
 
 
 
-/*
-MARK: Container for the search results
+/* MARK: Container for the search results
 */
 
 #results-container {
@@ -488,6 +486,19 @@ MARK: Function API Table
   background-color: #eee;
   flex: 0 0 40%;
 }
+
+@media (max-width: 700px) {
+  .headerRow {
+    flex-direction: column;
+  }
+
+  .func, .args,
+  .rets, .desc {
+    flex: none;
+    width: 100%;
+  }
+}
+
 
 /* extra notes */
 .details {
