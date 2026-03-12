@@ -276,7 +276,7 @@ mark {
   transition: color 0.15s ease;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
   .overview {display: none}
 }
 
