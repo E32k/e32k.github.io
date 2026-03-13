@@ -101,21 +101,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// Toggle dark mode
-const toggle = document.getElementById('dark-mode-toggle');
+// Sites Browsing
+document.querySelectorAll('.folder-title').forEach(title => {
+  title.addEventListener('click', e => {
+    const folder = title.parentElement;
 
-toggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
+    // toggle current folder
+    folder.classList.toggle('open');
 
-  // Optional: store preference
-  if (document.body.classList.contains('dark-mode')) {
-    localStorage.setItem('darkMode', '1');
-  } else {
-    localStorage.removeItem('darkMode');
-  }
+    // optional: close others (accordion style)
+    document.querySelectorAll('.folder').forEach(f => {
+      if(f !== folder) f.classList.remove('open');
+    });
+  });
 });
-
-// Load saved preference
-if (localStorage.getItem('darkMode')) {
-  document.body.classList.add('dark-mode');
-}
