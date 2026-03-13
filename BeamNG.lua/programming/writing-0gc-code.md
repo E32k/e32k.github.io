@@ -1,6 +1,6 @@
 ---
 title: Writing 0-GC Code - BeamNG.lua
-layout: default
+layout: beamlua
 date: 2026-03-08
 ---
 

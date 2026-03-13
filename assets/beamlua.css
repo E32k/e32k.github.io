@@ -12,19 +12,6 @@
   --text-color: #000;
   --text-color2: #222;
 }
-body.dark-mode {
-  --bg-color1: #000000;
-  --bg-color2: #090909;
-  --bg-color3: #111111;
-
-  --divider: #555;
-
-  --text-color: #f7f7f7;
-  --text-color2: #c7c7c7;
-
-  --sidebar-bg: #2a2a2a;
-  --link-color: #ccc;
-}
 
 /* scrollbar */
 * {
@@ -81,7 +68,7 @@ header img {
   transition: background-color 0.3s ease, color 0.3s ease;
   box-shadow: 0 0 4px -2px; }
 
-header a {
+.header-btn {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -94,14 +81,14 @@ header a {
   background-color: var(--bg-color3);
   transition: background-color 0.3s ease, color 0.3s ease; }
 
-#search-input, header a {
+#search-input, .header-btn {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   font-size: 1em;
   font-weight: 600;
   border-radius: 4px;
   height: 2em; }
 
-header a:hover {
+.header-btn:hover {
   background-color: var(--bng-orange);
   color: var(--bg-color3); }
 
@@ -124,7 +111,7 @@ header a:hover {
   #search-input {
     width: 100%;
   }
-  header a {display: none}
+  .header-btn {display: none}
 }
 
 

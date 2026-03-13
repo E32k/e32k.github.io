@@ -1,6 +1,6 @@
 ---
 title: Lua
-layout: default
+layout: beamlua
 date: 2026-02-26
 ---
 
