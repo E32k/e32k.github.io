@@ -1,18 +1,18 @@
 //MARK: Save state of sites
 //saves opened and closed sites when the user refreshes
-document.addEventListener('DOMContentLoaded', () => {
-  const detailsList = document.querySelectorAll('.sites details');
-  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
-  detailsList.forEach((detail, index) => {
-    if (saved[index]) detail.open = true;
-    else detail.open = false;
-    detail.addEventListener('toggle', () => {
-      const state = {};
-      detailsList.forEach((d, i) => state[i] = d.open);
-      localStorage.setItem('detailsState', JSON.stringify(state));
-    });
-  });
-});
+//document.addEventListener('DOMContentLoaded', () => {
+//  const detailsList = document.querySelectorAll('.sites details');
+//  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
+//  detailsList.forEach((detail, index) => {
+//    if (saved[index]) detail.open = true;
+//    else detail.open = false;
+//    detail.addEventListener('toggle', () => {
+//      const state = {};
+//      detailsList.forEach((d, i) => state[i] = d.open);
+//      localStorage.setItem('detailsState', JSON.stringify(state));
+//    });
+//  });
+//});
 
 
 
@@ -102,3 +102,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Sites Browsing
+const folders = document.querySelectorAll('.folder');
+
+folders.forEach(folder => {
+  const title = folder.querySelector('.folder-title');
+  const link = title.querySelector('.sites-folder');
+
+  let tappedOnce = false;
+
+  title.addEventListener('click', e => {
+    const isOpen = folder.classList.contains('open');
+
+    // mobile double-click logic
+    if(window.innerWidth <= 768) {
+      if(!tappedOnce) {
+        e.preventDefault();
+        tappedOnce = true;
+        setTimeout(() => tappedOnce = false, 400); // reset after 400ms
+      } else {
+        return; // second click will follow link normally
+      }
+    } else {
+      e.preventDefault();
+    }
+
+    // close all others
+    folders.forEach(f => f.classList.remove('open'));
+
+    // toggle current folder
+    if(!isOpen) folder.classList.add('open');
+  });
+});
+
+// Highlight current page/folder
+const currentURL = location.pathname;
+folders.forEach(folder => {
+  const folderLink = folder.querySelector('.sites-folder').getAttribute('href');
+  if(currentURL.startsWith(folderLink)) {
+    folder.classList.add('open');
+    folder.querySelector('.folder-title').classList.add('active');
+  }
+
+  folder.querySelectorAll('.sites-page').forEach(page => {
+    if(page.getAttribute('href') === currentURL) page.classList.add('active');
+  });
+});

@@ -295,41 +295,62 @@ MARK: Sidebar Container
   border-right: 1px solid var(--divider);
   transition: background-color 0.3s ease;
 }
-.sites, .sites * {user-select: none} /* Disable selecting text*/
 
-/* Font Style */
+.sites, .sites * { user-select: none; }
+
+/* Links */
 .sites a {
   text-decoration: none;
   color: var(--text-color2);
-  transition: color 0.15s ease;
   font-weight: 600;
+  transition: color 0.15s ease;
+  display: block;
+  padding: 0.2em 0.5em;
+  border-radius: 0.2em;
 }
 
-/* Nested details & links */
-.sites details details {margin-left: 1em}
-.sites-page {
-  margin-left: 1.7em;
-  display: flex;
-  flex-direction: column;
-}
+/* Hover */
+.sites a:hover { background-color: var(--divider); }
 
-/* Remove default arrow */
-.sites summary::-webkit-details-marker {display: none}
-.sites summary {
-  list-style: none;
-  cursor: pointer;
+/* Folder title with arrow */
+.folder-title {
   position: relative;
-  padding-left: 0.7em; /* space for arrow */
+  cursor: pointer;
+  padding-left: 1em;
+  margin-bottom: 0.2em;
 }
 
-/* Arrow on the left */
-.sites details[open] > summary::after {transform: rotate(90deg)}
-.sites summary::after {
-  font-family: monospace;
-  font-weight: bold;
+/* Arrow on left */
+.folder-title::after {
   content: '>';
   position: absolute;
   left: 0;
+  font-family: monospace;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+/* Arrow rotated when open */
+.folder.open > .folder-title::after {
+  transform: rotate(90deg);
+}
+
+/* Nested links */
+.folder-contents {
+  display: none;
+  margin-left: 1.7em;
+}
+
+/* Show when open */
+.folder.open > .folder-contents {
+  display: block;
+}
+
+/* Highlight current page/folder */
+.folder-title.active > .sites-folder,
+.sites-page.active {
+  background-color: var(--divider);
+  color: var(--text-color1);
 }
 
 
