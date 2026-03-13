@@ -16,66 +16,66 @@ If useZ, then the item is always drawn on top.
 
 ### 3D Shapes
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_Sphere</th>
-  <td class="args">x, y, z, radius, packedCol, useZ</td>
-  <td class="desc">Draws a sphere</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_Sphere</div>
+  <div class="args">x, y, z, radius, packedCol, useZ</div>
+  <div class="desc">Draws a sphere</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_TriSolid</th>
-  <td class="args">x1, y1, z1, x2, y2, z2, x3, y3, z3, packedCol, useZ</td>
-  <td class="desc">Draws a triangle</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_TriSolid</div>
+  <div class="args">x1, y1, z1, x2, y2, z2, x3, y3, z3, packedCol, useZ</div>
+  <div class="desc">Draws a triangle</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_Line</th>
-  <td class="args">x1, y1, z1, x2, y2, z2, packedCol, useZ</td>
-  <td class="desc">Draws a a 1px wide line</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_Line</div>
+  <div class="args">x1, y1, z1, x2, y2, z2, packedCol, useZ</div>
+  <div class="desc">Draws a a 1px wide line</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_LineInstance_MinArg</th>
-  <td class="args">x1, y1, z1, x2, y2, z2, width, packedCol</td>
-  <td class="desc">Draws a constant size line</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_LineInstance_MinArg</div>
+  <div class="args">x1, y1, z1, x2, y2, z2, width, packedCol</div>
+  <div class="desc">Draws a constant size line</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_Cylinder</th>
-  <td class="args">x1, y1, z1, x2, y2, z2, radius, packedCol, useZ</td>
-  <td class="desc">Draws a cylinder</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_Cylinder</div>
+  <div class="args">x1, y1, z1, x2, y2, z2, radius, packedCol, useZ</div>
+  <div class="desc">Draws a cylinder</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_SquarePrism</th>
-  <td class="args">x1, y1, z1, x2, y2, z2, x3, y3, x4, y4, packedCol, useZ</td>
-  <td class="desc">Draws a square prism.</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_SquarePrism</div>
+  <div class="args">x1, y1, z1, x2, y2, z2, x3, y3, x4, y4, packedCol, useZ</div>
+  <div class="desc">Draws a square prism.</div>
+</div></div>
 
 ### Text
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_Text</th>
-  <td class="args">x1, y1, z1, text, packedCol</td>
-  <td class="desc">Draws text</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_Text</div>
+  <div class="args">x1, y1, z1, text, packedCol</div>
+  <div class="desc">Draws text</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_TextAdvanced</th>
-  <td class="args">x1, y1, z1, text, packedCol, bool useAdvancedText, bool twod, bgColorPacked, bool shadow, bool useZ</td>
-  <td class="desc">Draws advanced text</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_TextAdvanced</div>
+  <div class="args">x1, y1, z1, text, packedCol, bool useAdvancedText, bool twod, bgColorPacked, bool shadow, bool useZ</div>
+  <div class="desc">Draws advanced text</div>
+</div></div>
 
 ### Batch Drawing
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_LineInstance_MinArgBatch</th>
-  <td class="args">const float &data, lineCount, w1, packedCol</td>
-  <td class="desc">Draws multiple lines</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_LineInstance_MinArgBatch</div>
+  <div class="args">const float &data, lineCount, w1, packedCol</div>
+  <div class="desc">Draws multiple lines</div>
+</div></div>
 
-<table class="api"><tr>
-  <th class="func">ffi.C.BNG_DBG_DRAW_TriSolidBatch</th>
-  <td class="args">const float &data, triCount, packedCol, useZ</td>
-  <td class="desc">Draws multiple triangles</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">ffi.C.BNG_DBG_DRAW_TriSolidBatch</div>
+  <div class="args">const float &data, triCount, packedCol, useZ</div>
+  <div class="desc">Draws multiple triangles</div>
+</div></div>
