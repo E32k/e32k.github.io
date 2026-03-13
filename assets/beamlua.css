@@ -288,63 +288,48 @@ mark {
 MARK: Sidebar Container
 */
 
-.sidebar-section {
+.sites {
+  width: fit-content;
+  padding: 1rem;
+  background-color: var(--bg-color2);
+  border-right: 1px solid var(--divider);
+  transition: background-color 0.3s ease;
+}
+.sites, .sites * {user-select: none} /* Disable selecting text*/
+
+/* Font Style */
+.sites a {
+  text-decoration: none;
+  color: var(--text-color2);
+  transition: color 0.15s ease;
   font-weight: 600;
 }
 
-/* Folder heading row */
-.folder-title {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 0.4rem 0.6rem;
-  position: relative;
-}
-
-/* Arrow */
-.folder-title::before {
-  content: '>';
-  font-family: monospace;
-  position: absolute;
-  left: 0.3rem;
-  transition: transform 0.2s ease;
-}
-
-/* Expanded arrow */
-.folder-title.open::before {
-  transform: rotate(90deg);
-}
-
-/* Folder link area (label + full width clickable) */
-.folder-label {
-  margin-left: 1.2em;
-  flex: 1;
-}
-
-/* Hidden by default */
-.folder-contents {
-  display: none;
-  margin-bottom: 0.4rem;
-  margin-left: 1.7em;
-}
-
-/* Show when parent open */
-.folder-title.open + .folder-contents {
-  display: block;
-}
-
-/* Page link */
+/* Nested details & links */
+.sites details details {margin-left: 1em}
 .sites-page {
-  display: block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.2rem;
-  font-weight: normal;
+  margin-left: 1.7em;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Highlight active page */
-.sites-page.active {
-  background-color: var(--divider);
-  color: var(--text-color1);
+/* Remove default arrow */
+.sites summary::-webkit-details-marker {display: none}
+.sites summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding-left: 0.7em; /* space for arrow */
+}
+
+/* Arrow on the left */
+.sites details[open] > summary::after {transform: rotate(90deg)}
+.sites summary::after {
+  font-family: monospace;
+  font-weight: bold;
+  content: '>';
+  position: absolute;
+  left: 0;
 }
 
 

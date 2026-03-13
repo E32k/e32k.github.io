@@ -1,18 +1,18 @@
 //MARK: Save state of sites
 //saves opened and closed sites when the user refreshes
-//document.addEventListener('DOMContentLoaded', () => {
-//  const detailsList = document.querySelectorAll('.sites details');
-//  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
-//  detailsList.forEach((detail, index) => {
-//    if (saved[index]) detail.open = true;
-//    else detail.open = false;
-//    detail.addEventListener('toggle', () => {
-//      const state = {};
-//      detailsList.forEach((d, i) => state[i] = d.open);
-//      localStorage.setItem('detailsState', JSON.stringify(state));
-//    });
-//  });
-//});
+document.addEventListener('DOMContentLoaded', () => {
+  const detailsList = document.querySelectorAll('.sites details');
+  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
+  detailsList.forEach((detail, index) => {
+    if (saved[index]) detail.open = true;
+    else detail.open = false;
+    detail.addEventListener('toggle', () => {
+      const state = {};
+      detailsList.forEach((d, i) => state[i] = d.open);
+      localStorage.setItem('detailsState', JSON.stringify(state));
+    });
+  });
+});
 
 
 
@@ -102,24 +102,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Sites Browsing
-document.querySelectorAll('.folder-title').forEach(title => {
-  title.addEventListener('click', () => {
-    const isOpen = title.classList.contains('open');
-
-    // close all
-    document.querySelectorAll('.folder-title').forEach(t => t.classList.remove('open'));
-
-    // toggle this one
-    if (!isOpen) title.classList.add('open');
-  });
-});
-
-// Highlight the current page
-const currentURL = location.pathname;
-document.querySelectorAll('.sites-page').forEach(page => {
-  if (page.getAttribute('href') === currentURL) {
-    page.classList.add('active');
-    const prev = page.closest('.folder-contents').previousElementSibling;
-    if (prev) prev.classList.add('open'); // auto-open parent
-  }
-});
