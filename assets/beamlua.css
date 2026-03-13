@@ -293,51 +293,43 @@ MARK: Sidebar Container
   padding: 1rem;
   background-color: var(--bg-color2);
   border-right: 1px solid var(--divider);
+  transition: background-color 0.3s ease;
 }
+.sites, .sites * {user-select: none} /* Disable selecting text*/
 
-/* Prevent text selection */
-.sites, .sites * { user-select: none }
-
-/* Links */
+/* Font Style */
 .sites a {
   text-decoration: none;
   color: var(--text-color2);
+  transition: color 0.15s ease;
   font-weight: 600;
-  display: block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.2rem;
-  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.sites a:hover { background-color: var(--divider) }
+/* Nested details & links */
+.sites details details {margin-left: 1em}
+.sites-page {
+  margin-left: 1.7em;
+  display: flex;
+  flex-direction: column;
+}
 
-/* Folders */
-.folder-title {
+/* Remove default arrow */
+.sites summary::-webkit-details-marker {display: none}
+.sites summary {
+  list-style: none;
   cursor: pointer;
   position: relative;
-  font-weight: 600;
-  padding-left: 1.2em;
+  padding-left: 0.7em; /* space for arrow */
 }
 
-.folder-title::before {
+/* Arrow on the left */
+.sites details[open] > summary::after {transform: rotate(90deg)}
+.sites summary::after {
+  font-family: monospace;
+  font-weight: bold;
   content: '>';
   position: absolute;
   left: 0;
-  transition: transform 0.2s ease;
-}
-
-.folder.open > .folder-title::before {
-  transform: rotate(90deg);
-}
-
-/* Nested contents */
-.folder-contents {
-  display: none;
-  padding-left: 1em;
-}
-
-.folder.open > .folder-contents {
-  display: block;
 }
 
 
