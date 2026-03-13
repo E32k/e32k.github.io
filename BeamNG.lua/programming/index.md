@@ -9,10 +9,4 @@ date: 2026-03-08
 This section will contain tips and tricks, tutorials and other guides.
 
 
-See
-
-
-[BeamNG Modding Programming Documentation](https://documentation.beamng.com/modding/programming/)
-
-
-<a href="https://documentation.beamng.com/modding/programming/">BeamNG Modding Programming Documentation</a>
+See <a href="https://documentation.beamng.com/modding/programming/" class="link-ext">Programming</a>
