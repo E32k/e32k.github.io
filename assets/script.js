@@ -105,45 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const folders = document.querySelectorAll('.folder');
 
 folders.forEach(folder => {
-  const title = folder.querySelector('.folder-title');
-  const link = title.querySelector('.sites-folder');
-
-  let tappedOnce = false;
-
-  title.addEventListener('click', e => {
-    const isOpen = folder.classList.contains('open');
-
-    // mobile double-click logic
-    if(window.innerWidth <= 768) {
-      if(!tappedOnce) {
-        e.preventDefault();
-        tappedOnce = true;
-        setTimeout(() => tappedOnce = false, 400); // reset after 400ms
-      } else {
-        return; // second click will follow link normally
-      }
-    } else {
-      e.preventDefault();
-    }
-
-    // close all others
-    folders.forEach(f => f.classList.remove('open'));
-
-    // toggle current folder
-    if(!isOpen) folder.classList.add('open');
-  });
-});
-
-// Highlight current page/folder
-const currentURL = location.pathname;
-folders.forEach(folder => {
-  const folderLink = folder.querySelector('.sites-folder').getAttribute('href');
-  if(currentURL.startsWith(folderLink)) {
-    folder.classList.add('open');
-    folder.querySelector('.folder-title').classList.add('active');
-  }
-
-  folder.querySelectorAll('.sites-page').forEach(page => {
-    if(page.getAttribute('href') === currentURL) page.classList.add('active');
+  const name = folder.querySelector('.folder-name');
+  name.addEventListener('click', () => {
+    folder.classList.toggle('open');
   });
 });

@@ -288,69 +288,49 @@ mark {
 MARK: Sidebar Container
 */
 
-.sites {
-  width: fit-content;
-  padding: 1rem;
-  background-color: var(--bg-color2);
-  border-right: 1px solid var(--divider);
-  transition: background-color 0.3s ease;
+body {
+  font-family: sans-serif;
 }
 
-.sites, .sites * { user-select: none; }
-
-/* Links */
-.sites a {
-  text-decoration: none;
-  color: var(--text-color2);
-  font-weight: 600;
-  transition: color 0.15s ease;
-  display: block;
-  padding: 0.2em 0.5em;
-  border-radius: 0.2em;
+.folder {
+  margin: 5px 0;
 }
 
-/* Hover */
-.sites a:hover { background-color: var(--divider); }
-
-/* Folder title with arrow */
-.folder-title {
-  position: relative;
+.folder-name {
   cursor: pointer;
-  padding-left: 1em;
-  margin-bottom: 0.2em;
+  padding-left: 10px;
+  position: relative;
 }
 
-/* Arrow on left */
-.folder-title::after {
-  content: '>';
-  position: absolute;
-  left: 0;
-  font-family: monospace;
-  font-weight: bold;
-  transition: transform 0.2s ease;
+.folder-name::before {
+  content: "▶";
+  display: inline-block;
+  width: 1em;
+  transition: transform 0.2s;
 }
 
-/* Arrow rotated when open */
-.folder.open > .folder-title::after {
+.folder.open > .folder-name::before {
   transform: rotate(90deg);
 }
 
-/* Nested links */
 .folder-contents {
   display: none;
-  margin-left: 1.7em;
+  margin-left: 20px;
 }
 
-/* Show when open */
 .folder.open > .folder-contents {
   display: block;
 }
 
-/* Highlight current page/folder */
-.folder-title.active > .sites-folder,
-.sites-page.active {
-  background-color: var(--divider);
-  color: var(--text-color1);
+.page {
+  display: block;
+  color: #007acc;
+  text-decoration: none;
+  margin: 2px 0;
+}
+
+.page:hover {
+  text-decoration: underline;
 }
 
 
