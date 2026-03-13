@@ -1,18 +1,18 @@
 //MARK: Save state of sites
 //saves opened and closed sites when the user refreshes
-//document.addEventListener('DOMContentLoaded', () => {
-//  const detailsList = document.querySelectorAll('.sites details');
-//  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
-//  detailsList.forEach((detail, index) => {
-//    if (saved[index]) detail.open = true;
-//    else detail.open = false;
-//    detail.addEventListener('toggle', () => {
-//      const state = {};
-//      detailsList.forEach((d, i) => state[i] = d.open);
-//      localStorage.setItem('detailsState', JSON.stringify(state));
-//    });
-//  });
-//});
+document.addEventListener('DOMContentLoaded', () => {
+  const detailsList = document.querySelectorAll('.sites details');
+  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
+  detailsList.forEach((detail, index) => {
+    if (saved[index]) detail.open = true;
+    else detail.open = false;
+    detail.addEventListener('toggle', () => {
+      const state = {};
+      detailsList.forEach((d, i) => state[i] = d.open);
+      localStorage.setItem('detailsState', JSON.stringify(state));
+    });
+  });
+});
 
 
 
@@ -97,16 +97,4 @@ document.addEventListener("DOMContentLoaded", () => {
   updateVisibleSections();
   window.addEventListener("scroll", updateVisibleSections, { passive: true });
   window.addEventListener("resize", updateVisibleSections);
-});
-
-
-
-// Sites Browsing
-const folders = document.querySelectorAll('.folder');
-
-folders.forEach(folder => {
-  const name = folder.querySelector('.folder-name');
-  name.addEventListener('click', () => {
-    folder.classList.toggle('open');
-  });
 });

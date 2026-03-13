@@ -288,49 +288,48 @@ mark {
 MARK: Sidebar Container
 */
 
-body {
-  font-family: sans-serif;
+.sites {
+  width: fit-content;
+  padding: 1rem;
+  background-color: var(--bg-color2);
+  border-right: 1px solid var(--divider);
+  transition: background-color 0.3s ease;
 }
+.sites, .sites * {user-select: none} /* Disable selecting text*/
 
-.folder {
-  margin: 5px 0;
-}
-
-.folder-name {
-  cursor: pointer;
-  padding-left: 10px;
-  position: relative;
-}
-
-.folder-name::before {
-  content: "▶";
-  display: inline-block;
-  width: 1em;
-  transition: transform 0.2s;
-}
-
-.folder.open > .folder-name::before {
-  transform: rotate(90deg);
-}
-
-.folder-contents {
-  display: none;
-  margin-left: 20px;
-}
-
-.folder.open > .folder-contents {
-  display: block;
-}
-
-.page {
-  display: block;
-  color: #007acc;
+/* Font Style */
+.sites a {
   text-decoration: none;
-  margin: 2px 0;
+  color: var(--text-color2);
+  transition: color 0.15s ease;
+  font-weight: 600;
 }
 
-.page:hover {
-  text-decoration: underline;
+/* Nested details & links */
+.sites details details {margin-left: 1em}
+.sites-page {
+  margin-left: 1.7em;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove default arrow */
+.sites summary::-webkit-details-marker {display: none}
+.sites summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding-left: 0.7em; /* space for arrow */
+}
+
+/* Arrow on the left */
+.sites details[open] > summary::after {transform: rotate(90deg)}
+.sites summary::after {
+  font-family: monospace;
+  font-weight: bold;
+  content: '>';
+  position: absolute;
+  left: 0;
 }
 
 
