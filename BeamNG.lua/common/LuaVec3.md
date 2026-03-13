@@ -4,8 +4,6 @@ layout: default
 date: 2026-03-11
 ---
 
-<img src="/images/under-construction.gif" alt="Under Construction GIF"><img src="/images/construction-worker.gif" alt="Construction Worker GIF">
-
 # The LuaVec3 library
 
 These are all the functions you can use on vec3()
