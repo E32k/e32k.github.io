@@ -288,52 +288,63 @@ mark {
 MARK: Sidebar Container
 */
 
-.folder {
-  margin-bottom: 0.5rem;
-}
-
-.folder-title {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding-left: 1.2em;
-  position: relative;
+.sidebar-section {
   font-weight: 600;
 }
 
-.folder-title::before {
-  content: '>';
-  position: absolute;
-  left: 0;
-  transition: transform 0.2s ease;
-  font-family: monospace;
-  font-weight: bold;
+/* Folder heading row */
+.folder-title {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  position: relative;
 }
 
-.folder.open > .folder-title::before {
+/* Arrow */
+.folder-title::before {
+  content: '>';
+  font-family: monospace;
+  position: absolute;
+  left: 0.3rem;
+  transition: transform 0.2s ease;
+}
+
+/* Expanded arrow */
+.folder-title.open::before {
   transform: rotate(90deg);
 }
 
+/* Folder link area (label + full width clickable) */
+.folder-label {
+  margin-left: 1.2em;
+  flex: 1;
+}
+
+/* Hidden by default */
 .folder-contents {
   display: none;
-  padding-left: 1.7em;
-  margin-top: 0.2em;
+  margin-bottom: 0.4rem;
+  margin-left: 1.7em;
 }
 
-.folder.open > .folder-contents {
+/* Show when parent open */
+.folder-title.open + .folder-contents {
   display: block;
 }
 
+/* Page link */
 .sites-page {
   display: block;
-  margin: 0.2em 0;
-  padding: 0.2em 0.5em;
-  border-radius: 0.2em;
-  transition: background 0.2s ease;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  font-weight: normal;
 }
 
-.sites-page:hover {
+/* Highlight active page */
+.sites-page.active {
   background-color: var(--divider);
+  color: var(--text-color1);
 }
 
 
