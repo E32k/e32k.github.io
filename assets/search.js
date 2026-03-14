@@ -17,6 +17,7 @@ CONFIG.searchInput.addEventListener("input", () => {
 
   if (!query || query.length < CONFIG.minQueryLength) {
     CONFIG.resultsContainer.innerHTML = "";
+    CONFIG.resultsContainer.style.display = "none"; // hide when empty
     return;
   }
 
@@ -25,6 +26,7 @@ CONFIG.searchInput.addEventListener("input", () => {
   } else if (!fetching) {
     fetching = true;
     CONFIG.resultsContainer.textContent = "Searching...";
+    CONFIG.resultsContainer.style.display = "block"; // show loading
     fetch(CONFIG.searchJson)
       .then(r => r.json())
       .then(data => {
@@ -38,6 +40,7 @@ CONFIG.searchInput.addEventListener("input", () => {
       });
   } else {
     CONFIG.resultsContainer.textContent = "Searching...";
+    CONFIG.resultsContainer.style.display = "block"; // show loading
   }
 });
 
@@ -69,8 +72,11 @@ function render(results, query) {
 
   if (!results.length) {
     CONFIG.resultsContainer.textContent = "No results found.";
+    CONFIG.resultsContainer.style.display = "block"; // show container even if empty
     return;
   }
+
+  CONFIG.resultsContainer.style.display = "block"; // show container with results
 
   const regex = new RegExp(`(${escapeRegExp(query)})`, "gi");
 
