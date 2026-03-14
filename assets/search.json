@@ -2,7 +2,7 @@
 layout: null
 ---
 [
-{% assign beamng_pages = site.pages | where_exp: "page", "page.url contains '/beamng/'" %}
+{% assign beamng_pages = site.pages | where_exp: "page", "page.url contains '/BeamNG.lua/'" %}
 {% for page in beamng_pages %}
   {
     "title": {{ page.title | jsonify }},
