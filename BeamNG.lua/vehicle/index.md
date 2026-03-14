@@ -1,5 +1,5 @@
 ---
-title: GELUA
+title: VLUA
 layout: beamlua
 date: 2026-03-11
 ---

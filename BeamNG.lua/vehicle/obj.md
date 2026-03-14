@@ -1,5 +1,5 @@
 ---
-title: obj - GELUA
+title: obj - BeamNG.lua
 layout: beamlua
 date: 2026-03-12
 ---
