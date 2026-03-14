@@ -1,14 +1,15 @@
-<details><summary><a class="sites-folder" href="/BeamNG.lua/programming/">Programming</a></summary>
-  <a class="sites-page" href="/BeamNG.lua/programming/writing-0gc-code.html">Optimizing GC</a>
-</details>
-<details><summary><a class="sites-folder" href="/BeamNG.lua/common/">common</a></summary>
-  <a class="sites-page" href="/BeamNG.lua/common/BNG_DBG_DRAW.html">BNG_DBG_DRAW</a>
-  <a class="sites-page" href="/BeamNG.lua/common/LuaVec3.html">LuaVec3</a>
-</details>
-<details><summary><a class="sites-folder" href="/BeamNG.lua/ge/">ge</a></summary>
-  <a class="sites-page" href="/BeamNG.lua/ge/playerVehicle.html">playerVehicle</a>
-  <a class="sites-page" href="/BeamNG.lua/ge/debugDrawer.html">debugDrawer</a>
-</details>
-<details><summary><a class="sites-folder" href="/BeamNG.lua/vehicle/">vehicle</a></summary>
-  <a class="sites-page" href="/BeamNG.lua/vehicle/obj.html">obj</a>
-</details>
+{% assign beamng_pages = site.pages | where_exp: "p", "p.url contains '/BeamNG.lua/'" %}
+
+{% assign folders = beamng_pages | map: "url" | map: "split:'/'" | map: "slice:2,1" | uniq %}
+
+{% for folder_name in folders %}
+  <details>
+    <summary>
+      <a class="sites-folder" href="/BeamNG.lua/{{ folder_name }}/">{{ folder_name | capitalize }}</a>
+    </summary>
+    {% assign folder_pages = beamng_pages | where_exp: "p", "p.url contains '/BeamNG.lua/#{folder_name}/'" | sort: "url" %}
+    {% for page in folder_pages %}
+      <a class="sites-page" href="{{ page.url }}">{{ page.title | default: page.name }}</a>
+    {% endfor %}
+  </details>
+{% endfor %}

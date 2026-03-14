@@ -1,5 +1,5 @@
 ---
-title: obj - BeamNG.lua
+title: obj
 layout: beamlua
 date: 2026-03-12
 ---

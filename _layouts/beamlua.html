@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-  <title>{{ page.title }}</title>
+  <title>{{ page.title }} | BeamNG.lua</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,9 @@
   <div class="layout">
     <aside class="sites">{% include sites.html %}</aside>
     <main class="content">
-      <img src="/images/under-construction.gif" alt="Under Construction GIF"><img src="/images/construction-worker.gif" alt="Construction Worker GIF">
+      <h1>{{ page.title | default: page.name }}</h1>
+      <img src="/images/under-construction.gif" alt="Under Construction GIF">
+      <img src="/images/construction-worker.gif" alt="Construction Worker GIF">
       {{ content }}
       {% if page.date %}
         <div class="moddate">
