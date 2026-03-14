@@ -4,8 +4,6 @@ layout: beamlua
 date: 2026-03-12
 ---
 
-# obj
-
 This is the main userdata, that includes functions which control the vehicles jbeam and the vehicle itself.
 
 ## Functions

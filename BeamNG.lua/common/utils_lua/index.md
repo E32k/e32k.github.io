@@ -1,4 +1,8 @@
-# This is documentation for the file /lua/common/utils.lua
+---
+title: /lua/common/utils.lua
+layout: beamlua
+date: 2026-01-01
+---
 
 Since the file is big, ive split it into these sections:
 - [string Utilities](color.md)

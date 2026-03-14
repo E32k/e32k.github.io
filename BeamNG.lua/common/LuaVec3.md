@@ -1,10 +1,8 @@
 ---
-title: LuaVec3 - BeamNG.lua
+title: LuaVec3 Library
 layout: beamlua
 date: 2026-03-11
 ---
-
-# The LuaVec3 library
 
 These are all the functions you can use on vec3()
 

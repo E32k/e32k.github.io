@@ -1,12 +1,8 @@
 ---
-title: Player Vehicle - GELUA
+title: Player Vehicle
 layout: beamlua
 date: 2026-03-11
 ---
-
-<img src="/images/under-construction.gif" alt="Under Construction GIF">
-
-# Player Vehicle
 
 Functions that are in the userdata after calling `getPlayerVehicle(0)`
 

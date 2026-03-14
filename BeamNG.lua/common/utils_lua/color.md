@@ -1,28 +1,33 @@
-# Color Utilities
+---
+title: Color Utilities
+layout: beamlua
+date: 2026-01-01
+---
+
 These are functions that help converting colors or making some other stuff
 ## RGBtoHSV() and HSVtoRGB()
-Converts color tuples between **RGB** and **HSV**.  
+Converts color tuples between **RGB** and **HSV**.
 Uses **0-1** range.
 
 #### Examples:
 ```lua
-local h, s, v = RGBtoHSV(1, 0, 0)  
--- h=0, s=1, v=1 (pure red)  
+local h, s, v = RGBtoHSV(1, 0, 0)
+-- h=0, s=1, v=1 (pure red)
 
-local r, g, b = HSVtoRGB(0, 1, 1)  
--- r=1, g=0, b=0 (back to red)  
+local r, g, b = HSVtoRGB(0, 1, 1)
+-- r=1, g=0, b=0 (back to red)
 ```
 ```lua
-local h, s, v = RGBtoHSV(0.25, 0.5, 0.75)  
+local h, s, v = RGBtoHSV(0.25, 0.5, 0.75)
 -- r≈0.58, g=0.67, b=0.75
 
-local r, g, b = HSVtoRGB(0.25, 0.8, 0.5)  
+local r, g, b = HSVtoRGB(0.25, 0.8, 0.5)
 -- r≈0.3, g≈0.5, b≈0.1
 ```
 
 
 ## color() and colorGetRGBA()
-Compacts RGBA values into a **single 32-bit integer** and allows unpacking them back.  
+Compacts RGBA values into a **single 32-bit integer** and allows unpacking them back.
 All channels are floored and in **0-255** range.
 
 - `color(r, g, b, a)` - packs RGBA into one number, alpha is optional (`a or 255`)
@@ -30,21 +35,21 @@ All channels are floored and in **0-255** range.
 
 #### Examples:
 ```lua
-local myColor = color(64, 128, 255, 200)  
+local myColor = color(64, 128, 255, 200)
 -- myColor = 1082195912  (0x4080FFC8)
-local r, g, b, a = colorGetRGBA(myColor)  
--- r=64, g=128, b=255, a=200  
+local r, g, b, a = colorGetRGBA(myColor)
+-- r=64, g=128, b=255, a=200
 ```
 ```lua
-local myColor = color(255, 80, 80)  
+local myColor = color(255, 80, 80)
 -- myColor = 4283453695 (0xFF5050FF)
-local r, g, b, a = colorGetRGBA(4283453695)  
--- r=255, g=80, b=80, a=255  
+local r, g, b, a = colorGetRGBA(4283453695)
+-- r=255, g=80, b=80, a=255
 ```
 ```lua
-local myColor = color(0, 255, 0)  
+local myColor = color(0, 255, 0)
 -- myColor = 16711935  (0x00FF00FF)
-local r, g, b = colorGetRGBA(0x00FF00FF)  
+local r, g, b = colorGetRGBA(0x00FF00FF)
 -- r=0, g=255, b=0
 ```
 
@@ -54,15 +59,15 @@ function colorHex(rgbHex, a)
   return rgbHex * 256 + max(0, min(255, floor(a or 255)))
 end
 ```
-Input: 24-bit hex RGB + optional alpha  
+Input: 24-bit hex RGB + optional alpha
 Output: single 32-bit packed integer representing RGBA
 
 #### Examples:
 ```lua
-local myColor = color(64, 128, 255, 200)  
+local myColor = color(64, 128, 255, 200)
 -- myColor = 1082195912  (0x4080FFC8)
-local r, g, b, a = colorGetRGBA(myColor)  
--- r=64, g=128, b=255, a=200  
+local r, g, b, a = colorGetRGBA(myColor)
+-- r=64, g=128, b=255, a=200
 ```
 ## tableToColor()
 ```lua
@@ -71,64 +76,64 @@ function tableToColor(v)
 end
 ```
 ## parseColor()
-Converts a color input in multiple formats into a **single 32-bit integer** using `color()`.  
+Converts a color input in multiple formats into a **single 32-bit integer** using `color()`.
 
-**Inputs:**  
+**Inputs:**
 - a table `{r=.., g=.., b=.., a=..}` with RGBA values (0-255) (alpha optional)
 - a hex string `"#RRGGBBAA"` (9 characters, must include alpha)
-- `nil`, which defaults to transparent black  
+- `nil`, which defaults to transparent black
 
-Returns a **32-bit packed integer** representing the color.  
+Returns a **32-bit packed integer** representing the color.
 
 ```lua
 local colorTable = {r=64, g=128, b=255, a=200}
-local myColor = parseColor(colorTable)  
+local myColor = parseColor(colorTable)
 -- myColor = 1082195912  (0x4080FFC8)
 ```
 ```lua
 local colorTable = {r=255, g=80, b=80}
-local myColor = parseColor(colorTable)  
--- myColor = 4283453695  (0xFF5050FF) (alpha defaults to 255)  
+local myColor = parseColor(colorTable)
+-- myColor = 4283453695  (0xFF5050FF) (alpha defaults to 255)
 ```
 ```lua
-local myColor = parseColor("#4080FFC8")  
+local myColor = parseColor("#4080FFC8")
 -- myColor = 1082195912  (0x4080FFC8)
 ```
 ```lua
-local myColor = parseColor(nil)  
+local myColor = parseColor(nil)
 -- myColor = 0  (transparent black)
 ```
 ## Color gradients
 ### ironbowColor(), jetColor() and greyColor()
-These functions output a color gradient.  
-**Arguments:**  
-- number between 0 and 1.  
-- optional alpha value (0-255).  
+These functions output a color gradient.
+**Arguments:**
+- number between 0 and 1.
+- optional alpha value (0-255).
 
 Returns a 32-bit packed integer (RGBA) using `color()`.
 
 #### Ironbow:
-![Output of ironbowColor()](ironbow.jpg "Output of ironbowColor()")  
+![Output of ironbowColor()](ironbow.jpg "Output of ironbowColor()")
 
 #### Jet:
-![Output of jetColor()](jet.jpg "Output of jetColor()")  
+![Output of jetColor()](jet.jpg "Output of jetColor()")
 
 #### Grey:
-![Output of greyColor()](grey.jpg "Output of greyColor()")  
+![Output of greyColor()](grey.jpg "Output of greyColor()")
 
 
 ### rainbowColor(numOfSteps, step, format)
-Exactly the same as jetColor() but more complicated  
-Arguments:  
-- `numOfSteps` - The total scale of the gradient. The function divides `step` by this value to get a normalized position `x` in [0,1]:  
-  - For `1`, `step` should already be in [0,1].  
-  - For `255`, `step` should be in [0,255].  
-- `step` - The current position along the rainbow gradient.  
-- `format` - Determines output range:  
-  - If `255` or not set, returns a table of floored `0-255` RGBA values.  
+Exactly the same as jetColor() but more complicated
+Arguments:
+- `numOfSteps` - The total scale of the gradient. The function divides `step` by this value to get a normalized position `x` in [0,1]:
+  - For `1`, `step` should already be in [0,1].
+  - For `255`, `step` should be in [0,255].
+- `step` - The current position along the rainbow gradient.
+- `format` - Determines output range:
+  - If `255` or not set, returns a table of floored `0-255` RGBA values.
   - Otherwise, returns a table of `0-1` RGBA values.
 
-![Output of rainbowColor()](rainbow.jpg "Output of rainbowColor()")  
+![Output of rainbowColor()](rainbow.jpg "Output of rainbowColor()")
 ```lua
 local col = rainbowColor(1, 0.0)  -- start of gradient (blue)
 -- col = {0, 0, 255, 255}

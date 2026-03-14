@@ -1,4 +1,8 @@
-# Documentation
+---
+title: envirovement.lua
+layout: beamlua
+date: 2026-01-01
+---
 
 environment.lua
 ## ScatterSky
@@ -42,17 +46,17 @@ Returns and sets the cloud "height" by ID
 ## LevelInfo
 
 ### setFogDensity(fog) getFogDensity()
-Sets and returns the starting distance of the fog. `getFogDensity` also returns the `LevelInfo` object  
-- 0.0001 is the default for most levels  
-- 0.01 is an very dense fog  
+Sets and returns the starting distance of the fog. `getFogDensity` also returns the `LevelInfo` object
+- 0.0001 is the default for most levels
+- 0.01 is an very dense fog
 
-### setFogDensityOffset(fogOffset) getFogDensityOffset()  
-Sets and returns the starting distance of the fog (meters).  
+### setFogDensityOffset(fogOffset) getFogDensityOffset()
+Sets and returns the starting distance of the fog (meters).
 
-### setFogAtmosphereHeight(fogHeight) getFogAtmosphereHeight()  
-Sets and returns the height of the fog (meters).  
+### setFogAtmosphereHeight(fogHeight) getFogAtmosphereHeight()
+Sets and returns the height of the fog (meters).
 
-### setGravity(grav) getGravity()  
+### setGravity(grav) getGravity()
 Sets and returns the gravity. Same numbers as in the environment settings, default is `-9.81`
 
 ## Precipitation

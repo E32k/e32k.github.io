@@ -1,10 +1,8 @@
 ---
-title: Debug Drawer - GELUA
+title: Debug Drawer
 layout: beamlua
 date: 2026-03-09
 ---
-
-# Debug Drawer
 
 These functions help modders visualize objects in 3D.<br>
 The newer [BNG_DBG_DRAW](/BeamNG.lua/common/BNG_DBG_DRAW.html) should be used instead, as it is much faster.

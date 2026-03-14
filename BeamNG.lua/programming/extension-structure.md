@@ -1,10 +1,8 @@
 ---
-title: Writing 0-GC Code - BeamNG.lua
+title: Extension Structure
 layout: beamlua
 date: 2026-03-08
 ---
-
-# Extension Structure
 
 This section explains how extensions work, how they are loaded, and how they interact with the extension manager.
 

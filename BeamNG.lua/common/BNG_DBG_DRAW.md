@@ -1,10 +1,9 @@
 ---
-title: BNG_DBG_DRAW - GELUA
+title: BNG_DBG_DRAW
 layout: beamlua
 date: 2026-03-10
 ---
 
-# BNG_DBG_DRAW
 Source: `common/cdefDebugDraw.lua`
 
 These functions are significantly faster than their `debugDrawer` alternatives.<br>

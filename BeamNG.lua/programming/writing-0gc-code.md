@@ -1,10 +1,8 @@
 ---
-title: Writing 0-GC Code - BeamNG.lua
+title: Writing Zero-Garbage Code
 layout: beamlua
 date: 2026-03-08
 ---
-
-# Writing Zero-Garbage Code
 
 This section will show you some examples of code before and after 0-gc optimization. See [LuaVec3 library](/beamng/lua/common/LuaVec3.html) for all aviable vec3() functions.
 

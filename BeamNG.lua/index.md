@@ -1,10 +1,8 @@
 ---
-title: Lua
+title: BeamNG Lua
 layout: beamlua
 date: 2026-02-26
 ---
-
-# BeamNG Lua
 
 I will try to document most game functions
 
