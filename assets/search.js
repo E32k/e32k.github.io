@@ -26,7 +26,7 @@ CONFIG.searchInput.addEventListener("input", () => {
   } else if (!fetching) {
     // fetch once
     fetching = true;
-    CONFIG.resultsContainer.textContent = "Search loading...";
+    CONFIG.resultsContainer.textContent = "Searching...";
     fetch(CONFIG.searchJson)
       .then(r => r.json())
       .then(data => {
@@ -40,7 +40,7 @@ CONFIG.searchInput.addEventListener("input", () => {
       });
   } else {
     // still fetching
-    CONFIG.resultsContainer.textContent = "Search loading...";
+    CONFIG.resultsContainer.textContent = "Searching...";
   }
 });
 
