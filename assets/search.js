@@ -9,12 +9,8 @@ const CONFIG = {
 
 if (!CONFIG.searchInput || !CONFIG.resultsContainer) return;
 
-let index = [];
-
-fetch(CONFIG.searchJson)
-  .then(r => r.json())
-  .then(data => index = data)
-  .catch(() => CONFIG.resultsContainer.textContent = "Search unavailable.");
+let index = null; // null = not loaded yet
+let fetching = false; // prevent duplicate fetches
 
 CONFIG.searchInput.addEventListener("input", () => {
   const query = CONFIG.searchInput.value.trim().toLowerCase();
@@ -24,6 +20,31 @@ CONFIG.searchInput.addEventListener("input", () => {
     return;
   }
 
+  if (index) {
+    // already loaded
+    searchAndRender(query);
+  } else if (!fetching) {
+    // fetch once
+    fetching = true;
+    CONFIG.resultsContainer.textContent = "Search loading...";
+    fetch(CONFIG.searchJson)
+      .then(r => r.json())
+      .then(data => {
+        index = data;
+        fetching = false;
+        searchAndRender(query);
+      })
+      .catch(() => {
+        fetching = false;
+        CONFIG.resultsContainer.textContent = "Search unavailable.";
+      });
+  } else {
+    // still fetching
+    CONFIG.resultsContainer.textContent = "Search loading...";
+  }
+});
+
+function searchAndRender(query) {
   const results = [];
 
   for (const page of index) {
@@ -44,7 +65,7 @@ CONFIG.searchInput.addEventListener("input", () => {
   }
 
   render(results, query);
-});
+}
 
 function render(results, query) {
   CONFIG.resultsContainer.innerHTML = "";
