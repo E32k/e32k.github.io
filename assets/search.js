@@ -9,8 +9,8 @@ const CONFIG = {
 
 if (!CONFIG.searchInput || !CONFIG.resultsContainer) return;
 
-let index = null; // JSON not loaded yet
-let fetching = false; // prevent duplicate fetches
+let index = null;
+let fetching = false;
 
 CONFIG.searchInput.addEventListener("input", () => {
   const query = CONFIG.searchInput.value.trim().toLowerCase();
@@ -75,23 +75,24 @@ function render(results, query) {
   const regex = new RegExp(`(${escapeRegExp(query)})`, "gi");
 
   for (const { page, snippet } of results) {
-    // <a> wrapper, whole block clickable
-    const resultLink = document.createElement("a");
-    resultLink.className = "search-result";
-    resultLink.href = page.url;
-    resultLink.style.display = "block"; // make the whole area clickable
-    resultLink.style.textDecoration = "none"; // optional: remove underline
-    resultLink.style.color = "inherit"; // optional: inherit text color
+    const link = document.createElement("a");
+    link.href = page.url;
+    link.style.textDecoration = "none";
+    link.style.color = "inherit";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "search-result";
 
     const title = document.createElement("h3");
     title.textContent = page.title || page.url;
-    resultLink.appendChild(title);
+    wrapper.appendChild(title);
 
     const p = document.createElement("p");
     p.innerHTML = snippet.replace(regex, "<mark>$1</mark>");
-    resultLink.appendChild(p);
+    wrapper.appendChild(p);
 
-    CONFIG.resultsContainer.appendChild(resultLink);
+    link.appendChild(wrapper);
+    CONFIG.resultsContainer.appendChild(link);
   }
 }
 
