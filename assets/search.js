@@ -9,7 +9,7 @@ const CONFIG = {
 
 if (!CONFIG.searchInput || !CONFIG.resultsContainer) return;
 
-let index = null; // null = not loaded yet
+let index = null; // JSON not loaded yet
 let fetching = false; // prevent duplicate fetches
 
 CONFIG.searchInput.addEventListener("input", () => {
@@ -21,10 +21,8 @@ CONFIG.searchInput.addEventListener("input", () => {
   }
 
   if (index) {
-    // already loaded
     searchAndRender(query);
   } else if (!fetching) {
-    // fetch once
     fetching = true;
     CONFIG.resultsContainer.textContent = "Searching...";
     fetch(CONFIG.searchJson)
@@ -39,7 +37,6 @@ CONFIG.searchInput.addEventListener("input", () => {
         CONFIG.resultsContainer.textContent = "Search unavailable.";
       });
   } else {
-    // still fetching
     CONFIG.resultsContainer.textContent = "Searching...";
   }
 });
@@ -78,21 +75,23 @@ function render(results, query) {
   const regex = new RegExp(`(${escapeRegExp(query)})`, "gi");
 
   for (const { page, snippet } of results) {
-
-    const result = document.createElement("a");
-    result.className = "search-result";
-    result.href = page.url;
+    // <a> wrapper, whole block clickable
+    const resultLink = document.createElement("a");
+    resultLink.className = "search-result";
+    resultLink.href = page.url;
+    resultLink.style.display = "block"; // make the whole area clickable
+    resultLink.style.textDecoration = "none"; // optional: remove underline
+    resultLink.style.color = "inherit"; // optional: inherit text color
 
     const title = document.createElement("h3");
     title.textContent = page.title || page.url;
+    resultLink.appendChild(title);
 
     const p = document.createElement("p");
     p.innerHTML = snippet.replace(regex, "<mark>$1</mark>");
+    resultLink.appendChild(p);
 
-    result.appendChild(title);
-    result.appendChild(p);
-
-    CONFIG.resultsContainer.appendChild(result);
+    CONFIG.resultsContainer.appendChild(resultLink);
   }
 }
 
