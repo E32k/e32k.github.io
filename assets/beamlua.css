@@ -288,7 +288,7 @@ mark {
 MARK: Sidebar Container
 */
 
-/* navigation container */
+/* MARK: Sidebar Container (desktop) */
 #sites {
   font-family: "Overpass", sans-serif;
 }
@@ -322,6 +322,56 @@ MARK: Sidebar Container
 /* pages */
 #sites .page {
   font-weight: 400;
+}
+
+/* MARK: Mobile overlay container */
+#sites-container {
+  display: none;            /* hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.97);
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 1rem;
+  font-family: "Overpass", sans-serif;
+}
+
+/* mobile folders and pages same styling */
+#sites-container .folder > :first-child {
+  font-weight: 600;
+}
+#sites-container .children {
+  margin-left: 16px;
+}
+#sites-container .folder:not(.open) > .children {
+  display: none;
+}
+#sites-container .active {
+  font-weight: bold;
+}
+#sites-container .page {
+  font-weight: 400;
+}
+
+/* optional: fade-in for mobile overlay */
+#sites-container.show {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* mobile only: hide desktop aside */
+@media (max-width: 768px) {
+  #sites {
+    display: none;
+  }
 }
 
 /*

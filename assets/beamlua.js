@@ -1,129 +1,115 @@
 //MARK: Sites navigation
-const sites = document.getElementById("sites")
-const burger = document.getElementById("nav-burger")
+const sites = document.getElementById("sites");
+const burger = document.getElementById("nav-burger");
+const mobileContainer = document.getElementById("sites-container");
 
 function isMobile() {
-  return window.innerWidth < 768
+  return window.innerWidth < 768;
 }
 
-function closeAllFolders() {
-  document.querySelectorAll(".folder.open").forEach(f => {
-    f.classList.remove("open")
-  })
+function closeAllFolders(container) {
+  container.querySelectorAll(".folder.open").forEach(f => {
+    f.classList.remove("open");
+  });
 }
 
 function createItem(item) {
-
-  const el = document.createElement("div")
-  el.textContent = item.title
-  el.dataset.path = item.path
+  const el = document.createElement("div");
+  el.textContent = item.title;
+  el.dataset.path = item.path;
 
   if (item.children) {
+    el.className = "folder";
 
-    el.className = "folder"
-
-    const children = document.createElement("div")
-    children.className = "children"
+    const children = document.createElement("div");
+    children.className = "children";
 
     item.children.forEach(child => {
-      children.appendChild(createItem(child))
-    })
+      children.appendChild(createItem(child));
+    });
 
-    el.appendChild(children)
+    el.appendChild(children);
 
     el.addEventListener("click", e => {
-
       if (!isMobile()) {
-        location.href = item.path
-        return
+        location.href = item.path;
+        return;
       }
 
       if (!el.classList.contains("open")) {
-        e.preventDefault()
-        closeAllFolders()
-        el.classList.add("open")
+        e.preventDefault();
+        closeAllFolders(el.parentNode);
+        el.classList.add("open");
       } else {
-        location.href = item.path
+        location.href = item.path;
       }
 
-      e.stopPropagation()
-    })
+      e.stopPropagation();
+    });
 
   } else {
-
-    el.className = "page"
-
+    el.className = "page";
     el.addEventListener("click", e => {
-      e.stopPropagation()
-      location.href = item.path
-    })
-
+      e.stopPropagation();
+      location.href = item.path;
+    });
   }
 
-  return el
+  return el;
 }
 
-function buildNav(data) {
+function buildNav(data, container) {
+  container.innerHTML = ""; // clear existing
   data.forEach(item => {
-    sites.appendChild(createItem(item))
-  })
+    container.appendChild(createItem(item));
+  });
 }
 
 function findBranch(data, target, parents = []) {
-
   for (const item of data) {
-
-    if (item.path === target) {
-      return [...parents, item]
-    }
-
+    if (item.path === target) return [...parents, item];
     if (item.children) {
-      const result = findBranch(item.children, target, [...parents, item])
-      if (result) return result
+      const result = findBranch(item.children, target, [...parents, item]);
+      if (result) return result;
     }
-
   }
-
-  return null
+  return null;
 }
 
-function openCurrentPage(navData) {
-
-  const path = window.location.pathname
-  const branch = findBranch(navData, path)
-
-  if (!branch) return
+function openCurrentPage(navData, container) {
+  const path = window.location.pathname;
+  const branch = findBranch(navData, path);
+  if (!branch) return;
 
   branch.forEach(node => {
-
-    const el = sites.querySelector(`[data-path="${node.path}"]`)
-
-    if (!el) return
-
-    el.classList.add("active")
-
-    if (el.classList.contains("folder")) {
-      el.classList.add("open")
-    }
-
-  })
+    const el = container.querySelector(`[data-path="${node.path}"]`);
+    if (!el) return;
+    el.classList.add("active");
+    if (el.classList.contains("folder")) el.classList.add("open");
+  });
 }
 
+// MARK: Burger menu toggle
 burger.addEventListener("click", () => {
-  sites.classList.toggle("open")
-})
+  if (!isMobile()) return;
+  mobileContainer.style.display = mobileContainer.style.display === "block" ? "none" : "block";
+});
 
+// MARK: Initialize nav
 async function initNav() {
+  const res = await fetch("/assets/sites.json");
+  const navData = await res.json();
 
-  const res = await fetch("/assets/sites.json")
-  const navData = await res.json()
+  // Build desktop nav
+  buildNav(navData, sites);
+  openCurrentPage(navData, sites);
 
-  buildNav(navData)
-  openCurrentPage(navData)
-
+  // Build mobile overlay nav
+  buildNav(navData, mobileContainer);
+  openCurrentPage(navData, mobileContainer);
 }
 
-initNav()
+initNav();
 
 
 
