@@ -1,0 +1,36 @@
+[
+  {
+    "title": "Programming",
+    "path": "/BeamNG.lua/programming/",
+    "children": [
+      {
+        "title": "Optimizing GC",
+        "path": "/BeamNG.lua/programming/writing-0gc-code.html"
+      }
+    ]
+  },
+  {
+    "title": "common",
+    "path": "/BeamNG.lua/common/",
+    "children": [
+      {
+        "title": "BNG_DBG_DRAW",
+        "path": "/BeamNG.lua/common/BNG_DBG_DRAW.html"
+      },
+      {
+        "title": "LuaVec3",
+        "path": "/BeamNG.lua/common/LuaVec3.html"
+      }
+    ]
+  },
+  {
+    "title": "vehicle",
+    "path": "/BeamNG.lua/vehicle/",
+    "children": [
+      {
+        "title": "obj",
+        "path": "/BeamNG.lua/vehicle/obj.html"
+      }
+    ]
+  }
+]

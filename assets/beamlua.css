@@ -288,17 +288,17 @@ mark {
 MARK: Sidebar Container
 */
 
-.sites {
+#sites {
   width: fit-content;
   padding: 1rem;
   background-color: var(--bg-color2);
   border-right: 1px solid var(--divider);
   transition: background-color 0.3s ease;
 }
-.sites, .sites * {user-select: none} /* Disable selecting text*/
+#sites, #sites * {user-select: none} /* Disable selecting text*/
 
 /* Font Style */
-.sites a {
+#sites a {
   text-decoration: none;
   color: var(--text-color2);
   transition: color 0.15s ease;
@@ -306,16 +306,16 @@ MARK: Sidebar Container
 }
 
 /* Nested details & links */
-.sites details details {margin-left: 1em}
-.sites-page {
+#sites details details {margin-left: 1em}
+#sites-page {
   margin-left: 1.7em;
   display: flex;
   flex-direction: column;
 }
 
 /* Remove default arrow */
-.sites summary::-webkit-details-marker {display: none}
-.sites summary {
+#sites summary::-webkit-details-marker {display: none}
+#sites summary {
   list-style: none;
   cursor: pointer;
   position: relative;
@@ -323,8 +323,8 @@ MARK: Sidebar Container
 }
 
 /* Arrow on the left */
-.sites details[open] > summary::after {transform: rotate(90deg)}
-.sites summary::after {
+#sites details[open] > summary::after {transform: rotate(90deg)}
+#sites summary::after {
   font-family: monospace;
   font-weight: bold;
   content: '>';

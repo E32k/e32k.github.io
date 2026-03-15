@@ -1,18 +1,129 @@
-//MARK: Save state of sites
-//saves opened and closed sites when the user refreshes
-document.addEventListener('DOMContentLoaded', () => {
-  const detailsList = document.querySelectorAll('.sites details');
-  const saved = JSON.parse(localStorage.getItem('detailsState') || '{}');
-  detailsList.forEach((detail, index) => {
-    if (saved[index]) detail.open = true;
-    else detail.open = false;
-    detail.addEventListener('toggle', () => {
-      const state = {};
-      detailsList.forEach((d, i) => state[i] = d.open);
-      localStorage.setItem('detailsState', JSON.stringify(state));
-    });
-  });
-});
+//MARK: Sites navigation
+const sites = document.getElementById("sites")
+const burger = document.getElementById("nav-burger")
+
+function isMobile() {
+  return window.innerWidth < 768
+}
+
+function closeAllFolders() {
+  document.querySelectorAll(".folder.open").forEach(f => {
+    f.classList.remove("open")
+  })
+}
+
+function createItem(item) {
+
+  const el = document.createElement("div")
+  el.textContent = item.title
+  el.dataset.path = item.path
+
+  if (item.children) {
+
+    el.className = "folder"
+
+    const children = document.createElement("div")
+    children.className = "children"
+
+    item.children.forEach(child => {
+      children.appendChild(createItem(child))
+    })
+
+    el.appendChild(children)
+
+    el.addEventListener("click", e => {
+
+      if (!isMobile()) {
+        location.href = item.path
+        return
+      }
+
+      if (!el.classList.contains("open")) {
+        e.preventDefault()
+        closeAllFolders()
+        el.classList.add("open")
+      } else {
+        location.href = item.path
+      }
+
+      e.stopPropagation()
+    })
+
+  } else {
+
+    el.className = "page"
+
+    el.addEventListener("click", e => {
+      e.stopPropagation()
+      location.href = item.path
+    })
+
+  }
+
+  return el
+}
+
+function buildNav(data) {
+  data.forEach(item => {
+    sites.appendChild(createItem(item))
+  })
+}
+
+function findBranch(data, target, parents = []) {
+
+  for (const item of data) {
+
+    if (item.path === target) {
+      return [...parents, item]
+    }
+
+    if (item.children) {
+      const result = findBranch(item.children, target, [...parents, item])
+      if (result) return result
+    }
+
+  }
+
+  return null
+}
+
+function openCurrentPage(navData) {
+
+  const path = window.location.pathname
+  const branch = findBranch(navData, path)
+
+  if (!branch) return
+
+  branch.forEach(node => {
+
+    const el = sites.querySelector(`[data-path="${node.path}"]`)
+
+    if (!el) return
+
+    el.classList.add("active")
+
+    if (el.classList.contains("folder")) {
+      el.classList.add("open")
+    }
+
+  })
+}
+
+burger.addEventListener("click", () => {
+  sites.classList.toggle("open")
+})
+
+async function initNav() {
+
+  const res = await fetch("/assets/sites.json")
+  const navData = await res.json()
+
+  buildNav(navData)
+  openCurrentPage(navData)
+
+}
+
+initNav()
 
 
 
