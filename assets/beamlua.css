@@ -288,6 +288,43 @@ mark {
 MARK: Sidebar Container
 */
 
+/* navigation container */
+#sites {
+  font-family: "Overpass", sans-serif;
+}
+
+/* every item */
+#sites div {
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+/* folders */
+#sites .folder > :first-child {
+  font-weight: 600;
+}
+
+/* child container */
+#sites .children {
+  margin-left: 16px;
+}
+
+/* hide closed folders */
+#sites .folder:not(.open) > .children {
+  display: none;
+}
+
+/* active page */
+#sites .active {
+  font-weight: bold;
+}
+
+/* pages */
+#sites .page {
+  font-weight: 400;
+}
+
+/*
 #sites {
   width: fit-content;
   padding: 1rem;
@@ -295,9 +332,8 @@ MARK: Sidebar Container
   border-right: 1px solid var(--divider);
   transition: background-color 0.3s ease;
 }
-#sites, #sites * {user-select: none} /* Disable selecting text*/
+#sites, #sites * {user-select: none}
 
-/* Font Style */
 #sites a {
   text-decoration: none;
   color: var(--text-color2);
@@ -305,7 +341,6 @@ MARK: Sidebar Container
   font-weight: 600;
 }
 
-/* Nested details & links */
 #sites details details {margin-left: 1em}
 #sites-page {
   margin-left: 1.7em;
@@ -313,16 +348,14 @@ MARK: Sidebar Container
   flex-direction: column;
 }
 
-/* Remove default arrow */
 #sites summary::-webkit-details-marker {display: none}
 #sites summary {
   list-style: none;
   cursor: pointer;
   position: relative;
-  padding-left: 0.7em; /* space for arrow */
+  padding-left: 0.7em;
 }
 
-/* Arrow on the left */
 #sites details[open] > summary::after {transform: rotate(90deg)}
 #sites summary::after {
   font-family: monospace;
@@ -331,7 +364,7 @@ MARK: Sidebar Container
   position: absolute;
   left: 0;
 }
-
+*/
 
 
 /*
