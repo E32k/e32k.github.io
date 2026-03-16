@@ -7,12 +7,6 @@ function isMobile() {
   return window.innerWidth < 768
 }
 
-function closeAllFolders(container) {
-  (container || document).querySelectorAll(".folder.open").forEach(f => {
-    f.classList.remove("open")
-  })
-}
-
 function createItem(item) {
   const el = document.createElement("div")
   el.textContent = item.title
@@ -37,7 +31,9 @@ function createItem(item) {
 
       if (!el.classList.contains("open")) {
         e.preventDefault()
-        closeAllFolders(mobileContainer)
+        (mobileContainer || document).querySelectorAll(".folder.open").forEach(f => {
+          f.classList.remove("open")
+        })
         el.classList.add("open")
       } else {
         location.href = item.path
@@ -54,17 +50,6 @@ function createItem(item) {
   }
 
   return el
-}
-
-function buildNav(data) {
-  if (!sites) return
-  sites.innerHTML = ""
-  data.forEach(item => sites.appendChild(createItem(item)))
-
-  if (mobileContainer) {
-    mobileContainer.innerHTML = ""
-    data.forEach(item => mobileContainer.appendChild(createItem(item)))
-  }
 }
 
 function findBranch(data, target, parents = []) {
@@ -109,11 +94,21 @@ burger.addEventListener("click", () => {
 async function initNav() {
   const res = await fetch("/assets/sites.json")
   const navData = await res.json()
-  buildNav(navData)
+  // build the nav
+  if (sites) {
+    sites.innerHTML = ""
+    navData.forEach(item => sites.appendChild(createItem(item)))
+  }
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = ""
+    navData.forEach(item => mobileContainer.appendChild(createItem(item)))
+  }
+
   openCurrentPage(navData)
 }
 
-initNav()
+document.addEventListener("DOMContentLoaded", initNav)
 
 
 
