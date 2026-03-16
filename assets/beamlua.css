@@ -18,8 +18,8 @@
   scroll-behavior: smooth;
   scrollbar-width: thin; }
 *::-webkit-scrollbar {
-  width: 7Q;
-  height: 7Q; }
+  width: 7q;
+  height: 7q; }
 
 body, body * {
   scrollbar-color: #f60 #E5E9F2; }
@@ -199,6 +199,7 @@ mark {
   min-height: 60vh;
 }
 
+
 .overview {
   background: #eee;
   padding: 1rem;
@@ -280,6 +281,7 @@ mark {
 
 @media (max-width: 1000px) {
   .overview {display: none}
+  .layout {display: block}
 }
 
 
@@ -288,8 +290,11 @@ mark {
 MARK: Sidebar Container
 */
 
-/* MARK: Sidebar Container (desktop) */
 #sites {
+  width: 260px;
+  padding: 1rem;
+  background-color: var(--bg-color2);
+  border-right: 1px solid var(--divider);
   font-family: "Overpass", sans-serif;
 }
 
@@ -324,53 +329,34 @@ MARK: Sidebar Container
   font-weight: 400;
 }
 
-/* MARK: Mobile overlay container */
-#sites-container {
-  display: none;            /* hidden by default */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.97);
-  z-index: 9999;
-  overflow-y: auto;
-  padding: 1rem;
-  font-family: "Overpass", sans-serif;
-}
-
-/* mobile folders and pages same styling */
-#sites-container .folder > :first-child {
-  font-weight: 600;
-}
-#sites-container .children {
-  margin-left: 16px;
-}
-#sites-container .folder:not(.open) > .children {
+/* MOBILE */
+#nav-burger {
   display: none;
 }
-#sites-container .active {
-  font-weight: bold;
-}
-#sites-container .page {
-  font-weight: 400;
-}
 
-/* optional: fade-in for mobile overlay */
-#sites-container.show {
-  display: block;
-  animation: fadeIn 0.2s ease;
-}
+@media (max-width: 1000px) {
 
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
+  #nav-burger {
+    display: block;
+  }
 
-/* mobile only: hide desktop aside */
-@media (max-width: 768px) {
   #sites {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+
+    background: white;
+    z-index: 9999;
+    overflow-y: auto;
+
+    transition: left 0.25s ease;
+  }
+
+  #sites.open {
+    left: 0;
   }
 }
 

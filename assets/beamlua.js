@@ -1,10 +1,9 @@
-//MARK: Sites navigation
+// MARK: Sites navigation
 const sites = document.getElementById("sites")
-const mobileContainer = document.getElementById("sites-container")
 const burger = document.getElementById("nav-burger")
 
 function isMobile() {
-  return window.innerWidth < 768
+  return window.innerWidth < 1000
 }
 
 function createItem(item) {
@@ -14,6 +13,7 @@ function createItem(item) {
 
   if (item.children) {
     el.className = "folder"
+
     const children = document.createElement("div")
     children.className = "children"
 
@@ -24,25 +24,18 @@ function createItem(item) {
     el.appendChild(children)
 
     el.addEventListener("click", e => {
-      if (!isMobile()) {
-        location.href = item.path
-        return
-      }
+      e.stopPropagation()
 
-      if (!el.classList.contains("open")) {
-        e.preventDefault()
-        (mobileContainer || document).querySelectorAll(".folder.open").forEach(f => {
-          f.classList.remove("open")
-        })
-        el.classList.add("open")
+      if (isMobile()) {
+        el.classList.toggle("open")
       } else {
         location.href = item.path
       }
-
-      e.stopPropagation()
     })
+
   } else {
     el.className = "page"
+
     el.addEventListener("click", e => {
       e.stopPropagation()
       location.href = item.path
@@ -55,6 +48,7 @@ function createItem(item) {
 function findBranch(data, target, parents = []) {
   for (const item of data) {
     if (item.path === target) return [...parents, item]
+
     if (item.children) {
       const result = findBranch(item.children, target, [...parents, item])
       if (result) return result
@@ -66,44 +60,35 @@ function findBranch(data, target, parents = []) {
 function openCurrentPage(navData) {
   const path = window.location.pathname
   const branch = findBranch(navData, path)
+
   if (!branch) return
 
   branch.forEach(node => {
-    const elDesktop = sites.querySelector(`[data-path="${node.path}"]`)
-    if (elDesktop) {
-      elDesktop.classList.add("active")
-      if (elDesktop.classList.contains("folder")) elDesktop.classList.add("open")
-    }
+    const el = sites.querySelector(`[data-path="${node.path}"]`)
+    if (!el) return
 
-    if (mobileContainer) {
-      const elMobile = mobileContainer.querySelector(`[data-path="${node.path}"]`)
-      if (elMobile) {
-        elMobile.classList.add("active")
-        if (elMobile.classList.contains("folder")) elMobile.classList.add("open")
-      }
+    el.classList.add("active")
+
+    if (el.classList.contains("folder")) {
+      el.classList.add("open")
     }
   })
 }
 
-// Burger toggle for mobile
+// burger toggle
 burger.addEventListener("click", () => {
-  if (!isMobile() || !mobileContainer) return
-  mobileContainer.classList.toggle("show")
+  sites.classList.toggle("open")
 })
 
 async function initNav() {
   const res = await fetch("/assets/sites.json")
   const navData = await res.json()
-  // build the nav
-  if (sites) {
-    sites.innerHTML = ""
-    navData.forEach(item => sites.appendChild(createItem(item)))
-  }
 
-  if (mobileContainer) {
-    mobileContainer.innerHTML = ""
-    navData.forEach(item => mobileContainer.appendChild(createItem(item)))
-  }
+  sites.innerHTML = ""
+
+  navData.forEach(item => {
+    sites.appendChild(createItem(item))
+  })
 
   openCurrentPage(navData)
 }
