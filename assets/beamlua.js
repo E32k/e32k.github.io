@@ -2,108 +2,49 @@
 const sites = document.getElementById("sites")
 const burger = document.getElementById("nav-burger")
 
-function isMobile() {
-  return window.innerWidth < 1000
+function normalize(path) {
+  return path.replace(/\/+$/, "")
 }
 
-function createItem(item) {
-  const el = document.createElement("div")
-  el.dataset.path = item.path
+function openCurrentPage() {
+  const current = normalize(window.location.pathname)
 
-  if (item.children) {
-    el.className = "folder"
+  const links = sites.querySelectorAll("a")
 
-    const folderName = document.createElement("div")
-    folderName.className = "folder-name"
-    folderName.textContent = item.title
-    el.appendChild(folderName)
+  links.forEach(link => {
+    const href = normalize(link.getAttribute("href"))
 
-    const children = document.createElement("div")
-    children.className = "children"
+    if (href === current) {
+      link.classList.add("active")
 
-    item.children.forEach(child => {
-      children.appendChild(createItem(child))
-    })
+      let el = link.parentElement
 
-    el.appendChild(children)
+      while (el && el !== sites) {
+        // open top-level folders
+        if (el.classList.contains("sites-folder")) {
+          el.classList.add("open", "active")
+        }
 
-    el.addEventListener("click", e => {
-      e.stopPropagation()
+        // open nested folders (li that has a sublist)
+        if (
+          el.tagName === "LI" &&
+          el.querySelector(":scope > ul")
+        ) {
+          el.classList.add("open", "active")
+        }
 
-      if (isMobile()) {
-        el.classList.toggle("open")
-      } else {
-        location.href = item.path
+        el = el.parentElement
       }
-    })
-
-  } else {
-    el.className = "page"
-
-    const pageName = document.createElement("div")
-    pageName.className = "page-name"
-    pageName.textContent = item.title
-    el.appendChild(pageName)
-
-    el.addEventListener("click", e => {
-      e.stopPropagation()
-      location.href = item.path
-    })
-  }
-
-  return el
-}
-
-function findBranch(data, target, parents = []) {
-  for (const item of data) {
-    if (item.path === target) return [...parents, item]
-
-    if (item.children) {
-      const result = findBranch(item.children, target, [...parents, item])
-      if (result) return result
-    }
-  }
-  return null
-}
-
-function openCurrentPage(navData) {
-  const path = window.location.pathname
-  const branch = findBranch(navData, path)
-
-  if (!branch) return
-
-  branch.forEach(node => {
-    const el = sites.querySelector(`[data-path="${node.path}"]`)
-    if (!el) return
-
-    el.classList.add("active")
-
-    if (el.classList.contains("folder")) {
-      el.classList.add("open")
     }
   })
 }
 
-// burger toggle
+// burger toggle (unchanged)
 burger.addEventListener("click", () => {
   sites.classList.toggle("open")
 })
 
-async function initNav() {
-  const res = await fetch("/assets/sites.json")
-  const navData = await res.json()
-
-  sites.innerHTML = ""
-
-  navData.forEach(item => {
-    sites.appendChild(createItem(item))
-  })
-
-  openCurrentPage(navData)
-}
-
-document.addEventListener("DOMContentLoaded", initNav)
-
+document.addEventListener("DOMContentLoaded", openCurrentPage)
 
 
 

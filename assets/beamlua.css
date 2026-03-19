@@ -298,53 +298,45 @@ MARK: Sidebar Container
   font-family: "Overpass", sans-serif;
 }
 
-/* folders and pages */
-#sites .folder,
-#sites .page {
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-}
-
-/* folder and page names */
-#sites .folder-name,
-#sites .page-name {
-  padding: 4px 8px;
+/* basic link styling */
+#sites a {
   display: block;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 4px 8px;
+  text-decoration: none;
 }
 
-/* folder names */
-#sites .folder-name {
+/* folder labels */
+#sites .sites-folder > a {
   font-weight: 600;
 }
 
-/* page names */
-#sites .page-name {
-  font-weight: 400;
-}
-
-/* open folders */
-#sites .folder.open > .folder-name {
-  background-color: #ddd;
-  border-bottom: 1px solid #f60;
-}
-
-/* child container */
-#sites .children {
+/* nested items */
+#sites ul {
   margin-left: 16px;
+  padding-left: 0;
 }
 
-/* hide closed folders */
-#sites .folder:not(.open) > .children {
+/* hide all nested lists */
+#sites .sites-folder > ul,
+#sites li > ul {
   display: none;
 }
 
+/* show opened folders */
+#sites .sites-folder.open > ul,
+#sites li.open > ul {
+  display: block;
+}
+
 /* active page */
-#sites .active .folder-name,
-#sites .active .page-name {
+#sites a.active {
   font-weight: bold;
+}
+
+/* highlight open folder */
+#sites .sites-folder.open > a {
+  background-color: #ddd;
+  border-bottom: 1px solid #f60;
 }
 
 /* MOBILE */
@@ -353,7 +345,6 @@ MARK: Sidebar Container
 }
 
 @media (max-width: 1000px) {
-
   #nav-burger {
     display: block;
   }
