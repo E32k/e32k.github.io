@@ -13,6 +13,13 @@
   },{
     "title": "ge", "path": "/BeamNG.lua/ge/",
     "children": [
+      {
+        "title": "test", "path": "/BeamNG.lua/ge/",
+        "children": [
+          {"title": "test2", "path": "/BeamNG.lua/ge/playerVehicle.html"},
+          {"title": "test3", "path": "/BeamNG.lua/ge/debugDrawer.html"}
+        ]
+      },
       {"title": "playerVehicle", "path": "/BeamNG.lua/ge/playerVehicle.html"},
       {"title": "debugDrawer", "path": "/BeamNG.lua/ge/debugDrawer.html"}
     ]
