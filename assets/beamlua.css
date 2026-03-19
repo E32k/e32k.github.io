@@ -298,15 +298,37 @@ MARK: Sidebar Container
   font-family: "Overpass", sans-serif;
 }
 
-/* every item */
-#sites div {
+/* folders and pages */
+#sites .folder,
+#sites .page {
   cursor: pointer;
-  padding: 4px 0;
+  margin: 0;
+  padding: 0;
 }
 
-/* folders */
-#sites .folder > :first-child {
+/* folder and page names */
+#sites .folder-name,
+#sites .page-name {
+  padding: 4px 8px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* folder names */
+#sites .folder-name {
   font-weight: 600;
+}
+
+/* page names */
+#sites .page-name {
+  font-weight: 400;
+}
+
+/* open folders */
+#sites .folder.open > .folder-name {
+  background-color: #ddd;
+  border-bottom: 1px solid #f60;
 }
 
 /* child container */
@@ -320,13 +342,9 @@ MARK: Sidebar Container
 }
 
 /* active page */
-#sites .active {
+#sites .active .folder-name,
+#sites .active .page-name {
   font-weight: bold;
-}
-
-/* pages */
-#sites .page {
-  font-weight: 400;
 }
 
 /* MOBILE */

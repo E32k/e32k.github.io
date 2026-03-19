@@ -8,11 +8,15 @@ function isMobile() {
 
 function createItem(item) {
   const el = document.createElement("div")
-  el.textContent = item.title
   el.dataset.path = item.path
 
   if (item.children) {
     el.className = "folder"
+
+    const folderName = document.createElement("div")
+    folderName.className = "folder-name"
+    folderName.textContent = item.title
+    el.appendChild(folderName)
 
     const children = document.createElement("div")
     children.className = "children"
@@ -35,6 +39,11 @@ function createItem(item) {
 
   } else {
     el.className = "page"
+
+    const pageName = document.createElement("div")
+    pageName.className = "page-name"
+    pageName.textContent = item.title
+    el.appendChild(pageName)
 
     el.addEventListener("click", e => {
       e.stopPropagation()
