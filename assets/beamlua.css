@@ -292,9 +292,8 @@ MARK: Sidebar Container
 
 #sites {
   width: 15em;
-  background-color: var(--bg-color2);
-  border-right: 1px solid var(--divider);
-  font-family: "Overpass", sans-serif;
+  /*background-color: var(--bg-color2);*/
+  /*border-right: 1px solid var(--divider);*/
 }
 
 /* basic link styling */
@@ -303,6 +302,8 @@ MARK: Sidebar Container
   padding: 4px 8px;
   text-decoration: none;
 }
+
+#sites a:hover { color: var(--bng-orange); }
 
 /* nested items */
 #sites ul {
