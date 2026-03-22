@@ -316,19 +316,22 @@ MARK: Sidebar Container
   list-style: none;
 }
 
-#sites a::before {
-  display: inline-block;
-  width: 1em;
-  margin-right: 4px;
-  content: "";
+/* make folder link a relative container */
+#sites li.sites-folder > a {
+  position: relative;
+  padding-left: 1.5em; /* space for arrow */
 }
 
-/* closed */
+/* closed folder arrow */
 #sites li.sites-folder > a::before {
   content: ">";
+  position: absolute;
+  left: 0;       /* place arrow in reserved space */
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* open */
+/* open folder arrow */
 #sites li.sites-folder.open > a::before {
   content: "v";
 }
