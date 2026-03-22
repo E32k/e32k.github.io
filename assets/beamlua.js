@@ -1,50 +1,28 @@
 // MARK: Sites navigation
 const sites = document.getElementById("sites")
-const burger = document.getElementById("nav-burger")
 
-function normalize(path) {
-  return path.replace(/\/+$/, "")
-}
-
-function openCurrentPage() {
-  const current = normalize(window.location.pathname)
-
+document.addEventListener("DOMContentLoaded", () => {
+  const current = window.location.pathname.replace(/\/+$/, "")
   const links = sites.querySelectorAll("a")
 
   links.forEach(link => {
-    const href = normalize(link.getAttribute("href"))
+    const href = link.getAttribute("href").replace(/\/+$/, "")
 
     if (href === current) {
+      // Add active class to the current page link
       link.classList.add("active")
 
-      let el = link.parentElement
-
-      while (el && el !== sites) {
-        // open top-level folders
-        if (el.classList.contains("main-folder")) {
-          el.classList.add("open", "active")
-        }
-
-        // open nested folders (li that has a sublist)
-        if (
-          el.tagName === "LI" &&
-          el.querySelector(":scope > ul")
-        ) {
-          el.classList.add("open", "active")
-        }
-
-        el = el.parentElement
-      }
+      // Add open class only to the top-level folder
+      let parent = link.closest(".sites-folder")
+      if (parent) { parent.classList.add("open") }
     }
   })
-}
-
-// burger toggle (unchanged)
-burger.addEventListener("click", () => {
-  sites.classList.toggle("open")
 })
 
-document.addEventListener("DOMContentLoaded", openCurrentPage)
+// burger toggle
+document.getElementById("nav-burger").addEventListener("click", () => {
+  sites.classList.toggle("open")
+})
 
 
 
