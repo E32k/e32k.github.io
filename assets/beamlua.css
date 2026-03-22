@@ -302,6 +302,7 @@ MARK: Sidebar Container
   display: block;
   padding: 4px 8px;
   text-decoration: none;
+  color: black;
 }
 
 /* folder labels */
@@ -314,6 +315,32 @@ MARK: Sidebar Container
   padding-left: 1em;
   list-style: none;
 }
+
+#sites a::before {
+  display: inline-block;
+  width: 1em;
+  margin-right: 4px;
+  content: "";
+}
+
+/* closed */
+#sites li.sites-folder > a::before {
+  content: ">";
+}
+
+/* open */
+#sites li.sites-folder.open > a::before {
+  content: "v";
+}
+
+
+
+
+
+
+
+
+
 
 /* hide all nested lists */
 #sites .main-folder > ul,
