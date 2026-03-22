@@ -291,7 +291,7 @@ MARK: Sidebar Container
 */
 
 #sites {
-  width: 260px;
+  width: 15em;
   background-color: var(--bg-color2);
   border-right: 1px solid var(--divider);
   font-family: "Overpass", sans-serif;
@@ -302,9 +302,7 @@ MARK: Sidebar Container
   display: block;
   padding: 4px 8px;
   text-decoration: none;
-  color: black;
 }
-#sites a:hover { color: var(--bng-orange); }
 
 /* nested items */
 #sites ul {
@@ -317,14 +315,17 @@ MARK: Sidebar Container
 }
 
 
-#sites .sites-folder > a { font-weight: 600; }
-#sites .sites-folder > a.active { font-weight: 800; }
 
 #sites .sites-folder > ul { display: none; }
 #sites .sites-folder.open > ul { display: block; }
 
+#sites .sites-folder > a {
+  background-color: #F2F4F8;
+  color: #405481;
+}
+
 #sites .sites-folder.open > a {
-  background-color: #ddd;
+  background-color: #E5E9F2;
   border-bottom: 1px solid #f60;
 }
 
