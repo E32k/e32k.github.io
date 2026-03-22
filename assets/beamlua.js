@@ -21,7 +21,7 @@ function openCurrentPage() {
 
       while (el && el !== sites) {
         // open top-level folders
-        if (el.classList.contains("sites-folder")) {
+        if (el.classList.contains("main-folder")) {
           el.classList.add("open", "active")
         }
 
