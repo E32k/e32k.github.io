@@ -315,6 +315,10 @@ MARK: Sidebar Container
   color: var(--bng-orange);
 }
 
+#sites .sites-folder > ul {
+  padding: 0;
+  margin: 0;
+}
 
 
 #sites .sites-folder > ul { display: none; }
