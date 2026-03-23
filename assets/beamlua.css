@@ -303,7 +303,6 @@ MARK: Sidebar Container
   text-decoration: none;
 }
 
-#sites a:hover { text-decoration: underline; }
 
 /* nested items */
 #sites ul {
@@ -312,13 +311,9 @@ MARK: Sidebar Container
   list-style: none;
 }
 
-#sites li > a {
-  color: #507A95;
-}
-
-#sites li > a.active {
-  color: var(--bng-orange);
-}
+#sites li > a { color: #507A95; }
+#sites li > a.active { color: var(--bng-orange); }
+#sites li > a:hover { text-decoration: underline; }
 
 #sites .sites-folder > ul {
   padding: 0;
