@@ -303,7 +303,7 @@ MARK: Sidebar Container
   text-decoration: none;
 }
 
-#sites a:hover { color: var(--bng-orange); }
+#sites a:hover { text-decoration: underline; }
 
 /* nested items */
 #sites ul {
@@ -332,6 +332,10 @@ MARK: Sidebar Container
 #sites .sites-folder > a {
   background-color: #F2F4F8;
   color: #405481;
+}
+
+#sites .sites-folder > a:hover {
+  color: var(--bng-orange);
 }
 
 #sites .sites-folder.open > a {
