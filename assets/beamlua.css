@@ -307,8 +307,13 @@ MARK: Sidebar Container
 
 /* nested items */
 #sites ul {
+  background-color: white;
   padding-left: 1em;
   list-style: none;
+}
+
+#sites li > a {
+  color: #507A95;
 }
 
 #sites li > a.active {
