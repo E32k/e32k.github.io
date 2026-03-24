@@ -51,19 +51,25 @@ function searchAndRender(query) {
     const words = page.content.split(/\s+/);
     const lowerWords = words.map(w => w.toLowerCase());
 
-    const i = lowerWords.findIndex(w => w.includes(query));
-    if (i === -1) continue;
+    // Count occurrences of query in this page
+    const occurrences = lowerWords.filter(w => w.includes(query)).length;
+    if (occurrences === 0) continue;
 
-    const before = words[i - 1] || "";
-    const match = words[i];
-    const after = words[i + 1] || "";
+    // Find first match for snippet
+    const i = lowerWords.findIndex(w => w.includes(query));
+    const start = Math.max(0, i - 2);
+    const end = i + 3; // slice is exclusive
+    const snippet = words.slice(start, end).join(" ");
 
     results.push({
       page,
-      snippet: `${before} ${match} ${after}`
+      snippet,
+      occurrences
     });
   }
 
+  // Sort results by number of occurrences (descending)
+  results.sort((a, b) => b.occurrences - a.occurrences);
   render(results, query);
 }
 
