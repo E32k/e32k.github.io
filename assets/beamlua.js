@@ -43,14 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = new Map();
   const usedIds = new Map();
 
-  function slugify(text) {
-    return text
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-");
-  }
-
   // Root list
   const rootList = document.createElement("ul");
   toc.appendChild(rootList);
@@ -60,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
   headings.forEach((heading) => {
     // Ensure unique IDs
     if (!heading.id) {
-      const base = slugify(heading.textContent);
+      const base = heading.textContent
+        .toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+
       const count = usedIds.get(base) ?? 0;
 
       heading.id = count === 0 ? base : `${base}-${count}`;
@@ -97,15 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     headings.forEach((heading, i) => {
       const start = heading.offsetTop;
-      const end =
-        headings[i + 1]?.offsetTop ?? document.body.scrollHeight;
-
+      const end = headings[i + 1]?.offsetTop ?? document.body.scrollHeight;
       const isVisible = start < viewportBottom && end > viewportTop;
-
       const link = links.get(heading);
-      if (link) {
-        link.classList.toggle("is-visible", isVisible);
-      }
+      if (link) link.classList.toggle("is-visible", isVisible);
     });
   }
 

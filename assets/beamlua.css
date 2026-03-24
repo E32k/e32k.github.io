@@ -13,7 +13,17 @@
   --text-color2: #222;
 }
 
-/* scrollbar */
+/* MARK: body
+*/
+
+body {
+  margin: 0;
+  background-color: var(--bg-color1);
+}
+
+
+/* MARK: scrollbar
+*/
 * {
   scroll-behavior: smooth;
   scrollbar-width: thin; }
@@ -179,7 +189,7 @@ header img {
   cursor: pointer;
 }
 
-mark {
+.result mark {
   background-color: #ffea00;
   color: black;
 }
@@ -196,14 +206,7 @@ mark {
 
 .layout {
   display: flex;
-  min-height: 60vh;
-}
-
-
-#overview {
-  background: #eee;
-  padding: 1rem;
-  width: 200px;
+  min-height: 90vh;
 }
 
 
@@ -211,7 +214,6 @@ mark {
   flex: 1;
   padding: 1rem;
   background: var(--bg-color1);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -228,7 +230,6 @@ mark {
 
   background-color: var(--bg-color2);
   border-left: 1px solid var(--divider);
-  transition: background-color 0.3s ease;
 }
 
 .overview-top {
@@ -286,8 +287,7 @@ mark {
 
 
 
-/*
-MARK: Sidebar Container
+/* MARK: Sidebar Container
 */
 
 #sites {
@@ -296,30 +296,26 @@ MARK: Sidebar Container
   /*border-right: 1px solid var(--divider);*/
 }
 
-/* basic link styling */
 #sites a {
   display: block;
   padding: 4px 8px;
   text-decoration: none;
 }
 
-
-/* nested items */
 #sites ul {
   background-color: white;
   padding-left: 1em;
   list-style: none;
 }
 
-#sites li > a { color: #507A95; }
-#sites li > a.active { color: var(--bng-orange); }
-#sites li > a:hover { text-decoration: underline; }
-
 #sites .sites-folder > ul {
   padding: 0;
   margin: 0;
 }
 
+#sites li > a { color: #507A95; }
+#sites li > a.active { color: var(--bng-orange); }
+#sites li > a:hover { text-decoration: underline; }
 
 #sites .sites-folder > ul { display: none; }
 #sites .sites-folder.open > ul { display: block; }
@@ -362,15 +358,8 @@ MARK: Sidebar Container
   #sites.open { left: 0; }
 }
 
-/*
-MARK: Font Styles
+/* MARK: Font Styles
 */
-
-body {
-  margin: 0;
-  background-color: var(--bg-color2);
-  transition: background-color 0.3s ease;
-}
 
 body, p {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
@@ -405,8 +394,7 @@ i, i * { font-style: italic; }
 
 
 
-/*
-MARK: Function API Table
+/* MARK: Function Table
 */
 
 .funcTable {
@@ -435,7 +423,6 @@ MARK: Function API Table
   flex-grow: 1;
 }
 
-/* function name */
 .func {
   background-color: #e6ffe6;
   text-align: left;
@@ -445,7 +432,6 @@ MARK: Function API Table
   flex: 0 0 20%;
 }
 
-/* arguments */
 .args {
   background-color: #dae8ff;
   font-family: "Roboto Mono", monospace;
@@ -453,7 +439,6 @@ MARK: Function API Table
   flex: 1 1 0;
 }
 
-/* returns */
 .rets {
   background-color: #d6ffff;
   font-family: "Roboto Mono", monospace;
@@ -461,7 +446,6 @@ MARK: Function API Table
   flex: 1 1 0;
 }
 
-/* description */
 .desc {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
@@ -480,8 +464,6 @@ MARK: Function API Table
   }
 }
 
-
-/* extra notes */
 .details {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   border-left: 5px solid #ddd;
@@ -489,7 +471,6 @@ MARK: Function API Table
   padding: 0.5em;
 }
 
-/* bottom labels */
 .func::after,
 .args::after,
 .rets::after {
@@ -506,8 +487,7 @@ MARK: Function API Table
 .args::after { content: "arguments"; }
 .rets::after { content: "returns"; }
 
-/*
-MARK: code blocks
+/* MARK: code blocks
 */
 
 .content blockquote {
