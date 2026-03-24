@@ -200,7 +200,7 @@ mark {
 }
 
 
-.overview {
+#overview {
   background: #eee;
   padding: 1rem;
   width: 200px;
@@ -219,7 +219,7 @@ mark {
 
 
 
-.overview {
+#overview {
   width: 15em;
   padding: 1em;
 
@@ -272,15 +272,15 @@ mark {
   background-position: center;
 }
 
-.overview a.is-visible {color: var(--bng-orange)}
-.overview a {
+#overview a.is-visible {color: var(--bng-orange)}
+#overview a {
   text-decoration: none;
   color: var(--text-color2);
   transition: color 0.15s ease;
 }
 
 @media (max-width: 1000px) {
-  .overview {display: none}
+  #overview {display: none}
   .layout {display: block}
 }
 
@@ -339,14 +339,10 @@ MARK: Sidebar Container
 }
 
 /* MOBILE */
-#nav-burger {
-  display: none;
-}
+#nav-burger { display: none; }
 
 @media (max-width: 1000px) {
-  #nav-burger {
-    display: block;
-  }
+  #nav-burger { display: block; }
 
   #sites {
     position: fixed;
@@ -363,53 +359,8 @@ MARK: Sidebar Container
     transition: left 0.25s ease;
   }
 
-  #sites.open {
-    left: 0;
-  }
+  #sites.open { left: 0; }
 }
-
-/*
-#sites {
-  width: fit-content;
-  padding: 1rem;
-  background-color: var(--bg-color2);
-  border-right: 1px solid var(--divider);
-  transition: background-color 0.3s ease;
-}
-#sites, #sites * {user-select: none}
-
-#sites a {
-  text-decoration: none;
-  color: var(--text-color2);
-  transition: color 0.15s ease;
-  font-weight: 600;
-}
-
-#sites details details {margin-left: 1em}
-#sites-page {
-  margin-left: 1.7em;
-  display: flex;
-  flex-direction: column;
-}
-
-#sites summary::-webkit-details-marker {display: none}
-#sites summary {
-  list-style: none;
-  cursor: pointer;
-  position: relative;
-  padding-left: 0.7em;
-}
-
-#sites details[open] > summary::after {transform: rotate(90deg)}
-#sites summary::after {
-  font-family: monospace;
-  font-weight: bold;
-  content: '>';
-  position: absolute;
-  left: 0;
-}
-*/
-
 
 /*
 MARK: Font Styles
@@ -451,41 +402,6 @@ h6 {font-size: 1rem;  line-height: 1.2em; font-weight: 400; letter-spacing: 0.1e
 
 p {letter-spacing: 0.01em}
 i, i * { font-style: italic; }
-
-
-
-/*
-MARK: Dark Mode Toggle Button
-*/
-
-#dark-mode-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 12px;
-  background-color: #333;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.2s;
-  display: flex;
-  align-items: flex-end; /* emoji at bottom */
-  justify-content: flex-start; /* emoji at left */
-  padding: 5px;
-}
-
-#dark-mode-toggle-wrapper:hover #dark-mode-toggle {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-#dark-mode-toggle .emoji {
-  font-size: 14px;
-}
 
 
 
@@ -637,8 +553,7 @@ MARK: code blocks
 
 /* Other */
 /* Error */
-.highlight code .err {
-  background-color: #ff67676e; }
+.highlight code .err { background-color: #ff67676e; }
 
 /* LineTableTD */
 .highlight code .lntd {
@@ -675,284 +590,90 @@ MARK: code blocks
   padding: 0 0.4em 0 0.4em;
   color: #7f7f7f; }
 
-/* Keyword */
-.highlight code .k {
-  color: #2838b0; }
-
-/* KeywordConstant */
-.highlight code .kc {
-  color: #444444;
-  font-style: italic; }
-
-/* KeywordDeclaration */
-.highlight code .kd {
-  color: #2838b0;
-  font-style: italic; }
-
-/* KeywordNamespace */
-.highlight code .kn {
-  color: #2838b0; }
-
-/* KeywordPseudo */
-.highlight code .kp {
-  color: #2838b0; }
-
-/* KeywordReserved */
-.highlight code .kr {
-  color: #2838b0; }
-
-/* KeywordType */
-.highlight code .kt {
-  color: #2838b0;
-  font-style: italic; }
+/* Keyword */            .highlight code .k { color: #2838b0; }
+/* KeywordConstant */    .highlight code .kc { color: #444444; font-style: italic; }
+/* KeywordDeclaration */ .highlight code .kd { color: #2838b0; font-style: italic; }
+/* KeywordNamespace */   .highlight code .kn { color: #2838b0; }
+/* KeywordPseudo */      .highlight code .kp { color: #2838b0; }
+/* KeywordReserved */    .highlight code .kr { color: #2838b0; }
+/* KeywordType */        .highlight code .kt { color: #2838b0; font-style: italic; }
 
 /* Name */
-/* NameAttribute */
-.highlight code .na {
-  color: #388038; }
-
-/* NameBuiltin */
-.highlight code .nb {
-  color: #388038; }
-
-/* NameBuiltinPseudo */
-.highlight code .bp {
-  font-style: italic; }
-
-/* NameClass */
-.highlight code .nc {
-  color: #287088; }
-
-/* NameConstant */
-.highlight code .no {
-  color: #b85820; }
-
-/* NameDecorator */
-.highlight code .nd {
-  color: #287088; }
-
-/* NameEntity */
-.highlight code .ni {
-  color: #709030; }
-
-/* NameException */
-.highlight code .ne {
-  color: #908828; }
-
-/* NameFunction */
-.highlight code .nf {
-  color: #785840; }
-
-/* NameFunctionMagic */
-.highlight code .fm {
-  color: #b85820; }
-
-/* NameLabel */
-.highlight code .nl {
-  color: #289870; }
-
-/* NameNamespace */
-.highlight code .nn {
-  color: #289870; }
+/* NameAttribute */     .highlight code .na { color: #388038; }
+/* NameBuiltin */       .highlight code .nb { color: #388038; }
+/* NameBuiltinPseudo */ .highlight code .bp { font-style: italic; }
+/* NameClass */         .highlight code .nc { color: #287088; }
+/* NameConstant */      .highlight code .no { color: #b85820; }
+/* NameDecorator */     .highlight code .nd { color: #287088; }
+/* NameEntity */        .highlight code .ni { color: #709030; }
+/* NameException */     .highlight code .ne { color: #908828; }
+/* NameFunction */      .highlight code .nf { color: #785840; }
+/* NameFunctionMagic */ .highlight code .fm { color: #b85820; }
+/* NameLabel */         .highlight code .nl { color: #289870; }
+/* NameNamespace */     .highlight code .nn { color: #289870; }
 
 /* NameOther */
 /* NameProperty */
 /* NameTag */
-.highlight code .nt {
-  color: #2838b0; }
+.highlight code .nt { color: #2838b0; }
 
 /* NameVariable */
-.highlight code .nv {
-  color: #b04040; }
+.highlight code .nv { color: #b04040; }
 
 /* NameVariableClass */
 /* NameVariableGlobal */
-.highlight code .vg {
-  color: #908828; }
+.highlight code .vg { color: #908828; }
 
 /* NameVariableInstance */
 /* NameVariableMagic */
-.highlight code .vm {
-  color: #b85820; }
+.highlight code .vm { color: #b85820; }
 
 /* Literal */
 /* LiteralDate */
 /* LiteralString */
-.highlight code .s {
-  color: #b83838; }
+.highlight code .s { color: #b83838; }
 
-/* LiteralStringAffix */
-.highlight code .sa {
-  color: #444444; }
-
-/* LiteralStringBacktick */
-.highlight code .sb {
-  color: #b83838; }
-
-/* LiteralStringChar */
-.highlight code .sc {
-  color: #a848a8; }
-
-/* LiteralStringDelimiter */
-.highlight code .dl {
-  color: #b85820; }
-
-/* LiteralStringDoc */
-.highlight code .sd {
-  color: #b85820;
-  font-style: italic; }
-
-/* LiteralStringDouble */
-.highlight code .s2 {
-  color: #b83838; }
-
-/* LiteralStringEscape */
-.highlight code .se {
-  color: #709030; }
-
-/* LiteralStringHeredoc */
-.highlight code .sh {
-  color: #b83838; }
-
-/* LiteralStringInterpol */
-.highlight code .si {
-  color: #b83838;
-  text-decoration: underline; }
-
-/* LiteralStringOther */
-.highlight code .sx {
-  color: #a848a8; }
-
-/* LiteralStringRegex */
-.highlight code .sr {
-  color: #a848a8; }
-
-/* LiteralStringSingle */
-.highlight code .s1 {
-  color: #b83838; }
-
-/* LiteralStringSymbol */
-.highlight code .ss {
-  color: #b83838; }
-
-/* LiteralNumber */
-.highlight code .m {
-  color: #444444; }
-
-/* LiteralNumberBin */
-.highlight code .mb {
-  color: #444444; }
-
-/* LiteralNumberFloat */
-.highlight code .mf {
-  color: #444444; }
-
-/* LiteralNumberHex */
-.highlight code .mh {
-  color: #444444; }
-
-/* LiteralNumberInteger */
-.highlight code .mi {
-  color: #444444; }
-
-/* LiteralNumberIntegerLong */
-.highlight code .il {
-  color: #444444; }
-
-/* LiteralNumberOct */
-.highlight code .mo {
-  color: #444444; }
-
-/* Operator */
-.highlight code .o {
-  color: #666666; }
-
-/* OperatorWord */
-.highlight code .ow {
-  color: #a848a8; }
-
-/* Punctuation */
-.highlight code .p {
-  color: #888888; }
-
-/* Comment */
-.highlight code .c {
-  color: #888888;
-  font-style: italic; }
-
-/* CommentHashbang */
-.highlight code .ch {
-  color: #287088;
-  font-style: italic; }
-
-/* CommentMultiline */
-.highlight code .cm {
-  color: #888888;
-  font-style: italic; }
-
-/* CommentSingle */
-.highlight code .c1 {
-  color: #888888;
-  font-style: italic; }
-
-/* CommentSpecial */
-.highlight code .cs {
-  color: #888888;
-  font-style: italic; }
-
-/* CommentPreproc */
-.highlight code .cp {
-  color: #289870; }
-
-/* CommentPreprocFile */
-.highlight code .cpf {
-  color: #289870; }
+/* LiteralStringAffix */       .highlight code .sa { color: #444444; }
+/* LiteralStringBacktick */    .highlight code .sb { color: #b83838; }
+/* LiteralStringChar */        .highlight code .sc { color: #a848a8; }
+/* LiteralStringDelimiter */   .highlight code .dl { color: #b85820; }
+/* LiteralStringDoc */         .highlight code .sd { color: #b85820; font-style: italic; }
+/* LiteralStringDouble */      .highlight code .s2 { color: #b83838; }
+/* LiteralStringEscape */      .highlight code .se { color: #709030; }
+/* LiteralStringHeredoc */     .highlight code .sh { color: #b83838; }
+/* LiteralStringInterpol */    .highlight code .si { color: #b83838; text-decoration: underline; }
+/* LiteralStringOther */       .highlight code .sx { color: #a848a8; }
+/* LiteralStringRegex */       .highlight code .sr { color: #a848a8; }
+/* LiteralStringSingle */      .highlight code .s1 { color: #b83838; }
+/* LiteralStringSymbol */      .highlight code .ss { color: #b83838; }
+/* LiteralNumber */            .highlight code .m { color: #444444; }
+/* LiteralNumberBin */         .highlight code .mb { color: #444444; }
+/* LiteralNumberFloat */       .highlight code .mf { color: #444444; }
+/* LiteralNumberHex */         .highlight code .mh { color: #444444; }
+/* LiteralNumberInteger */     .highlight code .mi { color: #444444; }
+/* LiteralNumberIntegerLong */ .highlight code .il { color: #444444; }
+/* LiteralNumberOct */         .highlight code .mo { color: #444444; }
+/* Operator */                 .highlight code .o { color: #666666; }
+/* OperatorWord */             .highlight code .ow { color: #a848a8; }
+/* Punctuation */              .highlight code .p { color: #888888; }
+/* Comment */                  .highlight code .c { color: #888888; font-style: italic; }
+/* CommentHashbang */          .highlight code .ch { color: #287088; font-style: italic; }
+/* CommentMultiline */         .highlight code .cm { color: #888888; font-style: italic; }
+/* CommentSingle */            .highlight code .c1 { color: #888888; font-style: italic; }
+/* CommentSpecial */           .highlight code .cs { color: #888888; font-style: italic; }
+/* CommentPreproc */           .highlight code .cp { color: #289870; }
+/* CommentPreprocFile */       .highlight code .cpf { color: #289870; }
 
 /* Generic */
-/* GenericDeleted */
-.highlight code .gd {
-  color: #c02828; }
-
-/* GenericEmph */
-.highlight code .ge {
-  font-style: italic; }
-
-/* GenericError */
-.highlight code .gr {
-  color: #c02828; }
-
-/* GenericHeading */
-.highlight code .gh {
-  color: #666666; }
-
-/* GenericInserted */
-.highlight code .gi {
-  color: #388038; }
-
-/* GenericOutput */
-.highlight code .go {
-  color: #666666; }
-
-/* GenericPrompt */
-.highlight code .gp {
-  color: #444444; }
-
-/* GenericStrong */
-.highlight code .gs {
-  font-weight: bold; }
-
-/* GenericSubheading */
-.highlight code .gu {
-  color: #444444; }
-
-/* GenericTraceback */
-.highlight code .gt {
-  color: #2838b0; }
-
-/* GenericUnderline */
-.highlight code .gl {
-  text-decoration: underline; }
-
-/* TextWhitespace */
-.highlight code .w {
-  color: #a89028; }
+/* GenericDeleted */    .highlight code .gd { color: #c02828; }
+/* GenericEmph */       .highlight code .ge { font-style: italic; }
+/* GenericError */      .highlight code .gr { color: #c02828; }
+/* GenericHeading */    .highlight code .gh { color: #666666; }
+/* GenericInserted */   .highlight code .gi { color: #388038; }
+/* GenericOutput */     .highlight code .go { color: #666666; }
+/* GenericPrompt */     .highlight code .gp { color: #444444; }
+/* GenericStrong */     .highlight code .gs { font-weight: bold; }
+/* GenericSubheading */ .highlight code .gu { color: #444444; }
+/* GenericTraceback */  .highlight code .gt { color: #2838b0; }
+/* GenericUnderline */  .highlight code .gl { text-decoration: underline; }
+/* TextWhitespace */    .highlight code .w { color: #a89028; }

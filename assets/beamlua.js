@@ -30,10 +30,16 @@ document.getElementById("nav-burger").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const main = document.querySelector("main");
   const toc = document.querySelector("#TableOfContents");
-
-  if (!main || !toc) return;
+  const overview = document.querySelector("#overview");
+  if (!main || !toc || !overview) return;
 
   const headings = Array.from(main.querySelectorAll("h2, h3"));
+
+  if (headings.length === 0) {
+    overview.remove();
+    return;
+  }
+
   const links = new Map();
   const usedIds = new Map();
 
