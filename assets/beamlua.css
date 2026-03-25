@@ -472,6 +472,7 @@ i, i * { font-style: italic; }
   border-left: 5px solid #ddd;
   background: white;
   padding: 0.5em;
+  padding-left: 1em;
 }
 
 .arguments,

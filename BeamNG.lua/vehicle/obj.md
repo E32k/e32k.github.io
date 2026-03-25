@@ -163,11 +163,6 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="rets">bid</div>
   <div class="desc">Creates a new beam with the specified values</div>
   </div><div class="details">
-  fixed (number): 0 - NORMALTYPE, 1 - NODE_FIXED<br>
-  tag (string): <code>''</code> for no tag<br>
-  group (number): -1 for no group, this is the ID? of the first group<br>
-  (since only the first group is used for collision, other are flexybody related)<br><br>
-
   Source: <code>vehicle/jbeam/stage2:96</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
 </div></div>
@@ -176,26 +171,21 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="func">obj:setBeam</div>
   <div class="desc">Creates a new beam with the specified values</div>
   </div><div class="arguments">
-  beamID<br>
-  id1<br>
-  id2<br>
-  beamStrength<br>
-  beamSpring<br>
-  beamDamp<br>
-  dampCutoffHz<br>
-  beamDeform<br>
-  deformLimit<br>
-  deformLimitExpansion<br>
-  deformLimitStress<br>
-  beamPrecompression
+  cid - probably the beam ID<br>
+  id1 - ID of the first node<br>
+  id2 - ID of the second node<br>
+  beamStrength - Strength of the beam. (N)<br>
+  beamSpring - Rigidity of the beam (N/m)<br>
+  beamDamp - Damping of the beam (N/m/s)<br>
+  dampCutoffHz - Limits the vibration frequency (Hz) above which damping applies<br>
+  beamDeform - How much force (N) is required to deform the beam permanently<br>
+  deformLimit - Limits by how much of original length the beam can deform in compression<br>
+  deformLimitExpansion - Limits by how much of original length the beam can deform in expansion<br>
+  deformLimitStress - Limits the beamDeform gain to this value (N)<br>
+  beamPrecompression - The length the beam will become as soon as it spawns
   </div><div class="returns">
-  bid
+  bid - Use this with the functions below, to make the beam anisotropic, bounded, support, pressured or an l-beam.
   </div><div class="details">
-  fixed (number): 0 - NORMALTYPE, 1 - NODE_FIXED<br>
-  tag (string): <code>''</code> for no tag<br>
-  group (number): -1 for no group, this is the ID? of the first group<br>
-  (since only the first group is used for collision, other are flexybody related)<br><br>
-
   Source: <code>vehicle/jbeam/stage2:96</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
 </div></div>
