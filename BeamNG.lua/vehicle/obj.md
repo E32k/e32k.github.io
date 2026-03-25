@@ -6,21 +6,38 @@ date: 2026-03-12
 
 This is the main userdata, that includes functions which control the vehicles jbeam and the vehicle itself.
 
-## Get Functions
+## Node Functions
 
-### Node
+### Creating a Node
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setNode</div>
+  <div class="args">nodeID, x, y, z, nodeWeight, fixed, frictionCoef, slidingFrictionCoef, stribeckExponent, stribeckVelMult, noLoadCoef, fullLoadCoef, loadSensitivitySlope, softnessCoef, treadCoef, tag, couplerStrength, group, selfCollision, collision, staticCollision, materialID</div>
+  <div class="desc">Creates a new node with the specified values</div>
+  </div><div class="details">
+  fixed (number): 0 - NORMALTYPE, 1 - NODE_FIXED<br>
+  tag (string): <code>''</code> for no tag<br>
+  group (number): -1 for no group, this is the ID? of the first group<br>
+  (since only the first group is used for collision, other are flexybody related)<br><br>
+
+  See <code>vehicle/jbeam/stage2:215</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/nodes/" target="_blank">BeamNG Documentation - Nodes</a> for more information.
+</div></div>
+
+### Node things
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:getNodeCount()</div>
-  <div class="rets">nodesCount</div>
+  <div class="rets">number</div>
   <div class="desc">Returns the number of nodes</div>
 </div></div>
 
+### Mass
+
 <div class="funcTable"><div class="headerRow">
-  <div class="func">obj:getNodeFrictionCoef</div>
-  <div class="args">nodeID</div>
-  <div class="rets">frictionCoef</div>
-  <div class="desc">Returns the friction coefficient of the node (not tested)</div>
+  <div class="func">obj:setNodeMass</div>
+  <div class="args">nodeID, weight</div>
+  <div class="desc">Updates the mass of an existing node</div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -30,7 +47,44 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Returns the mass of the node</div>
 </div></div>
 
+###
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setNodeMaterial</div>
+  <div class="args">nodeID, material?</div>
+  <div class="desc">Updates the material of an existing node (not tested)</div>
+</div></div>
+
+
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:getNodeFrictionCoef</div>
+  <div class="args">nodeID</div>
+  <div class="rets">frictionCoef</div>
+  <div class="desc">Returns the friction coefficient of the node (not tested)</div>
+</div></div>
+
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:getNodeSlidingFrictionCoef</div>
+  <div class="args">nodeID</div>
+  <div class="rets">slidingFrictionCoef</div>
+  <div class="desc">Returns the sliding friction coefficient of the node (not tested)</div>
+</div></div>
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setNodeFrictionSlidingCoefs</div>
+  <div class="args">nodeID, frictionCoef, slidingFrictionCoef</div>
+  <div class="desc">Sets the friction coefficients of the node</div>
+</div></div>
+
 #### Positions
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setNodePosition</div>
+  <div class="args">nodeID, LuaVec3</div>
+  <div class="desc">Updates the position of an existing node</div>
+</div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:getNodePosition</div>
@@ -99,61 +153,50 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">?</div>
 </div></div>
 
-## Set Functions
+## Beam Functions
 
-### New Objects
+### Creating a Beam
+
 <div class="funcTable"><div class="headerRow">
-  <div class="func">obj:setNode</div>
-  <div class="args">nodeID, x, y, z, nodeWeight, fixed, frictionCoef, slidingFrictionCoef, stribeckExponent, stribeckVelMult, noLoadCoef, fullLoadCoef, loadSensitivitySlope, softnessCoef, treadCoef, tag, couplerStrength, group, selfCollision, collision, staticCollision, materialID</div>
-  <div class="desc">Creates a new node with the specified values</div>
+  <div class="func">obj:setBeam</div>
+  <div class="args">beamID, id1, id2, beamStrength, beamSpring, beamDamp, dampCutoffHz, beamDeform, deformLimit, deformLimitExpansion, deformLimitStress, beamPrecompression</div>
+  <div class="rets">bid</div>
+  <div class="desc">Creates a new beam with the specified values</div>
   </div><div class="details">
-  fixed (number): 0 - NORMALTYPE, 1 - NODE_FIXED
-  tag (string): <code>''</code> for no tag
-  group (number): -1 for no group, this is the ID? of the first group (since only the first group is used for collision, other are flexybody related)
+  fixed (number): 0 - NORMALTYPE, 1 - NODE_FIXED<br>
+  tag (string): <code>''</code> for no tag<br>
+  group (number): -1 for no group, this is the ID? of the first group<br>
+  (since only the first group is used for collision, other are flexybody related)<br><br>
 
-  See <code>vehicle/jbeam/stage2:215</code> for source.
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/nodes/" target="_blank">BeamNG Documentation - Nodes</a> for more information.
-</div></div>
-### Node
-
-<div class="funcTable"><div class="headerRow">
-  <div class="func">obj:setNodeMass</div>
-  <div class="args">nodeID, weight</div>
-  <div class="desc">Updates the mass of an existing node</div>
+  See <code>vehicle/jbeam/stage2:96</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
-  <div class="func">obj:setNodeMaterial</div>
-  <div class="args">nodeID, material?</div>
-  <div class="desc">Updates the material of an existing node (not tested)</div>
+  <div class="func">obj:setBeamAnisotropic</div>
+  <div class="args">bid, springExpansion, dampExpansion, transitionZone, beamLongBound</div>
+  <div class="desc">Modifies an existing beam with the specified values</div>
+  </div><div class="details">
+  See <code>vehicle/jbeam/stage2:106</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/anisotropic/" target="_blank">BeamNG Documentation - Anisotropic Beams</a> for more information.<br><br>
+
+  Notice how there is no function for creating a support beam, its because its created with:<br>
+  <code>obj:setBeamAnisotropic(bid, 0, 0, 0, beamLongBound)</code><br><br>
+
+  See <code>vehicle/jbeam/stage2:129</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/support/" target="_blank">BeamNG Documentation - Support Beams</a> for more information.
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
-  <div class="func">obj:setNodePosition</div>
-  <div class="args">nodeID, LuaVec3</div>
-  <div class="desc">Updates the position of an existing node</div>
+  <div class="func">obj:setBeamBounded</div>
+  <div class="args">bid, beamLongBound, shortBound, beamLimitSpring, beamLimitDamp, beamLimitDampRebound, beamDampRebound, beamDampFast, beamDampReboundFast, beamDampVelocitySplit, beamDampVelocitySplitRebound, boundZone</div>
+  <div class="desc">Modifies an existing beam with the specified values</div>
+  </div><div class="details">
+  See <code>vehicle/jbeam/stage2:120</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/bounded/" target="_blank">BeamNG Documentation - Bounded Beams</a> for more information.
 </div></div>
-
-### Beams
 
 ### Adding
-
-<div class="funcTable"><div class="headerRow">
-  <div class="func">getNodeCount()</div>
-  <div class="rets">number</div>
-  <div class="desc">Returns the number of nodes</div>
-</div></div>
-
-### Forces
-
-<div class="funcTable"><div class="headerRow">
-    <div class="func">dragCoef</div>
-    <div class="args">number</div>
-    <div class="rets">100</div>
-    <div class="desc">Drag coefficient of the triangle as a percentage of a flat plate of the same size.</div>
-  </div><div class="details">
-    Typical values are around 10 for most exposed body panels.
-</div></div>
 
 ### Powertrain
 
