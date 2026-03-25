@@ -47,7 +47,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Returns the mass of the node</div>
 </div></div>
 
-###
+### Something
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:setNodeMaterial</div>
@@ -78,7 +78,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Sets the friction coefficients of the node</div>
 </div></div>
 
-#### Positions
+### Positions
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:setNodePosition</div>
@@ -114,7 +114,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Returns the vector between the two nodes (with :normalized() you get the direction)</div>
 </div></div>
 
-#### Velocities
+### Velocities
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:getNodeVelocity</div>
@@ -130,7 +130,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Returns the velocity vector of the node</div>
 </div></div>
 
-#### Forces
+### Forces
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:getNodeForce</div>
@@ -220,26 +220,11 @@ This is the main userdata, that includes functions which control the vehicles jb
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/l-beam/" target="_blank">BeamNG Documentation - L-Beams</a> for more information.
 </div></div>
 
-### Adding
-
 ### Powertrain
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:screwBeam</div>
-  <div class="args">
-  int  outId<br>
-  float torqueForce<br>
-  float speedLimit<br>
-  float slipForce<br>
-  float helixAngleCos<br>
-  float face1Cos<br>
-  float face2Cos<br>
-  float frictionForceStick<br>
-  float frictionCoef<br>
-  float slipSpeedLimit<br>
-  float minExtend<br>
-  float maxExtend
-  </div>
+  <div class="args">outId, torqueForce, speedLimit, slipForce, helixAngleCos, face1Cos, face2Cos, frictionForceStick, frictionCoef, slipSpeedLimit, minExtend, maxExtend</div>
   <div class="rets">velocity?</div>
   <div class="desc">From <code>vehicle/powertrain/linearActuator.lua</code></div>
 </div></div>
