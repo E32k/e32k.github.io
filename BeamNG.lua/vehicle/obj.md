@@ -20,7 +20,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   group (number): -1 for no group, this is the ID? of the first group<br>
   (since only the first group is used for collision, other are flexybody related)<br><br>
 
-  See <code>vehicle/jbeam/stage2:215</code> for source.<br>
+  See <code>vehicle/jbeam/stage2.lua:215</code> for source.<br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/nodes/" target="_blank">BeamNG Documentation - Nodes</a> for more information.
 </div></div>
 
@@ -163,7 +163,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="rets">bid</div>
   <div class="desc">Creates a new beam with the specified values</div>
   </div><div class="details">
-  Source: <code>vehicle/jbeam/stage2:96</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:96</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
 </div></div>
 
@@ -187,7 +187,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   </div><div class="returns">
   bid - Use this with the functions below, to make the beam anisotropic, bounded, support, pressured or an l-beam.
   </div><div class="details">
-  Source: <code>vehicle/jbeam/stage2:96</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:96</code><br>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -195,13 +195,13 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="args">bid, springExpansion, dampExpansion, transitionZone, beamLongBound</div>
   <div class="desc">Sets an existing beam to be an anisotropic (or support) beam with the specified values</div>
   </div><div class="details">
-  Source: <code>vehicle/jbeam/stage2:106</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:106</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/anisotropic/" target="_blank">BeamNG Documentation - Anisotropic Beams</a> for more information.<br><br>
 
   Notice how there is no function for creating a support beam, its because its created with:<br>
   <code>obj:setBeamAnisotropic(bid, 0, 0, 0, beamLongBound)</code><br><br>
 
-  Source: <code>vehicle/jbeam/stage2:129</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:129</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/support/" target="_blank">BeamNG Documentation - Support Beams</a> for more information.
 </div></div>
 
@@ -210,7 +210,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="args">bid, longBound, shortBound, beamLimitSpring, beamLimitDamp, beamLimitDampRebound, beamDampRebound, beamDampFast, beamDampReboundFast, beamDampVelocitySplit, beamDampVelocitySplitRebound, boundZone</div>
   <div class="desc">Sets an existing beam to be an bounded beam with the specified values</div>
   </div><div class="details">
-  Source: <code>vehicle/jbeam/stage2:120</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:120</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/bounded/" target="_blank">BeamNG Documentation - Bounded Beams</a> for more information.
 </div></div>
 
@@ -219,7 +219,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="args">bid, pressure, surface, volumeCoef, maxPressure, pressureLimit</div>
   <div class="desc">Sets an existing beam to be an l-beam with the specified values</div>
   </div><div class="details">
-  Source: <code>vehicle/jbeam/stage2:146</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:146</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/pressured/" target="_blank">BeamNG Documentation - Pressured Beams</a> for more information.
 </div></div>
 
@@ -228,7 +228,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="args">bid, id3, springExpansion, dampExpansion</div>
   <div class="desc">Sets an existing beam to be an l-beam with the specified values</div>
   </div><div class="details">
-  Source: <code>vehicle/jbeam/stage2:148</code><br>
+  Source: <code>vehicle/jbeam/stage2.lua:148</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/l-beam/" target="_blank">BeamNG Documentation - L-Beams</a> for more information.
 </div></div>
 
