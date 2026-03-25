@@ -175,7 +175,7 @@ This is the main userdata, that includes functions which control the vehicles jb
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:setBeamAnisotropic</div>
   <div class="args">bid, springExpansion, dampExpansion, transitionZone, beamLongBound</div>
-  <div class="desc">Modifies an existing beam with the specified values</div>
+  <div class="desc">Sets an existing beam to be an anisotropic (or support) beam with the specified values</div>
   </div><div class="details">
   See <code>vehicle/jbeam/stage2:106</code> for source.<br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/anisotropic/" target="_blank">BeamNG Documentation - Anisotropic Beams</a> for more information.<br><br>
@@ -189,11 +189,35 @@ This is the main userdata, that includes functions which control the vehicles jb
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:setBeamBounded</div>
-  <div class="args">bid, beamLongBound, shortBound, beamLimitSpring, beamLimitDamp, beamLimitDampRebound, beamDampRebound, beamDampFast, beamDampReboundFast, beamDampVelocitySplit, beamDampVelocitySplitRebound, boundZone</div>
-  <div class="desc">Modifies an existing beam with the specified values</div>
+  <div class="args">bid, longBound, shortBound, beamLimitSpring, beamLimitDamp, beamLimitDampRebound, beamDampRebound, beamDampFast, beamDampReboundFast, beamDampVelocitySplit, beamDampVelocitySplitRebound, boundZone</div>
+  <div class="desc">Sets an existing beam to be an bounded beam with the specified values</div>
   </div><div class="details">
   See <code>vehicle/jbeam/stage2:120</code> for source.<br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/bounded/" target="_blank">BeamNG Documentation - Bounded Beams</a> for more information.
+</div></div>
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setBeamPressured</div>
+  <div class="args">bid, pressure, surface, volumeCoef, maxPressure, pressureLimit</div>
+  <div class="desc">Sets an existing beam to be an l-beam with the specified values</div>
+  </div><div class="details">
+  See <code>vehicle/jbeam/stage2:146</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/pressured/" target="_blank">BeamNG Documentation - Pressured Beams</a> for more information.
+</div></div>
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setBeamPressureRel</div>
+  <div class="args">?</div>
+  <div class="desc">Unknown</div>
+</div></div>
+
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setBeamLbeam</div>
+  <div class="args">bid, id3, springExpansion, dampExpansion</div>
+  <div class="desc">Sets an existing beam to be an l-beam with the specified values</div>
+  </div><div class="details">
+  See <code>vehicle/jbeam/stage2:148</code> for source.<br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/l-beam/" target="_blank">BeamNG Documentation - L-Beams</a> for more information.
 </div></div>
 
 ### Adding
