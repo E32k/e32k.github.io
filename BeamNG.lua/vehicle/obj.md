@@ -174,7 +174,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   cid - probably the beam ID<br>
   id1 - ID of the first node<br>
   id2 - ID of the second node<br>
-  (following descriptions are from <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a>)
+  //following descriptions are from <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a><br>
   beamStrength - Strength of the beam. (N)<br>
   beamSpring - Rigidity of the beam (N/m)<br>
   beamDamp - Damping of the beam (N/m/s)<br>
