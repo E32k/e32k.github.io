@@ -10,11 +10,11 @@ This is the main userdata, that includes functions which control the vehicles jb
 
 ### Adding
 
-<table class="api"><tr>
-  <th class="func">getNodeCount()</th>
-  <td class="rets">number</td>
-  <td class="desc">Returns the number of nodes</td>
-</tr></table>
+<div class="funcTable"><div class="headerRow">
+  <div class="func">getNodeCount()</div>
+  <div class="rets">number</div>
+  <div class="desc">Returns the number of nodes</div>
+</div></div>
 
 ### Forces
 
@@ -29,9 +29,9 @@ This is the main userdata, that includes functions which control the vehicles jb
 
 ### Powertrain
 
-<table class="api"><tr>
-  <th class="func">obj:screwBeam</th>
-  <td class="args">
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:screwBeam</div>
+  <div class="args">
   int  outId<br>
   float torqueForce<br>
   float speedLimit<br>
@@ -44,7 +44,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   float slipSpeedLimit<br>
   float minExtend<br>
   float maxExtend
-  </td>
-  <td class="rets">velocity?</td>
-  <td class="desc">From <code>vehicle/powertrain/linearActuator.lua</code></td>
-</tr></table>
+  </div>
+  <div class="rets">velocity?</div>
+  <div class="desc">From <code>vehicle/powertrain/linearActuator.lua</code></div>
+</div></div>

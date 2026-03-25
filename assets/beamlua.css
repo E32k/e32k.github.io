@@ -428,8 +428,7 @@ i, i * { font-style: italic; }
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   padding-bottom: 1em;
   flex: 0 0 20%;
 }
