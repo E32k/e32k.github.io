@@ -1,7 +1,7 @@
 ---
 title: obj
 layout: beamlua
-date: 2026-03-12
+date: 2026-03-25
 ---
 
 This is the main userdata, that includes functions which control the vehicles jbeam and the vehicle itself.
@@ -161,7 +161,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="func">obj:setBeam</div>
   <div class="args">beamID, id1, id2, beamStrength, beamSpring, beamDamp, dampCutoffHz, beamDeform, deformLimit, deformLimitExpansion, deformLimitStress, beamPrecompression</div>
   <div class="rets">bid</div>
-  <div class="desc">Creates a new beam with the specified values</div>
+  <div class="desc">Creates or overwrites a beam with the specified values</div>
   </div><div class="details">
   Source: <code>vehicle/jbeam/stage2.lua:96</code><br>
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
@@ -169,7 +169,7 @@ This is the main userdata, that includes functions which control the vehicles jb
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">obj:setBeam</div>
-  <div class="desc">Creates a new beam with the specified values</div>
+  <div class="desc">Creates or overwrites a beam with the specified values</div>
   </div><div class="arguments">
   cid - probably the beam ID<br>
   id1 - ID of the first node<br>
