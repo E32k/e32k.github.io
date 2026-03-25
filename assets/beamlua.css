@@ -474,8 +474,8 @@ i, i * { font-style: italic; }
   padding: 0.5em;
 }
 
-.arguments { border-left-color: #dae8ff; }
-.returns { border-left-color: #d6ffff; }
+.arguments { border-left-color: #80b0ff; }
+.returns { border-left-color: #80ffff; }
 
 .func::after,
 .args::after,
