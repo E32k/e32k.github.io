@@ -173,6 +173,34 @@ This is the main userdata, that includes functions which control the vehicles jb
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setBeam</div>
+  <div class="desc">Creates a new beam with the specified values</div>
+  </div><div class="arguments">
+  beamID<br>
+  id1<br>
+  id2<br>
+  beamStrength<br>
+  beamSpring<br>
+  beamDamp<br>
+  dampCutoffHz<br>
+  beamDeform<br>
+  deformLimit<br>
+  deformLimitExpansion<br>
+  deformLimitStress<br>
+  beamPrecompression
+  </div><div class="returns">
+  bid
+  </div><div class="details">
+  fixed (number): 0 - NORMALTYPE, 1 - NODE_FIXED<br>
+  tag (string): <code>''</code> for no tag<br>
+  group (number): -1 for no group, this is the ID? of the first group<br>
+  (since only the first group is used for collision, other are flexybody related)<br><br>
+
+  Source: <code>vehicle/jbeam/stage2:96</code><br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
+</div></div>
+
+<div class="funcTable"><div class="headerRow">
   <div class="func">obj:setBeamAnisotropic</div>
   <div class="args">bid, springExpansion, dampExpansion, transitionZone, beamLongBound</div>
   <div class="desc">Sets an existing beam to be an anisotropic (or support) beam with the specified values</div>

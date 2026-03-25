@@ -437,20 +437,20 @@ i, i * { font-style: italic; }
   background-color: #dae8ff;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
-  flex: 1 1 0;
+  flex: 10000000 1 0;
 }
 
 .rets {
   background-color: #d6ffff;
   font-family: "Roboto Mono", monospace;
   font-weight: normal;
-  flex: 1 1 0;
+  flex: 10000000 1 0;
 }
 
 .desc {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   background-color: #eee;
-  flex: 0 0 40%;
+  flex: 1 0 40%;
 }
 
 @media (max-width: 700px) {
@@ -465,12 +465,17 @@ i, i * { font-style: italic; }
   }
 }
 
+.arguments,
+.returns,
 .details {
   font-family: "Overpass", "Trebuchet MS", "Helvetica", "Arial", "Verdana", sans-serif;
   border-left: 5px solid #ddd;
   background: white;
   padding: 0.5em;
 }
+
+.arguments { border-left-color: #dae8ff; }
+.returns { border-left-color: #d6ffff; }
 
 .func::after,
 .args::after,
