@@ -479,8 +479,8 @@ i, i * { font-style: italic; }
   position: relative;
 }
 
-.arguments { border-left-color: #80b0ff; }
-.returns { border-left-color: #80ffff; }
+.arguments { border-left-color: #b3d0ff; }
+.returns { border-left-color: #b3ffff; }
 
 .func::after,
 .args::after,
