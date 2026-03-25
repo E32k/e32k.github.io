@@ -10,85 +10,85 @@ These are all the functions you can use on vec3()
 
 ### Creating
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">vec3</div>
   <div class="args">see below</div>
   <div class="rets">LuaVec3</div>
 <div class="desc">Returns a new LuaVec3 object (creates garbage)</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Supports <code>vec3()</code>, <code>vec3(x, y)</code>, <code>vec3(x, y, z)</code>, <code>vec3(LuaVec3)</code>, <code>vec3({x, y, z})</code> and <code>vec3({x=x, y=y, z=z})</code>
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:copy()</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Returns a new LuaVec3 object (creates garbage) with the same values</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:z0()</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Returns a new LuaVec3 object (creates garbage) with <code>x, y, 0</code></div>
-</tr></table>
+</div></div>
 
 ### Modifying
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:set</div>
   <div class="args">x, y, z <small>or</small> LuaVec3</div>
   <div class="desc">Changes the values of the vector (0 garbage)</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Commonly used with XYZ functions to avoid garbage.<br>
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setFromTable</div>
   <div class="args">{x, y, z}</div>
   <div class="desc">same as :set but for an array</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:fromString</div>
   <div class="args">string</div>
   <div class="rets">self</div>
   <div class="desc">Modifies itself and returns self</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Parses three numbers from the string, separated by commas or whitespace.<br>
 Numbers can be anything that works with <code>tonumber()</code>.<br>
 Non-numeric or missing values are treated as 0.
-</div></tr></table>
+</div></div>
 
 ### Converting
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">tostring(LuaVec3)</div>
   <div class="rets">string</div>
   <div class="desc">Returns a string like <code>"vec3(x,y,z)"</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xyz()</div>
   <div class="rets">self.x, self.y, self.z</div>
   <div class="desc">Returns a XYZ tuple</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xy()</div>
   <div class="rets">self.x, self.y</div>
   <div class="desc">Returns a XY tuple</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:toTable()</div>
   <div class="rets">{self.x, self.y, self.z}</div>
   <div class="desc">Returns an array</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:toDict()</div>
   <div class="rets">{x = self.x, y = self.y, z = self.z}</div>
   <div class="desc">Returns a dictionary</div>
-</tr></table>
+</div></div>
 
 ## Math
 
@@ -109,343 +109,343 @@ All other uses will result in an error.
 
 Use the following function if you want to do `LuaVec3 * LuaVec3`:
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:componentMul</div>
   <div class="args">LuaVec3</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Returns a new LuaVec3 where each component is multiplied by the corresponding component of <code>b</code></div>
-</tr></table>
+</div></div>
 
 ### Zero-Garbage set Functions
 
 These functions modify the vector in place, avoiding memory allocation. Examples are provided for clarity.<br>
 `a` and `b` are always LuaVec3 objects.
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMin</div>
   <div class="args">a</div>
   <div class="desc">Sets each component to the minimum of itself and <code>a</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMax</div>
   <div class="args">a</div>
   <div class="desc">Sets each component to the maximum of itself and <code>a</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAddXYZ</div>
   <div class="args">x, y, z</div>
   <div class="desc">Adds the given values to self</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAdd</div>
   <div class="args">a</div>
   <div class="desc">Adds vector <code>a</code> to self</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAdd2</div>
   <div class="args">a, b</div>
   <div class="desc">Sets the vector to <code>a + b</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setSub</div>
   <div class="args">a</div>
   <div class="desc">Subtracts vector <code>a</code> from self</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setSub2</div>
   <div class="args">a, b</div>
   <div class="desc">Sets the vector to <code>a - b</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setScaled</div>
   <div class="args">scale</div>
   <div class="desc">Scales self by <code>scale</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setScaled2</div>
   <div class="args">a, scale</div>
   <div class="desc">Sets self to <code>a</code> scaled by <code>scale</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setComponentMul</div>
   <div class="args">a</div>
   <div class="desc">Sets the vector to <code>self * a</code> (multiplies each component separately)</div>
-</tr></table>
+</div></div>
 
 ### Length
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:length()</div>
   <div class="rets">number</div>
   <div class="desc">Returns the length of the vector</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:lengthGuarded()</div>
   <div class="rets">number</div>
   <div class="desc">Returns the length of the vector + 1e-30 making it safe to use with division</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:squaredLength()</div>
   <div class="rets">number</div>
   <div class="desc">Returns the squared length of the vector, avoiding a square root</div>
-</tr></table>
+</div></div>
 
 ### Resizing
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:normalize()</div>
   <div class="desc">Modifies the vector so its 1 meter long</div>
-</tr></table>
-<table class="api"><tr>
+</div></div>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:normalized()</div>
   <div class="desc">Returns a new LuaVec3 object (creates garbage) thats 1 meter long</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:resize</div>
   <div class="args">length</div>
   <div class="desc">Modifies the vector so its x meters long</div>
-</tr></table>
-<table class="api"><tr>
+</div></div>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:resized</div>
   <div class="args">length</div>
   <div class="desc">Returns a new LuaVec3 object (creates garbage) thats x meters long</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:ropeRock</div>
   <div class="args">maxLength</div>
   <div class="desc">Clamps the vector to x meters long (if its shorter, it doesnt resize it)</div>
-</tr></table>
+</div></div>
 
 ### Distance
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:distance</div>
   <div class="args">LuaVec3</div>
   <div class="rets">distance</div>
   <div class="desc">Returns the distance between two vectors</div>
-</tr></table>
-<table class="api"><tr>
+</div></div>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:squaredDistance</div>
   <div class="args">LuaVec3</div>
   <div class="rets">squaredDistance</div>
   <div class="desc">Returns the squared distance between two vectors, avoiding a square root</div>
-</tr></table>
+</div></div>
 
 ### Vector Products
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:dot</div>
   <div class="args">LuaVec3</div>
   <div class="rets">number</div>
   <div class="desc">Returns the dot product of the vector with another vector <code>a</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:cross</div>
   <div class="args">LuaVec3</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Returns a new LuaVec3 representing the cross product of the vector with <code>a</code> (creates garbage)</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setCross</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="desc">Sets the vector to the cross product of <code>a</code> and <code>b</code> (0-gc)</div>
-</tr></table>
+</div></div>
 
 ## Shapes and stuff
 
 ### Lines
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:distanceToLine</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="rets">distance</div>
   <div class="desc">Returns the distance to the infinite line defined by the two points</div>
-</tr></table>
-<table class="api"><tr>
+</div></div>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:squaredDistanceToLine</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="rets">squaredDistance</div>
   <div class="desc">Same as above, avoiding a square root</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:distanceToLineSegment</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="rets">distance</div>
   <div class="desc">Returns the distance to the line segment defined by the two points</div>
-</tr></table>
-<table class="api"><tr>
+</div></div>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:squaredDistanceToLineSegment</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="rets">squaredDistance</div>
   <div class="desc">Same as above, avoiding a square root</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xnormDistanceToLineSegment</div>
   <div class="args">LuaVec3 (a), LuaVec3 (b)</div>
   <div class="rets">xnorm, distance</div>
   <div class="desc">Returns the normalized projection and distance to the line segment defined by the two points</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 <code>xnorm</code> is the normalized position of the perpendicular projection on the line from <code>a</code> to <code>b</code>.<br>
 <code>xnorm = 0</code> at <code>a</code>, <code>xnorm = 1</code> at <code>b</code>. Values outside this range mean the closest point lies beyond the segment ends.
-</div></tr></table>
-<table class="api"><tr>
+</div></div>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xnormSquaredDistanceToLineSegment</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="rets">xnorm, squaredDistance</div>
   <div class="desc">Same as above, avoiding a square root</div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xnormOnLine</div>
   <div class="args">LuaVec3, LuaVec3</div>
   <div class="rets">xnorm</div>
   <div class="desc">Same as above, withouth computing the distance</div>
-</tr></table>
+</div></div>
 
 ### Triangles
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setTrianglePointFromUV</div>
   <div class="args">LuaVec3, LuaVec3, LuaVec3, u, v</div>
   <div class="desc">Sets the vector to the point inside the triangle using barycentric coordinates</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 If <code>0 ≤ u,v,w ≤ 1</code>, then the point lies inside the triangle, else outside.
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:triangleBarycentricNorm</div>
   <div class="args">LuaVec3, LuaVec3, LuaVec3</div>
   <div class="rets">u, v, normal</div>
   <div class="desc">Returns the barycentric coordinates of the point relative to the triangle and the triangle normal</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 The third barycentric coordinate can be obtained with: <code>w = 1 - u - v</code>.<br>
 Coordinates are not clamped, so points outside the triangle may have negative or >1 coordinates.<br>
 For more information, see <a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system" target="_blank">Barycentric coordinate system</a>.
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:triangleClosestPointUV</div>
   <div class="args">LuaVec3, LuaVec3, LuaVec3</div>
   <div class="rets">u, v</div>
   <div class="desc">Returns the barycentric coordinates (u,v) of the closest point on the triangle to the vector</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Coordinates are **clamped** to ensure the point lies on the triangle or its edges.
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:triangleClosestPoint</div>
   <div class="args">LuaVec3, LuaVec3, LuaVec3</div>
   <div class="rets">LuaVec3, u, v</div>
   <div class="desc">Returns a new LuaVec3 representing the closest point on the triangle to the vector, along with its barycentric coordinates u and v</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Coordinates are clamped, so the resulting point is always on the triangle or its edges.
-</div></tr></table>
+</div></div>
 
 ### Quads and Polygons
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:invBilinear2D</div>
   <div class="args">LuaVec3, LuaVec3, LuaVec3, LuaVec3</div>
   <div class="rets">u, v</div>
   <div class="desc">Returns the UV coordinates of the point inside the quad defined by the four vectors</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Coordinates can be used to reconstruct the point using bilinear interpolation:<br>
 <code>p = (1-u)*(1-v)*a1 + u*(1-v)*a2 + (1-u)*v*b1 + u*v*b2</code>.
 Only the <code>x</code> and <code>y</code> components of the vector are used, <code>z</code> is ignored.
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:inPolygon</div>
   <div class="args">see below</div>
   <div class="rets">bool</div>
   <div class="desc">Returns true if the vector lies inside the 2D polygon defined by the points, false otherwise</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 The function accepts either a single table of points or multiple points as separate arguments.<br>
 Points should be in order around the polygon (clockwise or counterclockwise).<br>
 Only the <code>x</code> and <code>y</code> components of the vector are used, <code>z</code> is ignored.
-</div></tr></table>
+</div></div>
 
 ### Planes
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:projectToOriginPlane</div>
   <div class="args">LuaVec3 (pnorm)</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Projects the vector onto the plane passing through the origin with the given normal</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 The returned vector lies on the plane defined by <code>pnorm</code>.<br>
 Effectively removes the component of the vector in the direction of the plane's normal.
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xnormPlaneWithLine</div>
   <div class="args">LuaVec3 (pnorm), LuaVec3 (a), LuaVec3 (b)</div>
   <div class="rets">xnorm</div>
   <div class="desc">Computes the normalized intersection of the line segment from <code>a</code> to <code>b</code> with the plane defined by <code>self</code> and <code>pnorm</code></div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Returns a scalar <code>xnorm</code> where:<br>
 <code>xnorm = 0</code> at <code>a</code>, <code>xnorm = 1</code> at <code>b</code>.<br>
 The function clamps extreme values to ±1e300 to avoid overflow.
 Useful for projecting a line onto a plane and getting the relative position along the line.
-</div></tr></table>
+</div></div>
 
 ### Spheres
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:xnormsSphereWithLine</div>
   <div class="args">radius, LuaVec3 a, LuaVec3 b</div>
   <div class="rets">lowXnorm, highXnorm</div>
   <div class="desc">Computes the intersection of the line segment <code>a, b</code> with the sphere centered at <code>self</code> with the given radius</div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 Returns two normalized positions along the line segment:<br>
 - <code>lowXnorm</code> corresponds to the first intersection, <code>highXnorm</code> to the second.<br>
 - <code>xnorm = 0</code> at <code>a</code>, <code>xnorm = 1</code> at <code>b</code>.<br>
 If the line does not intersect the sphere, returns <code>1, 0</code>.<br>
 Useful for finding entry and exit points of a line through a sphere.
-</div></tr></table>
+</div></div>
 
 ### Basis and Base Coordinates
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:basisCoordinates</div>
   <div class="args">c1, c2, c3</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Returns the coordinates of the vector in the basis defined by <code>c1, c2, c3</code></div>
-</tr><tr><td colspan="4" class="details">
+</div><div class="details">
 The returned vector <code>v</code> satisfies: <code>v.x * c1 + v.y * c2 + v.z * c3 = self</code>.<br>
 Useful for converting a vector from the global frame into an arbitrary basis.<br>
 Produces quite a bit of gc load.
-</div></tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setToBase</div>
   <div class="args">nx, ny, nz</div>
   <div class="desc">Transforms the vector from a local basis to world coordinates using the basis vectors <code>nx, ny, nz</code></div>
-</tr></table>
+</div></div>
 
-<table class="api"><tr>
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:toBase</div>
   <div class="args">nx, ny, nz</div>
   <div class="rets">LuaVec3</div>
   <div class="desc">Same as above, returns a new LuaVec3 (garbage)</div>
-</tr></table>
+</div></div>
 
 
 
