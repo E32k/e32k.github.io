@@ -474,6 +474,11 @@ i, i * { font-style: italic; }
   padding: 0.5em;
 }
 
+.arguments,
+.returns {
+  position: relative;
+}
+
 .arguments { border-left-color: #80b0ff; }
 .returns { border-left-color: #80ffff; }
 
