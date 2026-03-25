@@ -425,10 +425,11 @@ i, i * { font-style: italic; }
 
 .func {
   background-color: #e6ffe6;
-  overflow-wrap: break-word;
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   padding-bottom: 1em;
   flex: 0 0 20%;
 }
