@@ -21,7 +21,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   (since only the first group is used for collision, other are flexybody related)<br><br>
 
   See <code>vehicle/jbeam/stage2:215</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/nodes/" target="_blank" class="link-ext">BeamNG Documentation - Nodes</a> for more information.
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/nodes/" target="_blank">BeamNG Documentation - Nodes</a> for more information.
 </div></div>
 
 ### Node things
@@ -169,7 +169,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   (since only the first group is used for collision, other are flexybody related)<br><br>
 
   See <code>vehicle/jbeam/stage2:96</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank" class="link-ext">BeamNG Documentation - Beams</a> for more information.
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a> for more information.
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -178,13 +178,13 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Sets an existing beam to be an anisotropic (or support) beam with the specified values</div>
   </div><div class="details">
   See <code>vehicle/jbeam/stage2:106</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/anisotropic/" target="_blank" class="link-ext">BeamNG Documentation - Anisotropic Beams</a> for more information.<br><br>
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/anisotropic/" target="_blank">BeamNG Documentation - Anisotropic Beams</a> for more information.<br><br>
 
   Notice how there is no function for creating a support beam, its because its created with:<br>
   <code>obj:setBeamAnisotropic(bid, 0, 0, 0, beamLongBound)</code><br><br>
 
   See <code>vehicle/jbeam/stage2:129</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/support/" target="_blank" class="link-ext">BeamNG Documentation - Support Beams</a> for more information.
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/support/" target="_blank">BeamNG Documentation - Support Beams</a> for more information.
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -193,7 +193,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Sets an existing beam to be an bounded beam with the specified values</div>
   </div><div class="details">
   See <code>vehicle/jbeam/stage2:120</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/bounded/" target="_blank" class="link-ext">BeamNG Documentation - Bounded Beams</a> for more information.
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/bounded/" target="_blank">BeamNG Documentation - Bounded Beams</a> for more information.
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -202,7 +202,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Sets an existing beam to be an l-beam with the specified values</div>
   </div><div class="details">
   See <code>vehicle/jbeam/stage2:146</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/pressured/" target="_blank" class="link-ext">BeamNG Documentation - Pressured Beams</a> for more information.
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/pressured/" target="_blank">BeamNG Documentation - Pressured Beams</a> for more information.
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -217,7 +217,7 @@ This is the main userdata, that includes functions which control the vehicles jb
   <div class="desc">Sets an existing beam to be an l-beam with the specified values</div>
   </div><div class="details">
   See <code>vehicle/jbeam/stage2:148</code> for source.<br>
-  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/l-beam/" target="_blank" class="link-ext">BeamNG Documentation - L-Beams</a> for more information.
+  See <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/l-beam/" target="_blank">BeamNG Documentation - L-Beams</a> for more information.
 </div></div>
 
 ### Adding
