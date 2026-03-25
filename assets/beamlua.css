@@ -425,7 +425,7 @@ i, i * { font-style: italic; }
 
 .func {
   background-color: #e6ffe6;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   text-align: left;
   font-family: "Roboto Mono", monospace;
   font-weight: bold;
