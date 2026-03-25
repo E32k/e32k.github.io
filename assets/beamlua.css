@@ -479,7 +479,9 @@ i, i * { font-style: italic; }
 
 .func::after,
 .args::after,
-.rets::after {
+.rets::after,
+.returns::after,
+.arguments::after {
   position: absolute;
   left: 5px;
   bottom: 0;
@@ -490,7 +492,9 @@ i, i * { font-style: italic; }
 }
 
 .func::after { content: "function"; }
+.arguments:after,
 .args::after { content: "arguments"; }
+.returns:after,
 .rets::after { content: "returns"; }
 
 /* MARK: code blocks
