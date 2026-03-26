@@ -26,10 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
-// burger toggle
-document.getElementById("nav-burger").addEventListener("click", () => {
-  sites.classList.toggle("open")
-})
+const burger = document.getElementById("nav-burger")
+
+let startX = 0
+let currentX = 0
+let isDragging = false
+let prevTransition = ""
+
+// toggle
+burger.addEventListener("click", () => { sites.classList.toggle("open") })
 
 // close on outside click
 document.addEventListener("click", (e) => {
@@ -39,13 +44,15 @@ document.addEventListener("click", (e) => {
   }
 })
 
-
+// drag to close
 sites.addEventListener("touchstart", (e) => {
   if (!sites.classList.contains("open")) return
 
   startX = e.touches[0].clientX
   isDragging = true
-  sites.style.transition = "none" // disable animation while dragging
+
+  prevTransition = sites.style.transition
+  sites.style.transition = "none"
 })
 
 sites.addEventListener("touchmove", (e) => {
@@ -54,7 +61,6 @@ sites.addEventListener("touchmove", (e) => {
   currentX = e.touches[0].clientX
   let deltaX = currentX - startX
 
-  // only allow dragging left
   if (deltaX < 0) {
     sites.style.transform = `translateX(${deltaX}px)`
   }
@@ -66,18 +72,20 @@ sites.addEventListener("touchend", () => {
 
   let deltaX = currentX - startX
 
-  sites.style.transition = "transform 0.3s ease"
+  // restore transition
+  sites.style.transition = prevTransition || ""
 
-  // if dragged enough → close
-  if (deltaX < -100) {
+  if (deltaX < -80) {
+    // close
     sites.style.transform = "translateX(-100%)"
+
     setTimeout(() => {
       sites.classList.remove("open")
       sites.style.transform = ""
-    }, 300)
+    }, 250) // match CSS transition
   } else {
     // snap back
-    sites.style.transform = "translateX(0)"
+    sites.style.transform = ""
   }
 })
 
