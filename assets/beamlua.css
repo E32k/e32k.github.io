@@ -333,6 +333,24 @@ header img {
   }
 
   #sites.open { transform: translateX(0); }
+
+  /* backdrop */
+  #sites::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  /* show backdrop when open */
+  #sites.open::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 /* MARK: Font Styles

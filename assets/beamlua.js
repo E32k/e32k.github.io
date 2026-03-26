@@ -50,7 +50,7 @@ document.addEventListener("click", (e) => {
   }
 })
 
-/* --- drag to close --- */
+// drag to close
 sites.addEventListener("touchstart", (e) => {
   if (!sites.classList.contains("open")) return
 
