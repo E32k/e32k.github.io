@@ -316,7 +316,7 @@ header img {
   #sites {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 85%;
     max-width: 320px;
     height: 100vh;
@@ -325,10 +325,14 @@ header img {
     z-index: 9999;
     overflow-y: auto;
 
-    transition: left 0.25s ease;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+
+    will-change: transform;
+    touch-action: pan-y;
   }
 
-  #sites.open { left: 0; }
+  #sites.open { transform: translateX(0); }
 }
 
 /* MARK: Font Styles

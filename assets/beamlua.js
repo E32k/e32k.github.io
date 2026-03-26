@@ -29,37 +29,63 @@ document.addEventListener("DOMContentLoaded", () => {
 const burger = document.getElementById("nav-burger")
 
 let startX = 0
+let startY = 0
 let currentX = 0
 let isDragging = false
+let isHorizontal = false
 let prevTransition = ""
 
 // toggle
-burger.addEventListener("click", () => { sites.classList.toggle("open") })
+burger.addEventListener("click", () => {
+  sites.classList.toggle("open")
+})
 
-// close on outside click
+// outside click
 document.addEventListener("click", (e) => {
+  if (!sites.classList.contains("open")) return
+
   const isClickInside = sites.contains(e.target) || burger.contains(e.target)
   if (!isClickInside) {
     sites.classList.remove("open")
   }
 })
 
-// drag to close
+/* --- drag to close --- */
 sites.addEventListener("touchstart", (e) => {
   if (!sites.classList.contains("open")) return
 
-  startX = e.touches[0].clientX
-  isDragging = true
+  const touch = e.touches[0]
+  startX = touch.clientX
+  startY = touch.clientY
+  currentX = startX
 
-  prevTransition = sites.style.transition
-  sites.style.transition = "none"
+  isDragging = true
+  isHorizontal = false
+
+  // get computed transition (not inline)
+  prevTransition = getComputedStyle(sites).transition
 })
 
 sites.addEventListener("touchmove", (e) => {
   if (!isDragging) return
 
-  currentX = e.touches[0].clientX
-  let deltaX = currentX - startX
+  const touch = e.touches[0]
+  currentX = touch.clientX
+  const currentY = touch.clientY
+
+  const deltaX = currentX - startX
+  const deltaY = currentY - startY
+
+  // decide direction once
+  if (!isHorizontal) {
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      isHorizontal = true
+      sites.style.transition = "none"
+    } else {
+      isDragging = false
+      return
+    }
+  }
 
   if (deltaX < 0) {
     sites.style.transform = `translateX(${deltaX}px)`
@@ -68,21 +94,23 @@ sites.addEventListener("touchmove", (e) => {
 
 sites.addEventListener("touchend", () => {
   if (!isDragging) return
+
   isDragging = false
 
-  let deltaX = currentX - startX
+  const deltaX = currentX - startX
+  const width = sites.offsetWidth
 
-  // restore transition
-  sites.style.transition = prevTransition || ""
+  // restore transition properly
+  sites.style.transition = prevTransition
 
-  if (deltaX < -80) {
+  if (deltaX < -width * 0.25) {
     // close
     sites.style.transform = "translateX(-100%)"
 
     setTimeout(() => {
       sites.classList.remove("open")
       sites.style.transform = ""
-    }, 250) // match CSS transition
+    }, 250)
   } else {
     // snap back
     sites.style.transform = ""
