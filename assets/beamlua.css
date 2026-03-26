@@ -335,29 +335,19 @@ header img {
   #sites.open { transform: translateX(0); }
 
   /* backdrop */
-  #sites::before {
-    content: "";
+  #sites-backdrop {
     position: fixed;
     inset: 0;
-    width: 100vw;   /* Force viewport width */
-    height: 100vh;  /* Force viewport height */
     background: rgba(0, 0, 0, 0.4);
-
-    /* The Magic Trick: */
-    /* This counters the parent's translateX(-100%) */
-    transform: translateX(100%);
-
+    z-index: 9998; /* Under the sidebar */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
   }
 
-  /* show backdrop when open */
-  #sites.open::before {
+  #sites-backdrop.open {
     opacity: 1;
     pointer-events: auto;
-    /* Reset transform when the menu is open */
-    transform: translateX(0);
   }
 }
 

@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 const burger = document.getElementById("nav-burger")
+const backdrop = document.getElementById("sites-backdrop")
 
 let startX = 0
 let startY = 0
@@ -38,16 +39,13 @@ let prevTransition = ""
 // toggle
 burger.addEventListener("click", () => {
   sites.classList.toggle("open")
+  backdrop.classList.toggle("open")
 })
 
 // outside click
-document.addEventListener("click", (e) => {
-  if (!sites.classList.contains("open")) return
-
-  const isClickInside = sites.contains(e.target) || burger.contains(e.target)
-  if (!isClickInside) {
-    sites.classList.remove("open")
-  }
+backdrop.addEventListener("click", () => {
+  sites.classList.remove("open")
+  backdrop.classList.remove("open")
 })
 
 // drag to close
@@ -94,7 +92,6 @@ sites.addEventListener("touchmove", (e) => {
 
 sites.addEventListener("touchend", () => {
   if (!isDragging) return
-
   isDragging = false
 
   const deltaX = currentX - startX
@@ -106,6 +103,7 @@ sites.addEventListener("touchend", () => {
   if (deltaX < -width * 0.25) {
     // close
     sites.style.transform = "translateX(-100%)"
+    backdrop.classList.remove("open")
 
     setTimeout(() => {
       sites.classList.remove("open")
