@@ -31,6 +31,56 @@ document.getElementById("nav-burger").addEventListener("click", () => {
   sites.classList.toggle("open")
 })
 
+// close on outside click
+document.addEventListener("click", (e) => {
+  const isClickInside = sites.contains(e.target) || burger.contains(e.target)
+  if (!isClickInside) {
+    sites.classList.remove("open")
+  }
+})
+
+
+sites.addEventListener("touchstart", (e) => {
+  if (!sites.classList.contains("open")) return
+
+  startX = e.touches[0].clientX
+  isDragging = true
+  sites.style.transition = "none" // disable animation while dragging
+})
+
+sites.addEventListener("touchmove", (e) => {
+  if (!isDragging) return
+
+  currentX = e.touches[0].clientX
+  let deltaX = currentX - startX
+
+  // only allow dragging left
+  if (deltaX < 0) {
+    sites.style.transform = `translateX(${deltaX}px)`
+  }
+})
+
+sites.addEventListener("touchend", () => {
+  if (!isDragging) return
+  isDragging = false
+
+  let deltaX = currentX - startX
+
+  sites.style.transition = "transform 0.3s ease"
+
+  // if dragged enough → close
+  if (deltaX < -100) {
+    sites.style.transform = "translateX(-100%)"
+    setTimeout(() => {
+      sites.classList.remove("open")
+      sites.style.transform = ""
+    }, 300)
+  } else {
+    // snap back
+    sites.style.transform = "translateX(0)"
+  }
+})
+
 
 
 // MARK: Overview headings (Table of Contents)
