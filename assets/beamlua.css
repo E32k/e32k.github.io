@@ -478,7 +478,7 @@ i, i * { font-style: italic; }
 .arguments,
 .returns {
   font-family: "Roboto Mono", monospace;
-  font-weight: normal;
+  font-weight:lighter;
   position: relative;
 }
 
