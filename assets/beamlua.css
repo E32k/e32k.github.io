@@ -311,7 +311,6 @@ header img {
 #nav-burger { display: none; }
 
 @media (max-width: 1000px) {
-  #nav-burger { display: block; }
 
   #sites {
     position: fixed;
@@ -327,9 +326,11 @@ header img {
 
     transform: translateX(-100%);
     transition: transform 0.25s ease;
-
     will-change: transform;
     touch-action: pan-y;
+
+    /* create a stacking context */
+    position: relative;
   }
 
   #sites.open { transform: translateX(0); }
@@ -337,16 +338,21 @@ header img {
   /* backdrop */
   #sites::before {
     content: "";
-    position: fixed;
-    inset: 0;
+    position: fixed;       /* full-screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
     background: rgba(0, 0, 0, 0.4);
 
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
+
+    z-index: 9998; /* below sidebar content but above page */
   }
 
-  /* show backdrop when open */
   #sites.open::before {
     opacity: 1;
     pointer-events: auto;
