@@ -1,176 +1,117 @@
 ---
 title: Garbage Collector
 layout: beamlua
-date: 2026-03-08
+date: 2026-04-16
 ---
 
-# Lua Garbage Collection and performance stutters
+Lua has an automatic garbage collector (GC). Its job is to free memory that your program no longer uses, so you don’t have to manually delete things.
 
-Lua manages memory automatically using a **garbage collector (GC)**.
-You do not free memory manually. Instead, Lua tracks whether objects are still reachable and cleans them when they are not.
+## 1. What gets managed?
+Lua automatically tracks and manages:
+- tables
+- strings
+- functions
+- userdata
+- threads (coroutines)
 
-Any value that allocates memory (tables, userdata like vec3/quat, strings, closures) eventually becomes GC-managed once it is no longer referenced.
+Numbers, booleans, and nil are not managed (they are simple values).
 
-## Object lifetime in practice
-
-```lua
-local function update()
-  local vehicle = be:getPlayerVehicle(0)
-  local pos = vehicle:getPosition()
-
-  -- work happens here
-
-  -- function ends → vehicle and pos go out of scope
-end
-```
-
-When the function exits:
-- local references disappear
-- Lua may now consider those objects collectible
-- actual deletion is deferred
-
-Nothing is immediately freed.
-
-## Why GC can cause frame drops
-
-Lua GC runs periodically and performs work in chunks, but it is still **synchronous with the Lua thread**.
-
-When it runs:
-- Lua execution pauses
-- memory graph is scanned
-- unused objects are freed
-
-If a lot of allocations happened recently, that cleanup step becomes heavier, producing a visible spike.
-
-## Visual model
-
-Memory behaves like a network of references:
-
-```text
-root → A → B → C
-```
-
-As long as a path exists, objects stay alive.
-
-Once references are broken:
-
-```text
-root → A     B → C
-            (no path from root)
-```
-
-B and C are no longer reachable and become candidates for cleanup.
-
-## Small allocations still accumulate
-
-Even simple operations can generate temporary objects:
+## 2. Basic idea
+When you create something like a table:
 
 ```lua
-local s = ""
-for i = 1, 1000 do
-  s = s .. i
-end
+local t = {1, 2, 3}
 ```
 
-Each concatenation:
-- creates a new string
-- leaves the old one behind
-- produces garbage immediately
-
-Repeated patterns like this increase GC workload quickly.
-
-## Hidden cost in common game logic
-
-Frequent queries often create short-lived objects:
+Lua allocates memory for it. As long as something still references `t`, it stays in memory.
 
 ```lua
-local function computeDirection()
-  local v1 = be:getPlayerVehicle(0)
-  local v2 = be:getPlayerVehicle(1)
-
-  local p1 = v1:getPosition()
-  local p2 = v2:getPosition()
-
-  return (p1 - p2):normalized()
-end
+local a = {1, 2}
+local b = a
+a = nil
 ```
 
-Even though the code is small:
-- multiple temporary vectors are created
-- intermediate results are allocated
-- all of them become garbage shortly after use
+Here:
+- the table is still kept alive because `b` points to it
+- setting `a = nil` does not delete the table
 
-If executed every frame, this compounds into noticeable GC pressure.
-
-## Why spikes happen instead of smooth cost
-
-GC does not distribute all work evenly every frame.
-
-Instead:
-- memory accumulates gradually
-- GC runs when thresholds are reached
-- cleanup happens in bursts
-
-That burst is what appears as a **frame-time spike**.
-
-## Reducing GC pressure
-
-Main idea: avoid frequent short-lived allocations.
-
-### Bad pattern
+When NOTHING references it anymore:
 
 ```lua
-local function step()
-  local v = vec3(0, 0, 0)
-  return v
-end
+local a = {1, 2}
+a = nil
 ```
 
-Every call creates a new object.
+Now the table becomes unreachable → garbage collector will eventually remove it.
 
-### Better pattern (reuse)
+## 3. How Lua decides what to delete
+Lua uses a method similar to **mark-and-sweep**:
+
+### Step 1: Mark
+It starts from “roots”:
+- global variables
+- current stack variables
+- references inside tables
+
+It marks everything reachable from there as “alive”.
+
+### Step 2: Sweep
+Everything not marked is considered garbage and is freed.
+
+## 4. When GC runs
+You usually don’t control it directly.
+
+Lua runs GC:
+- automatically when memory usage grows
+- periodically after allocations
+
+So cleanup happens in the background.
+
+## 5. Weak references (important concept)
+Sometimes you want a table that does NOT keep objects alive.
+
+Example use: caches.
 
 ```lua
-local tmp = vec3()
-
-local function step()
-  tmp:set(0, 0, 0)
-  return tmp
-end
+t = {}
+setmetatable(t, { __mode = "v" }) -- weak values
 ```
 
-### Cached buffer approach
+Now if nothing else references a value, it can still be collected even if it is inside `t`.
+
+Types:
+- `"k"` → weak keys
+- `"v"` → weak values
+- `"kv"` → both
+
+## 6. Cycles are handled correctly
+Lua can clean circular references:
 
 ```lua
-local BUF = {
-  p1 = vec3(),
-  p2 = vec3(),
-  dir = vec3()
-}
+local a = {}
+local b = {}
 
-local function direction()
-  local v1 = getPlayerVehicle(0)
-  local v2 = getPlayerVehicle(1)
+a.other = b
+b.other = a
 
-  BUF.p1:set(v1:getPositionXYZ())
-  BUF.p2:set(v2:getPositionXYZ())
-
-  BUF.dir:set(BUF.p1)
-  BUF.dir:setSub(BUF.p2)
-  BUF.dir:normalize()
-
-  return BUF.dir:xyz()
-end
+a = nil
+b = nil
 ```
 
-This reduces:
-- temporary allocations
-- GC frequency
-- runtime spikes
+Even though `a` and `b` reference each other, they are still garbage once unreachable from roots.
 
-## Summary
+## 7. Manual control (optional)
+You can influence GC, but normally you shouldn’t:
 
-- Lua frees memory automatically via GC
-- GC runs periodically and blocks execution
-- frequent allocations increase GC load
-- reuse objects to reduce stutter risk
+```lua
+collectgarbage("collect")  -- force a cycle
+collectgarbage("count")    -- memory usage (KB)
+collectgarbage("stop")     -- pause GC
+collectgarbage("restart")  -- resume GC
+```
+
+## 8. Key takeaway
+- You do NOT free memory manually in Lua
+- You only remove references
+- Lua cleans up unreachable objects automatically
+- GC is automatic, incremental, and usually invisible
