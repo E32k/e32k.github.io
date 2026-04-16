@@ -307,8 +307,13 @@ header img {
   font-weight: 600;
 }
 
+#sites .hidden {
+  display: none;
+}
+
 /* MOBILE */
 #nav-burger {
+  border: none;
   background: none;
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 48 48' xmlns='http%3a%2f%2fwww.w3.org%2f2000%2fsvg'%3e%3cpath d='M10 13H41L43 7H12L10 13ZM5 27H42L44 21H7L5 27ZM37 41H7L9 35H39L37 41Z' fill='black'%2f%3e%3c%2fsvg%3e");
   background-position: 50% 50%;
