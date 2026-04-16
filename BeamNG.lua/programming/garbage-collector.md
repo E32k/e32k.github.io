@@ -4,151 +4,173 @@ layout: beamlua
 date: 2026-03-08
 ---
 
-<@user> Quick explanation of how Lua GC works and why it can cause stutters.
+# Lua Garbage Collection and performance stutters
 
-Every time you create an object in Lua (tables, vec3, strings, etc.), it stays in memory until **nothing references it anymore**. After that, it becomes *garbage* and waits to be cleaned up.
+Lua manages memory automatically using a **garbage collector (GC)**.
+You do not free memory manually. Instead, Lua tracks whether objects are still reachable and cleans them when they are not.
+
+Any value that allocates memory (tables, userdata like vec3/quat, strings, closures) eventually becomes GC-managed once it is no longer referenced.
+
+## Object lifetime in practice
 
 ```lua
-local function something()
+local function update()
   local vehicle = be:getPlayerVehicle(0)
-  local veh_pos = vehicle:getPosition()
+  local pos = vehicle:getPosition()
 
-  -- ...
+  -- work happens here
 
-  -- function ends → both variables lose their references
+  -- function ends → vehicle and pos go out of scope
 end
 ```
 
-That data is now unused, but not deleted immediately.
+When the function exits:
+- local references disappear
+- Lua may now consider those objects collectible
+- actual deletion is deferred
 
-## The important part
+Nothing is immediately freed.
 
-Lua’s garbage collector:
-- runs **whenever it decides to**
-- is **blocking** (it pauses Lua while running)
+## Why GC can cause frame drops
 
-So if a lot of garbage builds up → GC runs → **frame stutter**
+Lua GC runs periodically and performs work in chunks, but it is still **synchronous with the Lua thread**.
 
-## Easy way to visualize it
+When it runs:
+- Lua execution pauses
+- memory graph is scanned
+- unused objects are freed
 
-Think of memory like a pile:
+If a lot of allocations happened recently, that cleanup step becomes heavier, producing a visible spike.
+
+## Visual model
+
+Memory behaves like a network of references:
 
 ```text
-[used][used][used][garbage][garbage][garbage]
+root → A → B → C
 ```
 
-Lua keeps adding garbage during gameplay.
-Then suddenly:
+As long as a path exists, objects stay alive.
+
+Once references are broken:
 
 ```text
-GC runs → cleans everything → pause
+root → A     B → C
+            (no path from root)
 ```
 
-That pause is your stutter.
+B and C are no longer reachable and become candidates for cleanup.
 
-## What creates garbage
+## Small allocations still accumulate
 
-Even simple code can generate a lot:
+Even simple operations can generate temporary objects:
 
 ```lua
-local str = ""
+local s = ""
 for i = 1, 1000 do
-  str = str .. i -- new string every loop
+  s = s .. i
 end
 ```
 
-Each `..` creates a new string → old ones become garbage.
+Each concatenation:
+- creates a new string
+- leaves the old one behind
+- produces garbage immediately
 
-## Example with actual cost
+Repeated patterns like this increase GC workload quickly.
+
+## Hidden cost in common game logic
+
+Frequent queries often create short-lived objects:
 
 ```lua
-local function dirBetweenVehicles()
-  local vehicle_1 = be:getPlayerVehicle(0) -- big object
-  local vehicle_2 = be:getPlayerVehicle(1)
+local function computeDirection()
+  local v1 = be:getPlayerVehicle(0)
+  local v2 = be:getPlayerVehicle(1)
 
-  local pos1 = vehicle_1:getPosition()
-  local pos2 = vehicle_2:getPosition()
+  local p1 = v1:getPosition()
+  local p2 = v2:getPosition()
 
-  local dir = (pos1 - pos2):normalized()
-
-  return dir
+  return (p1 - p2):normalized()
 end
 ```
 
-This creates multiple temporary objects:
-- vehicle refs
-- vec3 positions
-- result vector
+Even though the code is small:
+- multiple temporary vectors are created
+- intermediate results are allocated
+- all of them become garbage shortly after use
 
-All of these can turn into garbage quickly if called often.
+If executed every frame, this compounds into noticeable GC pressure.
 
-## Why this becomes a problem
+## Why spikes happen instead of smooth cost
 
-If this runs every frame:
-- garbage builds up fast
-- GC has to clean more
-- bigger pause → visible lag spike
+GC does not distribute all work evenly every frame.
 
-## How to reduce GC pressure
+Instead:
+- memory accumulates gradually
+- GC runs when thresholds are reached
+- cleanup happens in bursts
 
-Instead of creating new objects, **reuse them**.
+That burst is what appears as a **frame-time spike**.
 
-### Bad (allocates every call)
+## Reducing GC pressure
+
+Main idea: avoid frequent short-lived allocations.
+
+### Bad pattern
 
 ```lua
-local function f()
+local function step()
   local v = vec3(0, 0, 0)
   return v
 end
 ```
 
-### Better (reuse)
+Every call creates a new object.
+
+### Better pattern (reuse)
 
 ```lua
-local TMP = vec3()
+local tmp = vec3()
 
-local function f()
-  TMP:set(0, 0, 0)
-  return TMP
+local function step()
+  tmp:set(0, 0, 0)
+  return tmp
 end
 ```
 
-### Even better: cache multiple objects
+### Cached buffer approach
 
 ```lua
-local CACHE = {
-  pos1 = vec3(),
-  pos2 = vec3(),
-  dir  = vec3()
+local BUF = {
+  p1 = vec3(),
+  p2 = vec3(),
+  dir = vec3()
 }
 
-local function dirBetweenVehicles()
-  local pos1 = CACHE.pos1
-  local pos2 = CACHE.pos2
-  local dir  = CACHE.dir
-
+local function direction()
   local v1 = getPlayerVehicle(0)
   local v2 = getPlayerVehicle(1)
 
-  pos1:set(v1:getPositionXYZ())
-  pos2:set(v2:getPositionXYZ())
+  BUF.p1:set(v1:getPositionXYZ())
+  BUF.p2:set(v2:getPositionXYZ())
 
-  dir:set(pos1)
-  dir:setSub(pos2)
-  dir:normalize()
+  BUF.dir:set(BUF.p1)
+  BUF.dir:setSub(BUF.p2)
+  BUF.dir:normalize()
 
-  return dir:xyz()
+  return BUF.dir:xyz()
 end
 ```
 
-Now:
-- no new vec3 objects are created
-- almost zero garbage
-- GC runs less → smoother game
+This reduces:
+- temporary allocations
+- GC frequency
+- runtime spikes
 
-## Key takeaway
+## Summary
 
-- Creating objects = future GC work
-- GC runs randomly and blocks execution
-- Spikes happen when too much garbage accumulates
-- Reuse objects and avoid temporary allocations
+- Lua frees memory automatically via GC
+- GC runs periodically and blocks execution
+- frequent allocations increase GC load
+- reuse objects to reduce stutter risk
