@@ -226,7 +226,6 @@ header img {
 
 /* Text Wrapping if its too lon... */
 #TableOfContents a {
-  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
