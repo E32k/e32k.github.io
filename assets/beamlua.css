@@ -226,17 +226,10 @@ header img {
 
 /* Text Wrapping if its too lon... */
 #TableOfContents a {
-  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-}
-#TableOfContents li {
-  position: relative;
-}
-#TableOfContents a {
-  padding-left: 1.2rem;
 }
 #TableOfContents ul ul {padding-left: 1rem} /* Indentation */
 
