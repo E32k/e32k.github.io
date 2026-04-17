@@ -135,12 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const levelMap = { H2: 2, H3: 3, H4: 4, H5: 5 };
 
-  const stack = [{ level: 1, ul: rootList }];
+  // stack holds LI, not UL
+  const stack = [{ level: 1, li: null, ul: rootList }];
 
   headings.forEach((heading) => {
     if (!heading.id) {
       const base = heading.textContent
-      .toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+        .toLowerCase().trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-");
 
       const count = usedIds.get(base) ?? 0;
       heading.id = count ? `${base}-${count}` : base;
@@ -156,15 +159,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const li = document.createElement("li");
     li.appendChild(link);
 
-    while (stack.length && stack[stack.length - 1].level >= level) stack.pop();
+    // find correct parent level
+    while (stack.length && stack[stack.length - 1].level >= level) {
+      stack.pop();
+    }
 
     const parent = stack[stack.length - 1];
 
-    let ul = parent.ul.querySelector(":scope > ul");
-    if (!ul) parent.ul.appendChild(ul = document.createElement("ul"));
+    let ul;
+    if (parent.li) {
+      ul = parent.li.querySelector(":scope > ul");
+      if (!ul) {
+        ul = document.createElement("ul");
+        parent.li.appendChild(ul);
+      }
+    } else {
+      ul = rootList;
+    }
 
     ul.appendChild(li);
-    stack.push({ level, ul });
+
+    stack.push({ level, li, ul });
 
     links.set(heading, link);
   });
@@ -176,8 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
     headings.forEach((h, i) => {
       const start = h.offsetTop;
       const end = headings[i + 1]?.offsetTop ?? document.body.scrollHeight;
-      const link = links.get(h);
 
+      const link = links.get(h);
       if (link) link.classList.toggle("is-visible", start < bottom && end > top);
     });
   }
