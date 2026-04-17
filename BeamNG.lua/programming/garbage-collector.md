@@ -31,11 +31,15 @@ Its still faster to create a new table than to nil all of its values if dealing 
 
 ### Strings
 
-String objects aren't only created when you define them with something like `local text = "Hello World!"`, but also any time you concatenate them.
-Every concatenation creates a new string object, so `local text = player .. ": " .. msg .. "\n"` for example creates 4 new string objects.
-Same goes with most string functions like `string.format(...)`, `string.sub(...)` and similar.
+String objects aren't only created when you define them with something like `local text = "Hello World!"`, but also any time you concatenate them.<br>
+Every concatenation creates a new string object, so `local text = player .. ": " .. msg .. "\n"` for example creates 4 new string objects.<br>
+Same goes with most string functions like `string.format(...)`, `string.sub(...)` and similar.<br>
 If you need to concatenate a lot of strings togheder, you can either use a temporary table and then use `table.concat(...)`, or you can use [string.buffer](/BeamNG.lua/common/string.buffer.html).
 
-### Vectors (and quats)
+### UserData And CData
+
+Of course any time you create an other kind of object, it turns into garbage eventually too, but since there are many different kinds of objects i will split them below
+
+#### Vectors (and quats)
 
 This is often the biggest garbage creator. Since every time you do math with them it creates a new object. So even things like this: `vecC = vecA + vecB` is creating garbage.
