@@ -224,21 +224,20 @@ header img {
   top: 0;
 }
 
-#TableOfContents li {
-  display: flex;
-  align-items: center;
-}
-
 /* Text Wrapping if its too lon... */
 #TableOfContents a {
-  flex: 1;
-  min-width: 0;
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
+  max-width: 100%;
 }
-
+#TableOfContents li {
+  position: relative;
+}
+#TableOfContents a {
+  padding-left: 1.2rem;
+}
 #TableOfContents ul ul {padding-left: 1rem} /* Indentation */
 
 #TableOfContents > ul > li > a {font-weight: 600}
