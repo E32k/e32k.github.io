@@ -224,17 +224,22 @@ header img {
   top: 0;
 }
 
+#TableOfContents li {
+  display: flex;
+  align-items: center;
+}
+
 /* Text Wrapping if its too lon... */
 #TableOfContents a {
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+  display: block;
 }
-#TableOfContents li {
-  list-style: none;
-}
-#TableOfContents li li {padding-left: 1rem} /* Indentation */
+
+#TableOfContents ul ul {padding-left: 1rem} /* Indentation */
 
 #TableOfContents > ul > li > a {font-weight: 600}
 #TableOfContents ul ul > li > a {font-weight: 400; opacity: 0.8}
