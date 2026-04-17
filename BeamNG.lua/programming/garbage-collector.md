@@ -43,3 +43,115 @@ Of course any time you create an other kind of object, it turns into garbage eve
 #### Vectors (and quats)
 
 This is often the biggest garbage creator. Since every time you do math with them it creates a new object. So even things like this: `vecC = vecA + vecB` is creating garbage.
+
+
+
+# TOC Test Document
+
+This document tests all edge cases for heading parsing.
+
+---
+
+## Introduction
+
+Some intro text.
+
+## Basic Section
+
+Content here.
+
+### Subsection A
+
+Details.
+
+#### Deep Level 1
+
+Even deeper.
+
+##### Deep Level 2
+
+Maximum depth.
+
+### Subsection B
+
+More content.
+
+## Duplicate Section
+
+This section appears twice in name.
+
+### Child A
+
+Text.
+
+### Child A
+
+Duplicate heading under same parent.
+
+## Out of Order Structure
+
+### This is a H3 before H4 parent context
+
+#### Actually a H4 under H3
+
+##### H5 under H4
+
+### Another H3
+
+#### H4 again
+
+## Skipped Levels (important test)
+
+#### H4 directly under H2 (no H3 before it)
+
+##### H5 under skipped H4
+
+## Back to H2
+
+Regular reset section.
+
+### Normal child
+
+#### Deep child
+
+## Repeated Titles Everywhere
+
+## Repeated Titles Everywhere
+
+### Repeated Titles Everywhere
+
+#### Repeated Titles Everywhere
+
+## Special Characters Test !@#$%^&*()
+
+### !@# Subsection $$%%
+
+#### Weird --- formatting ___ test
+
+## Spacing & Normalization Test
+
+###     Lots    of     Spaces
+
+### CAPS LOCK HEADING
+
+#### mixed CASE Heading Test
+
+## Empty-ish edge cases
+
+###
+
+###
+
+### Heading with trailing spaces
+
+## Long Content Heading Example That Should Still Work Properly Without Breaking Anything In The TOC Generation Logic
+
+### Another Extremely Long Subheading That Exists Only To Stress Test Link Rendering And Overflow Handling In The Table Of Contents UI
+
+## Final Section
+
+The end.
+
+### Last Child
+
+#### Final Deep Node
