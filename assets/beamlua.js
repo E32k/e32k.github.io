@@ -124,33 +124,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const overview = document.querySelector("#overview");
   if (!main || !toc || !overview) return;
 
-  const headings = Array.from(main.querySelectorAll("h2, h3"));
-
-  if (headings.length === 0) {
-    overview.remove();
-    return;
-  }
+  const headings = Array.from(main.querySelectorAll("h2, h3, h4, h5"));
+  if (!headings.length) return overview.remove();
 
   const links = new Map();
   const usedIds = new Map();
 
-  // Root list
   const rootList = document.createElement("ul");
   toc.appendChild(rootList);
 
-  let currentHeading = null;
+  const levelMap = { H2: 2, H3: 3, H4: 4, H5: 5 };
+
+  const stack = [{ level: 1, ul: rootList }];
 
   headings.forEach((heading) => {
-    // Ensure unique IDs
     if (!heading.id) {
       const base = heading.textContent
-        .toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
+      .toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
 
       const count = usedIds.get(base) ?? 0;
-
-      heading.id = count === 0 ? base : `${base}-${count}`;
+      heading.id = count ? `${base}-${count}` : base;
       usedIds.set(base, count + 1);
     }
+
+    const level = levelMap[heading.tagName] || 2;
 
     const link = document.createElement("a");
     link.href = `#${heading.id}`;
@@ -159,37 +156,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const li = document.createElement("li");
     li.appendChild(link);
 
-    if (heading.tagName === "H2") {
-      // Top-level entry
-      rootList.appendChild(li);
-      currentHeading = li;
-    } else if (heading.tagName === "H3" && currentHeading) {
-      // Nested under last H1
-      let sublist = currentHeading.querySelector("ul");
-      if (!sublist) {
-        sublist = document.createElement("ul");
-        currentHeading.appendChild(sublist);
-      }
-      sublist.appendChild(li);
-    }
+    while (stack.length && stack[stack.length - 1].level >= level) stack.pop();
+
+    const parent = stack[stack.length - 1];
+
+    let ul = parent.ul.querySelector(":scope > ul");
+    if (!ul) parent.ul.appendChild(ul = document.createElement("ul"));
+
+    ul.appendChild(li);
+    stack.push({ level, ul });
 
     links.set(heading, link);
   });
 
   function updateVisibleSections() {
-    const viewportTop = window.scrollY;
-    const viewportBottom = viewportTop + window.innerHeight;
+    const top = scrollY;
+    const bottom = top + innerHeight;
 
-    headings.forEach((heading, i) => {
-      const start = heading.offsetTop;
+    headings.forEach((h, i) => {
+      const start = h.offsetTop;
       const end = headings[i + 1]?.offsetTop ?? document.body.scrollHeight;
-      const isVisible = start < viewportBottom && end > viewportTop;
-      const link = links.get(heading);
-      if (link) link.classList.toggle("is-visible", isVisible);
+      const link = links.get(h);
+
+      if (link) link.classList.toggle("is-visible", start < bottom && end > top);
     });
   }
 
   updateVisibleSections();
-  window.addEventListener("scroll", updateVisibleSections, { passive: true });
-  window.addEventListener("resize", updateVisibleSections);
+  addEventListener("scroll", updateVisibleSections, { passive: true });
+  addEventListener("resize", updateVisibleSections);
 });
