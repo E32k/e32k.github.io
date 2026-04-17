@@ -225,18 +225,14 @@ header img {
 }
 
 /* Text Wrapping if its too lon... */
-#TableOfContents li {
-  display: flex;
-  align-items: center;
-}
 #TableOfContents a {
-  flex: 1;
-  min-width: 0;
+  display: block;
+  width: 100%;
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-decoration: none;
-  color: inherit;
+  box-sizing: border-box;
 }
 #TableOfContents ul ul {padding-left: 1rem} /* Indentation */
 
