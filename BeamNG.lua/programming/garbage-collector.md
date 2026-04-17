@@ -26,11 +26,15 @@ Any time you create an object, it allocates memory. The object turns into garbag
 
 With tables, it's pretty simple. You only create an object when you define a new table, so any time you use `{...}`.<br>
 So if you can, prefer caching tables in hot loops, for example simple fixed positions like `{x = 2, y = 5}` that do not change.<br>
-With changing tables, try to reuse the same table and just update its values instead of creating a new one each time.
+With changing tables, if you can, reuse the same table and just update its values instead of creating a new one each time.
+Its still faster to create a new table than to nil all of its values if dealing with changing arrays.
 
 ### Strings
 
-String objects arent only created every time you allocate it with `local text = "Hello World!"` but also any time you concentrate it
+String objects aren't only created when you define them with something like `local text = "Hello World!"`, but also any time you concatenate them.
+Every concatenation creates a new string object, so `local text = player .. ": " .. msg .. "\n"` for example creates 4 new string objects.
+Same goes with most string functions like `string.format(...)`, `string.sub(...)` and similar.
+If you need to concatenate a lot of strings togheder, you can either use a temporary table and then use `table.concat(...)`, or you can use [string.buffer](/BeamNG.lua/common/string.buffer.html).
 
 ### Vectors (and quats)
 
