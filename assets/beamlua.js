@@ -140,10 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   headings.forEach((heading) => {
     if (!heading.id) {
-      const base = heading.textContent
-        .toLowerCase().trim()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-");
+      const base = heading.textContent.toLowerCase().trim().replace(/&/g, "and").replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
 
       const count = usedIds.get(base) ?? 0;
       heading.id = count ? `${base}-${count}` : base;
