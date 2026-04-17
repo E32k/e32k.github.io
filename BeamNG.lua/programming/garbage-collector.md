@@ -4,114 +4,34 @@ layout: beamlua
 date: 2026-04-16
 ---
 
-Lua has an automatic garbage collector (GC). Its job is to free memory that your program no longer uses, so you don’t have to manually delete things.
+Every time you create a new object, which are things like tables, strings or userdata like vec3 or quats, it allocates memory. Because we dont have infinite memory yet, lua has a garbage colector, whichs role is to clean unused objects to free up ram. It doesnt run every frame, it runs when it decides to. That means that instead of your fps dropping, you get a way worse form of lag: rubber banding, where the game slow downs and speeds up right after, or it may freeze when it runs. Thats because when it runs, all lua is paused until it finishes its job. With small loads its unnoticeable.
 
-## 1. What gets managed?
-Lua automatically tracks and manages:
-- tables
-- strings
-- functions
-- userdata
-- threads (coroutines)
+You can measure how much garbage you are creating by running gcprobe(), like timeprobe() at the start and end of your measurement.
 
-Numbers, booleans, and nil are not managed (they are simple values).
 
-## 2. Basic idea
-When you create something like a table:
 
-```lua
-local t = {1, 2, 3}
-```
+Every time you create a new object, which are things like tables, strings, or userdata like vec3 or quats, it allocates memory. Because we don't have infinite memory yet, Lua has a garbage collector, whose role is to clean unused objects to free up RAM. It doesn't run every frame, it runs when it decides to. That means that instead of your FPS dropping, you get a way worse form of lag: rubber banding, where the game slows down and speeds up right after, or it may freeze when it runs. That's because when it runs, all Lua is paused until it finishes its job. With small loads, it's unnoticeable.
 
-Lua allocates memory for it. As long as something still references `t`, it stays in memory.
+You can measure how much garbage you are creating by running gcprobe(), like timeprobe(), at the start and end of your measurement.
 
-```lua
-local a = {1, 2}
-local b = a
-a = nil
-```
 
-Here:
-- the table is still kept alive because `b` points to it
-- setting `a = nil` does not delete the table
 
-When NOTHING references it anymore:
 
-```lua
-local a = {1, 2}
-a = nil
-```
 
-Now the table becomes unreachable → garbage collector will eventually remove it.
+Any time you create an object, it allocates memory. The object turns into garbage when its not referenced anymore. The garbage collector then collects the garbage when it needs to.
 
-## 3. How Lua decides what to delete
-Lua uses a method similar to **mark-and-sweep**:
+## What's Creating Objects
 
-### Step 1: Mark
-It starts from “roots”:
-- global variables
-- current stack variables
-- references inside tables
+### Tables
 
-It marks everything reachable from there as “alive”.
+With tables, it's pretty simple. You only create an object when you define a new table, so any time you use `{...}`.<br>
+So if you can, prefer caching tables in hot loops, for example simple fixed positions like `{x = 2, y = 5}` that do not change.<br>
+With changing tables, try to reuse the same table and just update its values instead of creating a new one each time.
 
-### Step 2: Sweep
-Everything not marked is considered garbage and is freed.
+### Strings
 
-## 4. When GC runs
-You usually don’t control it directly.
+String objects arent only created every time you allocate it with `local text = "Hello World!"` but also any time you concentrate it
 
-Lua runs GC:
-- automatically when memory usage grows
-- periodically after allocations
+### Vectors (and quats)
 
-So cleanup happens in the background.
-
-## 5. Weak references (important concept)
-Sometimes you want a table that does NOT keep objects alive.
-
-Example use: caches.
-
-```lua
-t = {}
-setmetatable(t, { __mode = "v" }) -- weak values
-```
-
-Now if nothing else references a value, it can still be collected even if it is inside `t`.
-
-Types:
-- `"k"` → weak keys
-- `"v"` → weak values
-- `"kv"` → both
-
-## 6. Cycles are handled correctly
-Lua can clean circular references:
-
-```lua
-local a = {}
-local b = {}
-
-a.other = b
-b.other = a
-
-a = nil
-b = nil
-```
-
-Even though `a` and `b` reference each other, they are still garbage once unreachable from roots.
-
-## 7. Manual control (optional)
-You can influence GC, but normally you shouldn’t:
-
-```lua
-collectgarbage("collect")  -- force a cycle
-collectgarbage("count")    -- memory usage (KB)
-collectgarbage("stop")     -- pause GC
-collectgarbage("restart")  -- resume GC
-```
-
-## 8. Key takeaway
-- You do NOT free memory manually in Lua
-- You only remove references
-- Lua cleans up unreachable objects automatically
-- GC is automatic, incremental, and usually invisible
+This is often the biggest garbage creator. Since every time you do math with them it creates a new object. So even things like this: `vecC = vecA + vecB` is creating garbage.
