@@ -225,14 +225,11 @@ header img {
 }
 
 /* Text Wrapping if its too lon... */
-#TableOfContents a {
-  display: block;
-  width: 100%;
-  max-width: 100%;
+#TableOfContents li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  box-sizing: border-box;
+  max-width: 100%;
 }
 #TableOfContents ul ul {padding-left: 1rem} /* Indentation */
 
