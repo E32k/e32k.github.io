@@ -209,8 +209,8 @@ header img {
   display: flex;
   flex-direction: column;
 
-  background-color: #f7f7f7;
-  border-left: 1px solid #999;
+  /*background-color: #f7f7f7;
+  border-left: 1px solid #999;*/
 }
 
 .overview-top {
