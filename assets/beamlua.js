@@ -124,7 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const overview = document.querySelector("#overview");
   if (!main || !toc || !overview) return;
 
-  const headings = Array.from(main.querySelectorAll("h2, h3, h4, h5"));
+  const headings = Array.from(main.querySelectorAll("h1, h2, h3, h4, h5"))
+                  .filter((h, i) => !(h.tagName === "H1" && i === 0));
+
   if (!headings.length) return overview.remove();
 
   const links = new Map();
@@ -133,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const rootList = document.createElement("ul");
   toc.appendChild(rootList);
 
-  const levelMap = { H2: 2, H3: 3, H4: 4, H5: 5 };
+  const levelMap = { H1: 1, H2: 2, H3: 3, H4: 4, H5: 5 };
 
   // stack holds LI, not UL
   const stack = [{ level: 1, li: null, ul: rootList }];
