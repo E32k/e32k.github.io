@@ -261,9 +261,8 @@ header img {
   transition: color 0.15s ease;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   #overview {display: none}
-  .layout {display: block}
 }
 
 
@@ -363,6 +362,8 @@ header img {
     opacity: 1;
     pointer-events: auto;
   }
+
+  .layout {display: block}
 }
 
 /* MARK: Font Styles
