@@ -124,8 +124,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const overview = document.querySelector("#overview");
   if (!main || !toc || !overview) return;
 
-  const headings = Array.from(main.querySelectorAll("h1, h2, h3, h4, h5"))
-                  .filter((h, i) => !(h.tagName === "H1" && i === 0));
+  const allHeadings = Array.from(main.querySelectorAll("h1, h2, h3, h4, h5"));
+
+  const headings = (
+    allHeadings[0]?.tagName === "H1"
+      ? allHeadings.slice(1)
+      : allHeadings
+  );
 
   if (!headings.length) return overview.remove();
 
