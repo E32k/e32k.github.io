@@ -18,23 +18,36 @@ You can measure how much garbage you are creating by running gcprobe(), like tim
 
 
 
-Any time you create an object, it allocates memory. The object turns into garbage when its not referenced anymore. The garbage collector then collects the garbage when it needs to.
+Any time you create an object, it allocates memory. The object turns into garbage when it's not referenced anymore. The garbage collector then collects the garbage when it needs to.
 
 ## What's Creating Objects
 
 ### Tables
 
-With tables, it's pretty simple. You only create an object when you define a new table, so any time you use `{...}`.<br>
-So if you can, prefer caching tables in hot loops, for example simple fixed positions like `{x = 2, y = 5}` that do not change.<br>
-With changing tables, if you can, reuse the same table and just update its values instead of creating a new one each time.
-Its still faster to create a new table than to nil all of its values if dealing with changing arrays.
+With tables, it's pretty simple. You only create an object when you define a new table, so any time you use `{...}`. So if you can, prefer caching tables in hot loops.<br>
+For simple fixed tables like `{x = 2, y = 5}` you can assign them to a variable above the function to avoid creating the table every time it runs.<br>
+With changing tables, if you can, reuse the same table and just update its values instead of creating a new one each time, but it's still faster to create a new table than to nil all of its values.
 
 ### Strings
 
-String objects aren't only created when you define them with something like `local text = "Hello World!"`, but also any time you concatenate them.<br>
+String objects are created when you define them: `local text = "Hello World!"`, but also any time you concatenate them: `local text = "Hello " .. "World!"`
+- Most functions create new strings, like `string.format(...)` or `string.sub(...)`
 Every concatenation creates a new string object, so `local text = player .. ": " .. msg .. "\n"` for example creates 4 new string objects.<br>
-Same goes with most string functions like `string.format(...)`, `string.sub(...)` and similar.<br>
 If you need to concatenate a lot of strings togheder, you can either use a temporary table and then use `table.concat(...)`, or you can use [string.buffer](/BeamNG.lua/common/string.buffer.html).
+
+### Strings
+
+String literals (e.g. `local text = "Hello World!"`) are created when the chunk is loaded and do not allocate at runtime.
+
+Most string operations create new strings, such as `string.format(...)` or `string.sub(...)`.
+
+Concatenation (`..`) usually creates a new string at runtime, unless it can be resolved at compile time (e.g. `"Hello " .. "World!"` may be constant-folded).
+
+LuaJIT optimizes chained concatenations, so expressions like:
+`local text = player .. ": " .. msg .. "\n"`
+typically allocate only one new string, not one per `..`.
+
+If you need to concatenate many strings repeatedly (e.g. in a loop), consider using a temporary table with `table.concat(...)`, or a buffer such as [`string.buffer`](/BeamNG.lua/common/string.buffer.html).
 
 ### UserData And CData
 
@@ -43,115 +56,3 @@ Of course any time you create an other kind of object, it turns into garbage eve
 #### Vectors (and quats)
 
 This is often the biggest garbage creator. Since every time you do math with them it creates a new object. So even things like this: `vecC = vecA + vecB` is creating garbage.
-
-
-
-# TOC Test Document
-
-This document tests all edge cases for heading parsing.
-
----
-
-## Introduction
-
-Some intro text.
-
-## Basic Section
-
-Content here.
-
-### Subsection A
-
-Details.
-
-#### Deep Level 1
-
-Even deeper.
-
-##### Deep Level 2
-
-Maximum depth.
-
-### Subsection B
-
-More content.
-
-## Duplicate Section
-
-This section appears twice in name.
-
-### Child A
-
-Text.
-
-### Child A
-
-Duplicate heading under same parent.
-
-## Out of Order Structure
-
-### This is a H3 before H4 parent context
-
-#### Actually a H4 under H3
-
-##### H5 under H4
-
-### Another H3
-
-#### H4 again
-
-## Skipped Levels (important test)
-
-#### H4 directly under H2 (no H3 before it)
-
-##### H5 under skipped H4
-
-## Back to H2
-
-Regular reset section.
-
-### Normal child
-
-#### Deep child
-
-## Repeated Titles Everywhere
-
-## Repeated Titles Everywhere
-
-### Repeated Titles Everywhere
-
-#### Repeated Titles Everywhere
-
-## Special Characters Test !@#$%^&*()
-
-### !@# Subsection $$%%
-
-#### Weird --- formatting ___ test
-
-## Spacing & Normalization Test
-
-###     Lots    of     Spaces
-
-### CAPS LOCK HEADING
-
-#### mixed CASE Heading Test
-
-## Empty-ish edge cases
-
-###
-
-###
-
-### Heading with trailing spaces
-
-## Long Content Heading Example That Should Still Work Properly Without Breaking Anything In The TOC Generation Logic
-
-### Another Extremely Long Subheading That Exists Only To Stress Test Link Rendering And Overflow Handling In The Table Of Contents UI
-
-## Final Section
-
-The end.
-
-### Last Child
-
-#### Final Deep Node
