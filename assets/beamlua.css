@@ -550,7 +550,7 @@ pre.highlight {
   counter-reset: line;
   position: relative;
 }
-
+code.language-jbeam
 pre.highlight code {
   font-family: Consolas, monospace;
   font-weight: 500;

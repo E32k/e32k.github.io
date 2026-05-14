@@ -359,7 +359,7 @@ function getStartingLine(htmlCode){
     const lines = htmlCode.split('\n');
 
     const firstLine = lines[0].trimStart()
-    if (firstLine.startsWith('--@@')){
+    if (firstLine.startsWith('--@@') || firstLine.startsWith('//@@')){
         startLine = Number(firstLine.slice(4)); // remove "--@@"
         lines.shift();
     }
@@ -373,7 +373,7 @@ document.querySelectorAll('div.language-lua div.highlight pre code').forEach(blo
     block.innerHTML = addLineNumbers(formatted, startLine);
 });
 
-document.querySelectorAll('div.language-jbeam div.highlight pre code').forEach(block => {
+document.querySelectorAll('pre code.language-jbeam').forEach(block => {
     const { code: htmlCode, startLine } = getStartingLine(block.innerText)
     const formatted = highlightJbeam(htmlCode)
     block.innerHTML = addLineNumbers(formatted, startLine);
