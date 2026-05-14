@@ -297,6 +297,6 @@ function styleLuaCode(innerText){
     return addLineNumbers(addIndentation(highlightLua(htmlCode), args["indentationWidth"]), args["startLine"]);
 }
 
-document.querySelectorAll('pre code.language-lua').forEach(block => {
+document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {
     block.innerHTML = styleLuaCode(block.innerText);
 });

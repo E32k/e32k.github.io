@@ -1,10 +1,10 @@
-body {
+/*body {
     font-family: Consolas, monospace;
     background-color: #181818;
     color: #D4D4D4;
     padding: 100px;
-}
-pre {
+}*/
+pre.highlight {
     font-size: 14px;
     background-color: #1F1F1F;
     padding: 15px;

@@ -515,7 +515,7 @@ i, i * { font-style: italic; }
 
 /* MARK: code blocks
 */
-
+/*
 .content blockquote {
   font-size: 20px !important;
   color: #222;
@@ -554,7 +554,7 @@ i, i * { font-style: italic; }
   background: inherit;
   border: none;
   line-height: 1.25rem; }
-
+*/
 
 
 /* Other */
