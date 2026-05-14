@@ -238,6 +238,7 @@ function getStartingLine(htmlCode){
     if (firstLine.startsWith('--@@')){
         firstLine = firstLine.slice(4); // remove "--@@"
         startLine = Number(firstLine);
+        lines.shift();
     }
 
     return { code: lines.join('\n'), startLine };
