@@ -131,14 +131,14 @@ These functions modify the vector in place, avoiding memory allocation.<br>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMin</div>
-  <div class="args">a: LuaVec3</div>
-  <div class="desc">Sets each component to the minimum of itself and <code>a</code></div>
-</div></div>
-
-<div class="funcTable"><div class="headerRow">
+  <div class="args">LuaVec3</div>
+  <div class="desc">Sets each component to the minimum of vector and self</div>
+</div><div class="headerRow">
   <div class="func">LuaVec3:setMax</div>
-  <div class="args">a: LuaVec3</div>
-  <div class="desc">Sets each component to the maximum of itself and <code>a</code></div>
+  <div class="args">LuaVec3</div>
+  <div class="desc">Sets each component to the maximum of vector and self</div>
+</div><div class="details">
+These are useful for calculating things like bounding boxes
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
