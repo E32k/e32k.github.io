@@ -40,7 +40,7 @@ function isHexDigit(c) {
   return (c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102);
 }
 
-function highlightLua(code, debug = false) {
+function highlightLua(code) {
   const tokens = [];
   const closingBrackets = {')':'(','}':'{',']':'['};
   const bracketColors = ['bracket1','bracket2','bracket3'];
@@ -53,14 +53,8 @@ function highlightLua(code, debug = false) {
   const numberPattern = /\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b/y;
   const variablePattern = /\b[a-zA-Z_]\w*\b/y;
   const anyNumber = /[0-9]/;
-  let loopCount = 0;
 
   while (pos < code.length) {
-    loopCount++;
-    if (debug && loopCount % 500 === 0) {
-      console.log('[highlightLua] main loop', { pos, loopCount, next: code.slice(pos, pos + 30) });
-    }
-
     let m, match;
     const current = code.charCodeAt(pos);
 
@@ -86,27 +80,55 @@ function highlightLua(code, debug = false) {
 
     // strings      ""                ''
     if (current === 34 || current === 39) {
-      const quote = code[pos];
-      const start = pos;
+      var start = pos;
       pos++;
+      while (true) {
+        const charCode = code.charCodeAt(pos);
+        if (charCode === 92) {
+          if (pos > start) tokens.push({ type: "string", value: code.slice(start, pos) });
 
-      while (pos < code.length) {
-        const ch = code[pos];
-
-        // escaped char inside string (\", \', \\ ...)
-        if (ch === "\\") {
-          pos += 2;
-          continue;
-        }
-
-        if (ch === quote) {
+          // handle escape
+          start = pos;
           pos++;
+
+          if (isStringEscape(code[pos])) {
+
+          }
+
+          // hex escape (\xXX)
+          else if ( code.charCodeAt(pos) === 120 && isHexDigit(code.charCodeAt(pos+1)) && isHexDigit(code.charCodeAt(pos+2)) ) {
+            pos += 2;
+            tokens.push({ type: "escape", value: code.slice(start, pos) });
+          }
+
+
+
+          // numeric escapes (\ddd)
+          else if (isDigit(code, pos)) {
+            pos++;
+            if (isDigit(code, pos)) {
+              pos++;
+              if (isDigit(code, pos)) pos++;
+            }
+            tokens.push({ type: "escape", value: code.slice(start, pos) });
+          }
+
+
+          tokens.push({ type: "escape", value: escapeSeq });
+          start = pos;
+        } else if (charCode === current) {
+          // push remaining string segment
+          if (pos > strStart) {
+            tokens.push({ type: "string", value: code.slice(strStart, pos) });
+          }
           break;
+        } else {
+            pos++;
         }
-
-        pos++;
       }
-
+      pos++;
+      const end = current === 34 ? code.indexOf('"') : code.indexOf("'")
+      pos = end === -1 ? code.length : end;
       tokens.push({ type: 'string', value: code.slice(start, pos) });
       continue;
     }
@@ -238,7 +260,7 @@ function extractAndRemoveArguments(htmlCode) {
     lines.splice(0, lastIndex);
 
     // drop a trailing empty line if one remains after argument stripping
-    if (lines.length > 0 && lines[lines.length - 1] === '') {
+    if (lines.length > 0 && lines[lines.length - 1].trim() === '') {
         lines.pop();
     }
 
@@ -247,7 +269,7 @@ function extractAndRemoveArguments(htmlCode) {
 
 function styleLuaCode(innerText){
     const { code: htmlCode, args } = extractAndRemoveArguments(innerText);
-    return addLineNumbers(highlightLua(htmlCode, false), args["startLine"]);
+    return addLineNumbers(highlightLua(htmlCode), args["startLine"]);
 }
 
 document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {
