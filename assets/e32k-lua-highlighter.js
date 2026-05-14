@@ -281,7 +281,7 @@ function highlightJbeam(code) {
             continue;
         }
 
-        m = /[:,]/y; m.lastIndex = pos; match = m.exec(code);
+        m = /[:,\.]/y; m.lastIndex = pos; match = m.exec(code);
         if (match && match.index === pos) { tokens.push({type:'operator', value:match[0]}); pos += match[0].length; continue; }
 
         m = variablePattern; m.lastIndex = pos; match = m.exec(code);
