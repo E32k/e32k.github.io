@@ -24,6 +24,39 @@ This is the main userdata, that includes functions which control the vehicles jb
   See <a href="https://documentation.beamng.com/modding/vehicle/sections/nodes/" target="_blank">BeamNG Documentation - Nodes</a> for more information.
 </div></div>
 
+<div class="funcTable"><div class="headerRow">
+  <div class="func">obj:setBeam</div>
+  <div class="desc">Creates or overwrites a beam with the specified values</div>
+  </div><div class="arguments">
+  nodeID<br>
+  x<br>
+  y<br>
+  z<br>
+  nodeWeight<br>
+  fixed<br>
+  frictionCoef<br>
+  slidingFrictionCoef<br>
+  stribeckExponent<br>
+  stribeckVelMult<br>
+  noLoadCoef<br>
+  fullLoadCoef<br>
+  loadSensitivitySlope<br>
+  softnessCoef<br>
+  treadCoef<br>
+  tag<br>
+  couplerStrength<br>
+  group<br>
+  selfCollision<br>
+  collision<br>
+  staticCollision<br>
+  materialID
+  </div><div class="returns">
+  bid - Use this with the functions below, to make the beam anisotropic, bounded, support, pressured or an l-beam.
+  </div><div class="details">
+  Source: <code>vehicle/jbeam/stage2.lua:96</code><br>
+  Descriptions from <a href="https://documentation.beamng.com/modding/vehicle/sections/beams/" target="_blank">BeamNG Documentation - Beams</a><br>
+</div></div>
+
 ### Node things
 
 <div class="funcTable"><div class="headerRow">
