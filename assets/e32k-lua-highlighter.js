@@ -222,37 +222,6 @@ function addLineNumbers(htmlCode, startLine = 1) {
     }).join('\n');
 }
 
-function addIndentation(htmlCode, indentation = 2) {
-    let lines = htmlCode.split('\n');
-
-    return lines.map(line => {
-        let html = '';
-        let i = 0;
-
-        // Skip the line-number span at the start if it exists
-        if (line.startsWith('<span class="lines">')) {
-            let endSpan = line.indexOf('</span>') + 7;
-            html += line.slice(0, endSpan);
-            line = line.slice(endSpan); // remaining line after number
-        }
-
-        // Process leading spaces/tabs
-        while (i < line.length) {
-            let c = line[i];
-            if (c === ' ') {
-                html += '<span class="indent"> </span>';
-            } else {
-                break;
-            }
-            i += indentation;
-        }
-
-        // append the rest of the line after leading spaces/tabs
-        html += line.slice(i);
-        return html;
-    }).join('\n');
-}
-
 function extractAndRemoveArguments(htmlCode) {
     const args = Object.create(null);
 
@@ -294,7 +263,7 @@ function extractAndRemoveArguments(htmlCode) {
 
 function styleLuaCode(innerText){
     const { code: htmlCode, args } = extractAndRemoveArguments(innerText);
-    return addLineNumbers(addIndentation(highlightLua(htmlCode), args["indentationWidth"]), args["startLine"]);
+    return addLineNumbers(highlightLua(htmlCode), args["startLine"]);
 }
 
 document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {
