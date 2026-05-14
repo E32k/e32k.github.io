@@ -118,36 +118,16 @@ Use the following function if you want to do `LuaVec3 * LuaVec3`:
 
 ### Zero-Garbage set Functions
 
-These functions modify the vector in place, avoiding memory allocation. <br>
+These functions modify the vector in place, avoiding memory allocation.<br>
 
-```lua
-local a, b, c = vec3(), vec3(), vec3()
+- `a = a + b` becomes `a:setAdd(b)`
+- `a = b + c` becomes `a:setAdd2(b, c)`
+- `a = a - b` becomes `a:setSub(b)`
+- `a = b - c` becomes `a:setSub2(b, c)`
+- `a = a * 2` becomes `a:setScaled(2)`
+- `a = b * 2` becomes `a:setScaled2(b, 2)`
+- `a = a * b` becomes `a:setComponentMul(b)`
 
-a = a + b
-a:setAdd(b)
-
-a = b + c
-a:setAdd2(b, c)
-
-a = a - b
-a:setSub(b)
-
-a = b - c
-a:setSub2(b, c)
-
-a = a * 2
-a:setScaled(2)
-
-a = b * 2
-a:setScaled2(b, 2)
-
-a = a * b
-a:setComponentMul(b)
-
-a = b * c
-a:set(b)
-a:setComponentMul(c)
-```
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMin</div>
