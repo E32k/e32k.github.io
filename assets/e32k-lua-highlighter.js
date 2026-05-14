@@ -86,66 +86,27 @@ function highlightLua(code, debug = false) {
 
     // strings      ""                ''
     if (current === 34 || current === 39) {
-      var start = pos;
+      const quote = code[pos];
+      const start = pos;
       pos++;
-      let stringLoopCount = 0;
-      while (true) {
-        stringLoopCount++;
-        if (debug && stringLoopCount % 200 === 0) {
-          console.log('[highlightLua] string loop', { pos, stringLoopCount, quote: String.fromCharCode(current), next: code.slice(pos, pos + 30) });
+
+      while (pos < code.length) {
+        const ch = code[pos];
+
+        // escaped char inside string (\", \', \\ ...)
+        if (ch === "\\") {
+          pos += 2;
+          continue;
         }
 
-        if (stringLoopCount > code.length + 10) {
-          console.warn('[highlightLua] string loop watchdog triggered', { pos, start, quote: String.fromCharCode(current) });
-          break;
-        }
-
-        const char = code[pos];
-        if (char === "\\") {
-          if (pos > start) tokens.push({ type: "string", value: code.slice(start, pos) });
-
-          // handle escape
-          start = pos;
+        if (ch === quote) {
           pos++;
-
-          if (isStringEscape(code[pos])) {
-
-          }
-
-          // hex escape (\xXX)
-          else if ( code.charCodeAt(pos) === 120 && isHexDigit(code.charCodeAt(pos+1)) && isHexDigit(code.charCodeAt(pos+2)) ) {
-            pos += 2;
-            tokens.push({ type: "escape", value: code.slice(start, pos) });
-          }
-
-
-
-          // numeric escapes (\ddd)
-          else if (isDigit(code, pos)) {
-            pos++;
-            if (isDigit(code, pos)) {
-              pos++;
-              if (isDigit(code, pos)) pos++;
-            }
-            tokens.push({ type: "escape", value: code.slice(start, pos) });
-          }
-
-
-          tokens.push({ type: "escape", value: escapeSeq });
-          start = pos;
-        } else if (char === current) {
-          // push remaining string segment
-          if (pos > strStart) {
-            tokens.push({ type: "string", value: code.slice(strStart, pos) });
-          }
           break;
-        } else {
-            pos++;
         }
+
+        pos++;
       }
-      pos++;
-      const end = current === 34 ? code.indexOf('"') : code.indexOf("'")
-      pos = end === -1 ? code.length : end;
+
       tokens.push({ type: 'string', value: code.slice(start, pos) });
       continue;
     }
@@ -286,7 +247,7 @@ function extractAndRemoveArguments(htmlCode) {
 
 function styleLuaCode(innerText){
     const { code: htmlCode, args } = extractAndRemoveArguments(innerText);
-    return addLineNumbers(highlightLua(htmlCode, true), args["startLine"]);
+    return addLineNumbers(highlightLua(htmlCode, false), args["startLine"]);
 }
 
 document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {
