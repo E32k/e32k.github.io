@@ -582,6 +582,6 @@ pre.highlight code {
   display: inline-block;
   text-align: right;
   user-select: none;
-  width: 5ch;
-  margin-right: 30px;     /* space between number and code */
+  width: 3ch;
+  margin-right: 2ch;     /* space between number and code */
 }
