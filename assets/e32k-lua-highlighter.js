@@ -227,10 +227,6 @@ function extractAndRemoveArguments(htmlCode) {
 
 function getStartingLine(htmlCode){
     var startLine = -1;
-
-    // quick pre-check (cheap optimization) in first 10 characters
-    if (!htmlCode.slice(0, 20).includes('--@@')) return { code: htmlCode, startLine };
-
     const lines = htmlCode.split('\n');
 
     let lastIndex = -1;
