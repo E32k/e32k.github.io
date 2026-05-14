@@ -50,7 +50,7 @@ function highlightLua(code) {
   const keywords = /\b(function|if|else|end|for|do|then|return|break|in)\b/y;
   const specials = /\b(self|local|nil|true|false)\b/y;
   const operators = /\b(and|or|not|nor)\b|<=|>=|~=|==|[\+\-\*\/=:\.^<>]+|\.\.|,/y;
-  const numberPattern = /\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b/y;
+  const numberPattern = /\b(?:0[xX][0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/y;
   const variablePattern = /\b[a-zA-Z_]\w*\b/y;
   const anyNumber = /[0-9]/;
 
