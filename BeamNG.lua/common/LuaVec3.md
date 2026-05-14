@@ -236,6 +236,7 @@ These two are useful for calculating things like bounding boxes
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:ropeRock</div>
   <div class="args">maxLength</div>
+  <div class="rets">lengthBefore</div>
   <div class="desc">Clamps the vector to x meters long (if its shorter, it doesnt resize it)</div>
 </div></div>
 
