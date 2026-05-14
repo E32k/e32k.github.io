@@ -1,5 +1,5 @@
 ---
-title: Writing Zero-Garbage Code
+title: Zero-Garbage Code
 layout: beamlua
 date: 2026-03-08
 ---

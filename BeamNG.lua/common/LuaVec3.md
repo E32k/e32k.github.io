@@ -1,7 +1,7 @@
 ---
 title: LuaVec3 Library
 layout: beamlua
-date: 2026-03-11
+date: 2026-05-14
 ---
 
 These are all the functions you can use on vec3()
@@ -121,63 +121,88 @@ Use the following function if you want to do `LuaVec3 * LuaVec3`:
 These functions modify the vector in place, avoiding memory allocation. Examples are provided for clarity.<br>
 `a` and `b` are always LuaVec3 objects.
 
+```lua
+local a, b, c = vec3(), vec3(), vec3()
+
+a = a + b
+a:setAdd(b)
+
+a = b + c
+a:setAdd2(b, c)
+
+a = a - b
+a:setSub(b)
+
+a = b - c
+a:setSub2(b, c)
+
+a = a * 2
+a:setScaled(2)
+
+a = b * 2
+a:setScaled2(b, 2)
+
+a = a * b
+a:setComponentMul(b)
+```
+
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMin</div>
-  <div class="args">a</div>
+  <div class="args">a: LuaVec3</div>
   <div class="desc">Sets each component to the minimum of itself and <code>a</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMax</div>
-  <div class="args">a</div>
+  <div class="args">a: LuaVec3</div>
   <div class="desc">Sets each component to the maximum of itself and <code>a</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAddXYZ</div>
-  <div class="args">x, y, z</div>
+  <div class="args">x: number, y: number, z: number</div>
   <div class="desc">Adds the given values to self</div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAdd</div>
-  <div class="args">a</div>
-  <div class="desc">Adds vector <code>a</code> to self</div>
+  <div class="args">LuaVec3</div>
+  <div class="desc">Adds vector to self</div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAdd2</div>
-  <div class="args">a, b</div>
+  <div class="args">a: LuaVec3, b: LuaVec3</div>
   <div class="desc">Sets the vector to <code>a + b</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setSub</div>
-  <div class="args">a</div>
-  <div class="desc">Subtracts vector <code>a</code> from self</div>
+  <div class="args">LuaVec3</div>
+  <div class="desc">Subtracts vector from self</div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setSub2</div>
-  <div class="args">a, b</div>
+  <div class="args">a: LuaVec3, b: LuaVec3</div>
   <div class="desc">Sets the vector to <code>a - b</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setScaled</div>
-  <div class="args">scale</div>
+  <div class="args">scale: number</div>
   <div class="desc">Scales self by <code>scale</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setScaled2</div>
-  <div class="args">a, scale</div>
+  <div class="args">a: LuaVec3, scale: number</div>
   <div class="desc">Sets self to <code>a</code> scaled by <code>scale</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setComponentMul</div>
-  <div class="args">a</div>
+  <div class="args">a: LuaVec3</div>
   <div class="desc">Sets the vector to <code>self * a</code> (multiplies each component separately)</div>
 </div></div>
 

@@ -35,7 +35,6 @@
       <img src="/images/construction-worker.gif" alt="Construction Worker GIF">
       <h1>{{ page.title | default: page.name }}</h1>
       {{ content }}
-
       {% if page.date %}
         <div class="moddate">Last modified: {{ page.date | date: "%B %-d, %Y" }}</div>
       {% endif %}
