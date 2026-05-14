@@ -80,16 +80,15 @@ function highlightLua(code) {
 
     // strings      ""                ''
     if (current === 34 || current === 39) {
-      const quote = current;
       let start = pos;
       pos++;
       while (pos < code.length) {
-        const char = code[pos];
-        if (char === quote) {
+        const char = code.charCodeAt(pos);
+        if (char === current) {
           tokens.push({ type: 'string', value: code.slice(start, pos + 1) });
           pos++;
           break;
-        } else if (char === '\\') {
+        } else if (char === 92) {
           // push string before escape
           if (pos > start) tokens.push({ type: 'string', value: code.slice(start, pos) });
           // handle escape
