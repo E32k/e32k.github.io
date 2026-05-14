@@ -40,7 +40,7 @@ function isHexDigit(c) {
   return (c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102);
 }
 
-function highlightLua(code) {
+function highlightLua(code, debug = false) {
   const tokens = [];
   const closingBrackets = {')':'(','}':'{',']':'['};
   const bracketColors = ['bracket1','bracket2','bracket3'];
@@ -53,8 +53,14 @@ function highlightLua(code) {
   const numberPattern = /\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b/y;
   const variablePattern = /\b[a-zA-Z_]\w*\b/y;
   const anyNumber = /[0-9]/;
+  let loopCount = 0;
 
   while (pos < code.length) {
+    loopCount++;
+    if (debug && loopCount % 500 === 0) {
+      console.log('[highlightLua] main loop', { pos, loopCount, next: code.slice(pos, pos + 30) });
+    }
+
     let m, match;
     const current = code.charCodeAt(pos);
 
@@ -82,7 +88,18 @@ function highlightLua(code) {
     if (current === 34 || current === 39) {
       var start = pos;
       pos++;
+      let stringLoopCount = 0;
       while (true) {
+        stringLoopCount++;
+        if (debug && stringLoopCount % 200 === 0) {
+          console.log('[highlightLua] string loop', { pos, stringLoopCount, quote: String.fromCharCode(current), next: code.slice(pos, pos + 30) });
+        }
+
+        if (stringLoopCount > code.length + 10) {
+          console.warn('[highlightLua] string loop watchdog triggered', { pos, start, quote: String.fromCharCode(current) });
+          break;
+        }
+
         const char = code[pos];
         if (char === "\\") {
           if (pos > start) tokens.push({ type: "string", value: code.slice(start, pos) });
@@ -269,7 +286,7 @@ function extractAndRemoveArguments(htmlCode) {
 
 function styleLuaCode(innerText){
     const { code: htmlCode, args } = extractAndRemoveArguments(innerText);
-    return addLineNumbers(highlightLua(htmlCode), args["startLine"]);
+    return addLineNumbers(highlightLua(htmlCode, true), args["startLine"]);
 }
 
 document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {
