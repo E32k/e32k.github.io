@@ -229,11 +229,9 @@ function getStartingLine(htmlCode){
     var startLine = -1;
     const lines = htmlCode.split('\n');
 
-    let lastIndex = -1;
-    let firstLine = lines[0].trimStart()
+    const firstLine = lines[0].trimStart()
     if (firstLine.startsWith('--@@')){
-        firstLine = firstLine.slice(4); // remove "--@@"
-        startLine = Number(firstLine);
+        startLine = Number(firstLine.slice(4)); // remove "--@@"
         lines.shift();
     }
 
