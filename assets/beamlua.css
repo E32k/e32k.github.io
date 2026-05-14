@@ -542,8 +542,7 @@ i, i * { font-style: italic; }
 
 
 /* main style */
-pre:has(code.language-jbeam),
-pre.highlight {
+pre {
   background-color: #1F1F1F;
   padding: 5px;
   border: solid 1px #2B2B2B;
@@ -551,8 +550,7 @@ pre.highlight {
   counter-reset: line;
   position: relative;
 }
-pre code.language-jbeam,
-pre.highlight code {
+pre code {
   font-family: Consolas, monospace;
   font-weight: 500;
   font-size: 15px;
