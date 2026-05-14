@@ -176,7 +176,7 @@ function highlightLua(code) {
 }
 
 function addLineNumbers(htmlCode, startLine) {
-    if (startLine === -1) return;
+    if (startLine === -1) return htmlCode;
     let lines = htmlCode.split('\n');
     if (lines.length > 0 && lines[lines.length - 1] === '') lines.pop();
     return lines.map((line, idx) => {
