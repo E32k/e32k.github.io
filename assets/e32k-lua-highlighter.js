@@ -18,24 +18,6 @@ function isDigit(code, pos) {
     return codePoint >= 48 && codePoint <= 57;
 }
 
-function isStringEscape(char) {
-  switch (char) {
-    case 92:  // \
-    case 34:  // "
-    case 39:  // '
-    case 97:  // a
-    case 98:  // b
-    case 102: // f
-    case 110: // n
-    case 114: // r
-    case 116: // t
-    case 118: // v
-      return true;
-    default:
-      return false;
-  }
-}
-
 function isHexDigit(c) {
   return (c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102);
 }
