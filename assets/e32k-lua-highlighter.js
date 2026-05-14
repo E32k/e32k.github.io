@@ -80,56 +80,34 @@ function highlightLua(code) {
 
     // strings      ""                ''
     if (current === 34 || current === 39) {
-      var start = pos;
+      const quote = current;
+      let start = pos;
       pos++;
-      while (true) {
-        const charCode = code.charCodeAt(pos);
-        if (charCode === 92) { // this character -->> \
-          if (pos > start) tokens.push({ type: "string", value: code.slice(start, pos) });
-
+      while (pos < code.length) {
+        const char = code[pos];
+        if (char === quote) {
+          tokens.push({ type: 'string', value: code.slice(start, pos + 1) });
+          pos++;
+          break;
+        } else if (char === '\\') {
+          // push string before escape
+          if (pos > start) tokens.push({ type: 'string', value: code.slice(start, pos) });
           // handle escape
           start = pos;
           pos++;
-
-          if (isStringEscape(code[pos])) {
-
-          }
-
-          // hex escape (\xXX)
-          else if ( code.charCodeAt(pos) === 120 && isHexDigit(code.charCodeAt(pos+1)) && isHexDigit(code.charCodeAt(pos+2)) ) {
-            pos += 2;
-            tokens.push({ type: "escape", value: code.slice(start, pos) });
-          }
-
-
-
-          // numeric escapes (\ddd)
-          else if (isDigit(code, pos)) {
+          if (pos < code.length) {
+            tokens.push({ type: 'escape', value: code.slice(start, pos + 1) });
+            start = pos + 1;
             pos++;
-            if (isDigit(code, pos)) {
-              pos++;
-              if (isDigit(code, pos)) pos++;
-            }
-            tokens.push({ type: "escape", value: code.slice(start, pos) });
           }
-
-
-          tokens.push({ type: "escape", value: escapeSeq });
-          start = pos;
-        } else if (charCode === current) {
-          // push remaining string segment
-          if (pos > start) {
-            tokens.push({ type: "string", value: code.slice(start, pos) });
-          }
-          break;
         } else {
-            pos++;
+          pos++;
         }
       }
-      pos++;
-      const end = current === 34 ? code.indexOf('"') : code.indexOf("'")
-      pos = end === -1 ? code.length : end;
-      tokens.push({ type: 'string', value: code.slice(start, pos) });
+      // if not closed, push the rest
+      if (pos >= code.length) {
+        tokens.push({ type: 'string', value: code.slice(start, pos) });
+      }
       continue;
     }
 
