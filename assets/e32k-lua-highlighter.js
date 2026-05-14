@@ -204,6 +204,13 @@ function highlightJbeam(code) {
             tokens.push({ type: 'comment', value: code.slice(start, pos) });
             continue;
         }
+        if (code.startsWith('/*', pos)) {
+            const start = pos;
+            const end = code.indexOf('*/', pos + 2);
+            pos = end === -1 ? code.length : end + 2;
+            tokens.push({ type: 'comment', value: code.slice(start, pos) });
+            continue;
+        }
 
         if (current === 34 || current === 39) {
             let start = pos;
@@ -360,12 +367,14 @@ function getStartingLine(htmlCode){
     return { code: lines.join('\n'), startLine };
 }
 
-function styleLuaCode(innerText){
-    const { code: htmlCode, startLine } = getStartingLine(innerText)
-    const formatted = highlightLua(htmlCode)
-    return addLineNumbers(formatted, startLine);
-}
-
 document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {
-    block.innerHTML = styleLuaCode(block.innerText);
+    const { code: htmlCode, startLine } = getStartingLine(block.innerText)
+    const formatted = highlightLua(htmlCode)
+    block.innerHTML = addLineNumbers(formatted, startLine);
+});
+
+document.querySelectorAll('div.language-jbeam div.highlight pre code').forEach(block => {
+    const { code: htmlCode, startLine } = getStartingLine(block.innerText)
+    const formatted = highlightJbeam(htmlCode)
+    block.innerHTML = addLineNumbers(formatted, startLine);
 });

@@ -17,7 +17,7 @@ There are only two (three) structures that jbeam has:
 
 ### Dictionaries
 These are pairs of keys (blue text in quotation marks) and values (which can be simple numbers or strings or even another dictionaries or lists)
-```lua
+```jbeam
 {
     "foo": 1,
     "bar": 2,
@@ -26,7 +26,7 @@ These are pairs of keys (blue text in quotation marks) and values (which can be 
 ```
 
 ### Lists/Arrays
-```lua
+```jbeam
 [
     "foo",
     "bar",
@@ -35,7 +35,7 @@ These are pairs of keys (blue text in quotation marks) and values (which can be 
 ```
 Which are often written compactly as
 
-```lua
+```jbeam
 ["foo", "bar", "baz"]
 ```
 
@@ -43,7 +43,7 @@ Which are often written compactly as
 This is not a different format, its just an list of lists (array of arrays).<br>
 See the main yellow and then the nested purple brackets<br>
 (And also see how nice to look at it is when you keep the spacing consistent)
-```lua
+```jbeam
 [
     ["brand",   "model",   "year"],
     ["Gavril",  "D-Series", 1997],
@@ -56,7 +56,7 @@ See the main yellow and then the nested purple brackets<br>
 
 The jbeam format consists of a main dictionary, which are `name-part` pairs
 
-```lua
+```jbeam
 --@@ 1
 {
     "pickup_frame": {...},
@@ -67,8 +67,8 @@ The jbeam format consists of a main dictionary, which are `name-part` pairs
 Each part itself is a dictionary of `section-data` pairs<br>
 See how some are dictionaries (like information) while others are lists, and some are just values (mainly slotType)
 
-```lua
---@@ 1
+```jbeam
+//@@ 1
 {
 "pickup_frame": {
     "information": {...},
