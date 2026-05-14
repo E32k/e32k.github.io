@@ -133,12 +133,14 @@ These functions modify the vector in place, avoiding memory allocation.<br>
   <div class="func">LuaVec3:setMin</div>
   <div class="args">LuaVec3</div>
   <div class="desc">Sets each component to the minimum of vector and self</div>
-</div><div class="headerRow">
+</div></div>
+
+<div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setMax</div>
   <div class="args">LuaVec3</div>
   <div class="desc">Sets each component to the maximum of vector and self</div>
 </div><div class="details">
-These are useful for calculating things like bounding boxes
+These two are useful for calculating things like bounding boxes
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -155,8 +157,8 @@ These are useful for calculating things like bounding boxes
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setAdd2</div>
-  <div class="args">a: LuaVec3, b: LuaVec3</div>
-  <div class="desc">Sets the vector to <code>a + b</code></div>
+  <div class="args">LuaVec3, LuaVec3</div>
+  <div class="desc">Sets self to the sum of both vectors</div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -167,8 +169,8 @@ These are useful for calculating things like bounding boxes
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setSub2</div>
-  <div class="args">a: LuaVec3, b: LuaVec3</div>
-  <div class="desc">Sets the vector to <code>a - b</code></div>
+  <div class="args">LuaVec3, LuaVec3</div>
+  <div class="desc">Sets self to the difference of both vectors</div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
@@ -179,14 +181,14 @@ These are useful for calculating things like bounding boxes
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setScaled2</div>
-  <div class="args">a: LuaVec3, scale: number</div>
-  <div class="desc">Sets self to <code>a</code> scaled by <code>scale</code></div>
+  <div class="args">LuaVec3, scale: number</div>
+  <div class="desc">Sets self to the vector scaled by <code>scale</code></div>
 </div></div>
 
 <div class="funcTable"><div class="headerRow">
   <div class="func">LuaVec3:setComponentMul</div>
-  <div class="args">a: LuaVec3</div>
-  <div class="desc">Sets the vector to <code>self * a</code> (multiplies each component separately)</div>
+  <div class="args">LuaVec3</div>
+  <div class="desc">Scales self by the vector (multiplies each component separately)</div>
 </div></div>
 
 ### Length
