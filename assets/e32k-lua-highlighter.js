@@ -217,7 +217,9 @@ function highlightLua(code) {
 }
 
 function addLineNumbers(htmlCode, startLine = 1) {
-    return htmlCode.split('\n').map((line, idx) => {
+    let lines = htmlCode.split('\n');
+    if (lines.length > 0 && lines[lines.length - 1] === '') lines.pop();
+    return lines.map((line, idx) => {
         return `<span class="lines">${startLine + idx}</span>${line}`;
     }).join('\n');
 }
@@ -258,11 +260,6 @@ function extractAndRemoveArguments(htmlCode) {
 
     // remove lines
     lines.splice(0, lastIndex);
-
-    // drop a trailing empty line if one remains after argument stripping
-    if (lines.length > 0 && lines[lines.length - 1].trim() === '') {
-        lines.pop();
-    }
 
     return { code: lines.join('\n'), args };
 }
