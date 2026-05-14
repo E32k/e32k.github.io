@@ -1,0 +1,65 @@
+body {
+    font-family: Consolas, monospace;
+    background-color: #181818;
+    color: #D4D4D4;
+    padding: 100px;
+}
+pre {
+    font-size: 14px;
+    background-color: #1F1F1F;
+    padding: 15px;
+    border: solid 1px #2B2B2B;
+    overflow-x: auto;
+    counter-reset: line;
+    font-family: Consolas, monospace;
+    position: relative;
+}
+
+.line { display: flex; }
+.line-number {
+    width: 3em; /* enough space for 999 lines */
+    text-align: right;
+    padding-right: 1em;
+    color: #6A9955; /* line number color */
+    user-select: none;
+}
+.code-line { flex: 1; }
+
+/* token colors */
+.keyword { color: #C586C0; }
+.special { color: #569CD6; }
+.number { color: #B5CEA8; }
+.string { color: #CE9178; }
+.escape { color: #D7BA7D; } /* escaped sequences in strings */
+.operator { color: #D4D4D4; }
+.function { color: #DCDCAA; }
+.method { color: #4EC9B0; }
+.comment { color: #6A9955; }
+.variable { color: #9CDCFE; }
+.bracket1 { color: #FFD700; }
+.bracket2 { color: #DA70D6; }
+.bracket3 { color: #179FFF; }
+.invalid { color: #D21414; } /* unmatched brackets */
+.lines {
+    color: #6E7681;       /* gray line numbers */
+    display: inline-block;
+    text-align: right;
+    user-select: none;
+    width: 5ch;
+    margin-right: 30px;     /* space between number and code */
+}
+.indent, .tab-indent {
+    display: inline-block;
+    position: relative;
+}
+
+.indent::before, .tab-indent::before {
+    content: '';
+    display: inline-block;
+    border-left: 1px solid rgba(128,128,128,0.5);
+    height: 100%;            /* fills the full line height */
+    vertical-align: top;
+    position: absolute;
+    left: 0;
+    top: 0;
+}

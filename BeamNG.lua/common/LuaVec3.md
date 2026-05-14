@@ -118,8 +118,7 @@ Use the following function if you want to do `LuaVec3 * LuaVec3`:
 
 ### Zero-Garbage set Functions
 
-These functions modify the vector in place, avoiding memory allocation. Examples are provided for clarity.<br>
-`a` and `b` are always LuaVec3 objects.
+These functions modify the vector in place, avoiding memory allocation. <br>
 
 ```lua
 local a, b, c = vec3(), vec3(), vec3()
@@ -144,6 +143,10 @@ a:setScaled2(b, 2)
 
 a = a * b
 a:setComponentMul(b)
+
+a = b * c
+a:set(b)
+a:setComponentMul(c)
 ```
 
 <div class="funcTable"><div class="headerRow">
