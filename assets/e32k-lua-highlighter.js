@@ -84,7 +84,7 @@ function highlightLua(code) {
       pos++;
       while (true) {
         const charCode = code.charCodeAt(pos);
-        if (charCode === 92) {
+        if (charCode === 92) { // this character -->> \
           if (pos > start) tokens.push({ type: "string", value: code.slice(start, pos) });
 
           // handle escape
@@ -118,8 +118,8 @@ function highlightLua(code) {
           start = pos;
         } else if (charCode === current) {
           // push remaining string segment
-          if (pos > strStart) {
-            tokens.push({ type: "string", value: code.slice(strStart, pos) });
+          if (pos > start) {
+            tokens.push({ type: "string", value: code.slice(start, pos) });
           }
           break;
         } else {
