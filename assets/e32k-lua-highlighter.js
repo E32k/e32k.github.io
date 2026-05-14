@@ -175,14 +175,15 @@ function highlightLua(code) {
   }).join('');
 }
 
-function addLineNumbers(htmlCode, startLine = 1) {
+function addLineNumbers(htmlCode, startLine) {
+    if (startLine === -1) return;
     let lines = htmlCode.split('\n');
     if (lines.length > 0 && lines[lines.length - 1] === '') lines.pop();
     return lines.map((line, idx) => {
         return `<span class="lines">${startLine + idx}</span>${line}`;
     }).join('\n');
 }
-
+/*
 function extractAndRemoveArguments(htmlCode) {
     const args = Object.create(null);
 
@@ -222,10 +223,30 @@ function extractAndRemoveArguments(htmlCode) {
 
     return { code: lines.join('\n'), args };
 }
+*/
+
+function getStartingLine(htmlCode){
+    const startLine = -1;
+
+    // quick pre-check (cheap optimization) in first 10 characters
+    if (!htmlCode.slice(0, 20).includes('--@@')) return { code: htmlCode, startLine };
+
+    const lines = htmlCode.split('\n');
+
+    let lastIndex = -1;
+    let firstLine = lines[1].trimStart()
+    if (firstLine.startsWith('--@@')){
+        firstLine = firstLine.slice(4); // remove "--@@"
+        startLine = Number(firstLine);
+    }
+
+    return { code: lines.join('\n'), startLine };
+}
 
 function styleLuaCode(innerText){
-    const { code: htmlCode, args } = extractAndRemoveArguments(innerText);
-    return addLineNumbers(highlightLua(htmlCode), args["startLine"]);
+    const { code: htmlCode, startLine } = getStartingLine(innerText)
+    const formatted = highlightLua(htmlCode)
+    return addLineNumbers(formatted, startLine);
 }
 
 document.querySelectorAll('div.language-lua div.highlight pre code').forEach(block => {

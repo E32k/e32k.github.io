@@ -16,6 +16,7 @@ The jbeam file format is actually SJSON which is a JSON variant, that changes ma
 There are only two (three) structures that jbeam has:
 
 ### Dictionaries
+These are pairs of keys (blue text in quotation marks) and values (which can be simple numbers or strings or even another dictionaries or lists)
 ```lua
 {
     "foo": 1,
@@ -56,6 +57,7 @@ See the main yellow and then the nested purple brackets<br>
 The jbeam format consists of a main dictionary, which are `name-part` pairs
 
 ```lua
+--@@ 1
 {
     "pickup_frame": {...},
     "pickup_engine": {...}
@@ -66,6 +68,7 @@ Each part itself is a dictionary of `section-data` pairs<br>
 See how some are dictionaries (like information) while others are lists, and some are just values (mainly slotType)
 
 ```lua
+--@@ 1
 {
 "pickup_frame": {
     "information": {...},
