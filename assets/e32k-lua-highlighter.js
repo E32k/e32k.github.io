@@ -34,7 +34,6 @@ function highlightLua(code) {
   const operators = /\b(and|or|not|nor)\b|<=|>=|~=|==|[\+\-\*\/=:\.^<>]+|\.\.|,/y;
   const numberPattern = /\b(?:0[xX][0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/y;
   const variablePattern = /\b[a-zA-Z_]\w*\b/y;
-  const anyNumber = /[0-9]/;
 
   while (pos < code.length) {
     let m, match;
@@ -173,6 +172,129 @@ function highlightLua(code) {
         let val = t.value.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
         return t.type==='other' ? val : `<span class="${t.type}">${val}</span>`;
   }).join('');
+}
+
+function highlightJbeam(code) {
+    const tokens = [];
+    const closingBrackets = {')':'(','}':'{',']':'['};
+    const bracketColors = ['bracket1','bracket2','bracket3'];
+    let bracketStack = [];
+    let containerStack = [];
+    let pos = 0;
+
+    const specials = /\b(nil|true|false)\b/y;
+    const numberPattern = /\b(?:0[xX][0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/y;
+    const variablePattern = /\b[a-zA-Z_]\w*\b/y;
+    const isObjectContext = () => containerStack.length > 0 && containerStack[containerStack.length - 1] === '{';
+    const isKeyByLookahead = (endPos) => {
+        if (!isObjectContext()) return false;
+        let i = endPos;
+        while (i < code.length && /\s/.test(code[i])) i++;
+        return code[i] === ':';
+    };
+
+    while (pos < code.length) {
+        let m, match;
+        const current = code.charCodeAt(pos);
+
+        if (code.startsWith('//', pos)) {
+            const start = pos;
+            const end = code.indexOf('\n', pos + 2);
+            pos = end === -1 ? code.length : end;
+            tokens.push({ type: 'comment', value: code.slice(start, pos) });
+            continue;
+        }
+
+        if (current === 34 || current === 39) {
+            let start = pos;
+            const quote = current;
+            pos++;
+            while (pos < code.length) {
+                const char = code.charCodeAt(pos);
+                if (char === quote) {
+                    const endPos = pos + 1;
+                    const tokenType = isKeyByLookahead(endPos) ? 'variable' : 'string';
+                    tokens.push({ type: tokenType, value: code.slice(start, endPos) });
+                    pos++;
+                    break;
+                } else if (char === 92) {
+                    if (pos > start) {
+                        const tokenType = isKeyByLookahead(pos) ? 'variable' : 'string';
+                        tokens.push({ type: tokenType, value: code.slice(start, pos) });
+                    }
+                    start = pos;
+                    pos++;
+                    if (pos < code.length) {
+                        tokens.push({ type: 'escape', value: code.slice(start, pos + 1) });
+                        start = pos + 1;
+                        pos++;
+                    }
+                } else {
+                    pos++;
+                }
+            }
+            if (pos >= code.length) {
+                const tokenType = isKeyByLookahead(pos) ? 'variable' : 'string';
+                tokens.push({ type: tokenType, value: code.slice(start, pos) });
+            }
+            continue;
+        }
+
+        m = numberPattern; m.lastIndex = pos; match = m.exec(code);
+        if (match && match.index === pos) { tokens.push({type:'number', value:match[0]}); pos += match[0].length; continue; }
+
+        m = specials; m.lastIndex = pos; match = m.exec(code);
+        if (match && match.index === pos) { tokens.push({type:'special', value:match[0]}); pos += match[0].length; continue; }
+
+        m = /[\{\[\(]/y; m.lastIndex = pos; match = m.exec(code);
+        if (match && match.index === pos) {
+            let colorIndex = bracketStack.length % 3;
+            bracketStack.push({char: match[0], colorIndex, index: tokens.length});
+            if (match[0] === '{' || match[0] === '[') containerStack.push(match[0]);
+            tokens.push({type: bracketColors[colorIndex], value: match[0]});
+            pos += match[0].length;
+            continue;
+        }
+
+        m = /[\}\]\)]/y; m.lastIndex = pos; match = m.exec(code);
+        if (match && match.index === pos) {
+            if (bracketStack.length > 0) {
+                let top = bracketStack[bracketStack.length - 1];
+                if (closingBrackets[match[0]] === top.char) {
+                    tokens.push({type: bracketColors[top.colorIndex], value: match[0]});
+                    bracketStack.pop();
+                    if (match[0] === '}' || match[0] === ']') containerStack.pop();
+                } else {
+                    tokens.push({type:'invalid', value: match[0]});
+                }
+            } else {
+                tokens.push({type:'invalid', value: match[0]});
+            }
+            pos += match[0].length;
+            continue;
+        }
+
+        m = /[:,]/y; m.lastIndex = pos; match = m.exec(code);
+        if (match && match.index === pos) { tokens.push({type:'other', value:match[0]}); pos += match[0].length; continue; }
+
+        m = variablePattern; m.lastIndex = pos; match = m.exec(code);
+        if (match && match.index === pos) {
+            tokens.push({type:'variable', value:match[0]});
+            pos += match[0].length;
+            continue;
+        }
+
+        m = /\s+|./y; m.lastIndex = pos; match = m.exec(code);
+        tokens.push({type:'other', value:match[0]});
+        pos += match[0].length;
+    }
+
+    bracketStack.forEach(b => { tokens[b.index].type='invalid'; });
+
+    return tokens.map(t=>{
+        let val = t.value.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+        return t.type==='other' ? val : `<span class="${t.type}">${val}</span>`;
+    }).join('');
 }
 
 function addLineNumbers(htmlCode, startLine) {
