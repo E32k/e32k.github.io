@@ -183,7 +183,7 @@ function highlightJbeam(code) {
     let pos = 0;
 
     const specials = /\b(nil|true|false)\b/y;
-    const numberPattern = /\b(?:0[xX][0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/y;
+    const numberPattern = /-?\b(?:0[xX][0-9a-fA-F]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/y;
     const variablePattern = /\b[a-zA-Z_]\w*\b/y;
     const isObjectContext = () => containerStack.length > 0 && containerStack[containerStack.length - 1] === '{';
     const isKeyByLookahead = (endPos) => {
