@@ -56,6 +56,7 @@ They have a first "header" list/row and then the data lists/rows.<br>
 
 Curly brackets (a dictionary) in a table usually means a modifier. Those are frequently used in sections like nodes, beams and triangles. Here you can see a (edited) section from the cone jbeam.
 
+### Example Node Section
 Looking closer at the `"group"` modifier, you can see it is cancelled at the end of the node section, and that is because it if weren't, any following node section (even in different jbeams) would have that group. This is known as "leaking". Thats why we alaways set common things like `nodeMaterial`, `frictionCoef`, `collision`, `selfCollision` and `nodeWeight` at the start of every section.
 
 See how on line 17, the tip node has the dictionary inside it. That changes it to only set the value on the current row. Its often used on things like couplers, which have different names per-node.
@@ -68,6 +69,7 @@ The most interesting part are the nodes themselfes, which according to the heade
 ```jbeam
 [
     ["id", "posX", "posY", "posZ"], // header row
+
     {"frictionCoef":1.3},           // all nodes after this line will have frictionCoef of 1.3
     {"nodeMaterial":"|NM_PLASTIC"}, // all nodes after this line will have the plastic material
     {"collision":true},             // following nodes will have collision
@@ -76,6 +78,7 @@ The most interesting part are the nodes themselfes, which according to the heade
     // square base
     {"group":"cone"},    // all nodes after this line will have the group "cone"
     {"nodeWeight":0.6},  // all nodes after this line will have a weight of 0.6 kg
+
     ["c1r", -0.15,  0.15, 0.0],
     ["c1l",  0.15,  0.15, 0.0],
     ["c2r", -0.15, -0.15, 0.0],
@@ -83,7 +86,8 @@ The most interesting part are the nodes themselfes, which according to the heade
 
     // tip of cone
     ["c3", 0.0, 0.0, 0.47 {"nodeWeight":0.2}], // only this node has weight of 0.2 kg
-    {"group":""}, //the group is reset, because these parameters overflow to ALL jbeam files loaded after this one
+
+    {"group":""}, // the group is reset, because these parameters overflow to ALL jbeam files loaded after this one
 ]
 ```
 
