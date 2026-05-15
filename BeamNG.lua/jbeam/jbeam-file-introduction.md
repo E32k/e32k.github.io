@@ -13,10 +13,11 @@ The jbeam file format is actually SJSON which is a JSON variant, that changes ma
 
 ## Data Structures
 
-There are only two (three) structures that jbeam has:
+There are only two (three) structures that jbeam has, defined by which brackets you use:
 
 ### Dictionaries
-These are pairs of keys (blue text in quotation marks) and values (which can be simple numbers or strings or even another dictionaries or lists)
+Formed with curly brackets `{}`.<br>
+These are pairs of keys (blue text in quotation marks) and values.
 ```jbeam
 {
     "foo": 1,
@@ -26,6 +27,8 @@ These are pairs of keys (blue text in quotation marks) and values (which can be 
 ```
 
 ### Lists/Arrays
+Formed with square brackets `[]`.<br>
+These store just values separated by commas.
 ```jbeam
 [
     "foo",
@@ -33,14 +36,14 @@ These are pairs of keys (blue text in quotation marks) and values (which can be 
     "baz"
 ]
 ```
-Which are often written compactly as
-
+They are often written compactly as
 ```jbeam
 ["foo", "bar", "baz"]
 ```
 
 ### Tables
 This is not a different format, its just an list of lists (array of arrays).<br>
+They have a first "header" list/row and then the data lists/rows.<br>
 See the main yellow and then the nested purple brackets<br>
 (And also see how nice to look at it is when you keep the spacing consistent)
 ```jbeam
@@ -54,19 +57,16 @@ See the main yellow and then the nested purple brackets<br>
 
 ## The JBeam Format
 
-The jbeam format consists of a main dictionary, which are `name-part` pairs
-
+The JBeam file consists of a main dictionary, where are `name: part` pairs are.
 ```jbeam
---@@ 1
+//@@ 1
 {
     "pickup_frame": {...},
     "pickup_engine": {...}
 }
 ```
-
-Each part itself is a dictionary of `section-data` pairs<br>
+Each part itself is another dictionary of `section: data` pairs<br>
 See how some are dictionaries (like information) while others are lists, and some are just values (mainly slotType)
-
 ```jbeam
 //@@ 1
 {
