@@ -1,4 +1,4 @@
----
+q---
 title: JBeam File Introduction
 layout: beamlua
 date: 2026-05-14
@@ -13,11 +13,11 @@ The jbeam file format is actually SJSON which is a JSON variant, that changes ma
 
 ## Data Structures
 
-There are only two (three) structures that jbeam has, defined by which brackets you use:
+There are only two structures that jbeam has, defined by which brackets you use.
 
 ### Dictionaries
 Formed with curly brackets `{}`.<br>
-These are pairs of keys (blue text in quotation marks) and values.
+These are pairs of keys (blue text in quotation marks) and values separated by a colon.
 ```jbeam
 {
     "foo": 1,
@@ -28,7 +28,7 @@ These are pairs of keys (blue text in quotation marks) and values.
 
 ### Lists/Arrays
 Formed with square brackets `[]`.<br>
-These store just values separated by commas.
+These store just values separated by commas (or spaces).
 ```jbeam
 [
     "foo",
