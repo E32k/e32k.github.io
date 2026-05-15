@@ -4,12 +4,12 @@ layout: beamlua
 date: 2026-05-14
 ---
 
-This page should be the first one you visit, as it explains how jbeam files work.
-
+I very strongly reccomend downloading <a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a> along with the <a href="https://marketplace.visualstudio.com/items?itemName=beamng.jbeam-editor" target="_blank">JBeam Editor Extension</a>.
 
 # JBeam Files
 
-The jbeam file format is actually SJSON which is a JSON variant, that changes many things, for example making commas optional.
+The jbeam file format is actually SJSON which is a JSON variant, that changes many things, for example making commas optional.<br>
+There are single line `//` comments and multi-line `/* ... */` comments.
 
 ## Data Structures
 
@@ -42,9 +42,8 @@ They are often written compactly as
 ```
 
 ### Tables
-This is not a different format, its just an list of lists (array of arrays).<br>
+As you can see by the main yellow and then nested purple brackets, this is just a list of lists (array of arrays).<br>
 They have a first "header" list/row and then the data lists/rows.<br>
-See the main yellow and then the nested purple brackets<br>
 (And also see how nice to look at it is when you keep the spacing consistent)
 ```jbeam
 [
@@ -52,6 +51,39 @@ See the main yellow and then the nested purple brackets<br>
     ["Gavril",  "D-Series", 1997],
     ["Ibishu",  "Covet",    1992],
     ["Hirochi", "Sunburst", 2014],
+]
+```
+
+Curly brackets (a dictionary) in a table usually means a modifier. Those are frequently used in sections like nodes, beams and triangles. Here you can see a (edited) section from the cone jbeam.
+
+Looking closer at the `"group"` modifier, you can see it is cancelled at the end of the node section, and that is because it if weren't, any following node section (even in different jbeams) would have that group. This is known as "leaking". Thats why we alaways set common things like `nodeMaterial`, `frictionCoef`, `collision`, `selfCollision` and `nodeWeight` at the start of every section.
+
+See how on line 17, the tip node has the dictionary inside it. That changes it to only set the value on the current row. Its often used on things like couplers, which have different names per-node.
+
+The most interesting part are the nodes themselfes, which according to the header row are in the format of the node name followed by the 3D position coordinates.<br>
+- `posX` is the lateral axis (+left, -right)
+- `posY` is the longitudinal axis (+back, -front)
+- `posZ` is the vertical axis (+up, -down)
+
+```jbeam
+[
+    ["id", "posX", "posY", "posZ"], // header row
+    {"frictionCoef":1.3},           // all nodes after this line will have frictionCoef of 1.3
+    {"nodeMaterial":"|NM_PLASTIC"}, // all nodes after this line will have the plastic material
+    {"collision":true},             // following nodes will have collision
+    {"selfCollision":false},        // following nodes will not have selfCollision
+
+    // square base
+    {"group":"cone"},    // all nodes after this line will have the group "cone"
+    {"nodeWeight":0.6},  // all nodes after this line will have a weight of 0.6 kg
+    ["c1r", -0.15,  0.15, 0.0],
+    ["c1l",  0.15,  0.15, 0.0],
+    ["c2r", -0.15, -0.15, 0.0],
+    ["c2l",  0.15, -0.15, 0.0],
+
+    // tip of cone
+    ["c3", 0.0, 0.0, 0.47 {"nodeWeight":0.2}], // only this node has weight of 0.2 kg
+    {"group":""}, //the group is reset, because these parameters overflow to ALL jbeam files loaded after this one
 ]
 ```
 
