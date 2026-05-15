@@ -4,7 +4,7 @@ layout: beamlua
 date: 2026-05-14
 ---
 
-I very strongly reccomend downloading <a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a> along with the <a href="https://marketplace.visualstudio.com/items?itemName=beamng.jbeam-editor" target="_blank">JBeam Editor Extension</a>.
+I strongly recommend downloading <a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a> and installing the <a href="https://marketplace.visualstudio.com/items?itemName=beamng.jbeam-editor" target="_blank">JBeam Editor Extension</a>.
 
 # JBeam Syntax
 
@@ -172,3 +172,9 @@ See how on line 17, the tip node has the dictionary inside it. That changes it t
 }
 }
 ```
+
+# Useful links
+<a href="https://documentation.beamng.com/modding/vehicle/intro_jbeam/jbeamsyntax/" target="_blank">BeamNG Documentation - JBeam Syntax</a><br>
+<a href="https://documentation.beamng.com/modding/vehicle/intro_jbeam/" target="_blank">BeamNG Documentation - Introduction to JBeam</a><br>
+<a href="https://documentation.beamng.com/modding/vehicle/intro_jbeam/partslotsystem/" target="_blank">BeamNG Documentation - The Part/Slot System</a><br>
+<a href="https://documentation.beamng.com/modding/vehicle/sections/" target="_blank">BeamNG Documentation - JBeam File Sections</a><br>
