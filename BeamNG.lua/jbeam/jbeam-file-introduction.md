@@ -1,4 +1,4 @@
-q---
+---
 title: JBeam File Introduction
 layout: beamlua
 date: 2026-05-14
