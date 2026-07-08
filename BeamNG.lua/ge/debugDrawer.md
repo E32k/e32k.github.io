@@ -1,11 +1,11 @@
 ---
 title: Debug Drawer
 layout: beamlua
-date: 2026-03-09
+date: 2026-07-08
 ---
 
 These functions help modders visualize objects in 3D.<br>
-The newer [BNG_DBG_DRAW](/BeamNG.lua/common/BNG_DBG_DRAW.html) should be used instead, as it is much faster.
+The newer [BNG_DBG_DRAW](/BeamNG.lua/ge/BNG_DBG_DRAW) should be used instead, as it is much faster.
 
 Positions are `vec3(x, y, z)`.<br>
 Colors are `ColorF(r, g, b, a)` unless stated otherwise.<br>

@@ -4,7 +4,7 @@ layout: beamlua
 date: 2026-03-08
 ---
 
-This section will show you some examples of code before and after 0-gc optimization. See [LuaVec3 library](/beamng/lua/common/LuaVec3.html) for all aviable vec3() functions.
+This section will show you some examples of code before and after 0-gc optimization. See [LuaVec3 library](/beamng/lua/common/LuaVec3) for all aviable vec3() functions.
 
 ## Vehicle Position Predictor
 

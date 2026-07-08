@@ -1,10 +1,11 @@
 ---
-title: Player Vehicle
+title: class<BeamNGVehicle>
 layout: beamlua
-date: 2026-03-11
+date: 2026-07-08
 ---
 
-Functions that are in the userdata after calling `getPlayerVehicle(0)`
+This class is representing a spawned vehicle.
+You can get the current player vehicle with `getPlayerVehicle(0)`
 
 ## Functions
 
