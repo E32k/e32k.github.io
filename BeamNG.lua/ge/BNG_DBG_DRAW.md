@@ -7,7 +7,7 @@ date: 2026-03-10
 Source: `common/cdefDebugDraw.lua`
 
 These functions are significantly faster than their `debugDrawer` alternatives.<br>
-It is recommended to cache this into a local variable to improve performance, for example `local drawSphere = ffi.C.BNG_DBG_DRAW_Sphere`.<br>
+To improve performance, always cache `ffi.C` into a local variable like `local C = ffi.C`. Never cache individual functions directly. Source: <a href="https://luajit.org/ext_ffi_tutorial.html#cache" target="_blank">LuaJIT FFI Tutorial - To Cache or Not to Cache</a><br>
 Colors are packed integers: `color(r, g, b, a) 0-255`<br>
 If useZ, then the item is always drawn on top.
 
