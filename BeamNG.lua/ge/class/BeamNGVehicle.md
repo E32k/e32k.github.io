@@ -1,5 +1,5 @@
 ---
-title: class&lt;BeamNGVehicle&gt;
+title: BeamNGVehicle
 layout: beamlua
 date: 2026-07-08
 ---
