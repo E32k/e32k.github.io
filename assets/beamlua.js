@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const current = window.location.pathname.replace(/\/+$/, "")
   const links = sites.querySelectorAll("a")
 
-  if (current.endsWith("BeamNG.lua/")) {
+  if (current.endsWith("BeamNG.lua")) {
     // Select every folder and open it
     const allFolders = sites.querySelectorAll(".sites-folder")
     allFolders.forEach(folder => folder.classList.add("open"))
