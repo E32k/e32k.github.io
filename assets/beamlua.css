@@ -404,6 +404,66 @@ i, i * { font-style: italic; }
 
 /* MARK: Function Table
 */
+.argTable {
+  margin-bottom: 1em; }
+  .argTable .headerRow {
+    border-left: 5px solid #ffaaaa;
+    border-top: 5px solid #ddd;
+    border-top-left-radius: 5px; }
+  .argTable .nameField {
+    /*font-family:Roboto mono, monospace;
+        font-size:1.2em;*/
+    border: 1px solid #ddd;
+    background-color: #e6ffe6;
+    font-weight: bold;
+    padding: 0.5em;
+    padding-bottom: 1em; }
+  .argTable .nameLink {
+    font-family: Roboto mono, monospace !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    text-transform: none !important; }
+  .argTable .anchored:hover > .anchor::before {
+    content: none !important; }
+  .argTable .bng-link-copy {
+    color: #666 !important;
+    text-decoration: none; }
+  .argTable .fieldType.noselect:hover {
+    text-decoration: underline; }
+    .argTable .fieldType.noselect:hover > .bng-link-copy::after {
+      content: " (copy link)";
+      position: sticky;
+      left: 10%; }
+  .argTable .typeField {
+    font-family: Roboto mono, monospace;
+    border: 1px solid #ddd;
+    background-color: #dae8ff;
+    font-weight: bold;
+    padding: 0.5em; }
+  .argTable .defaultField {
+    font-family: Roboto mono, monospace;
+    border: 1px solid #ddd;
+    background-color: #d6ffff;
+    padding: 0.5em; }
+  .argTable .descrField {
+    border: 1px solid #ddd;
+    background-color: #eee;
+    padding: 0.5em; }
+  .argTable .innerRow {
+    border-left: 5px solid #e0e0e0; }
+  .argTable .innerField {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px; }
+  .argTable .fieldType {
+    color: #666;
+    font-size: 0.6em;
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    font-family: Roboto mono, monospace;
+    font-weight: lighter; }
+
 
 .funcTable {
   border-collapse: collapse;
@@ -469,7 +529,6 @@ i, i * { font-style: italic; }
   .func, .args,
   .rets, .desc {
     flex: none;
-    width: 100%;
   }
 }
 
