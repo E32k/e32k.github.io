@@ -1,7 +1,8 @@
 ---
 title: BeamNGVehicle
 layout: beamlua
-date: 2026-07-08
+date: 2026-07-09
+wip: true
 ---
 
 This class is representing a spawned vehicle.

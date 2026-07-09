@@ -1,7 +1,8 @@
 ---
 title: Garbage Collector
 layout: beamlua
-date: 2026-04-16
+date: 2026-07-09
+wip: true
 ---
 
 Every time you create a new object, which are things like tables, strings or userdata like vec3 or quats, it allocates memory. Because we dont have infinite memory yet, lua has a garbage colector, whichs role is to clean unused objects to free up ram. It doesnt run every frame, it runs when it decides to. That means that instead of your fps dropping, you get a way worse form of lag: rubber banding, where the game slow downs and speeds up right after, or it may freeze when it runs. Thats because when it runs, all lua is paused until it finishes its job. With small loads its unnoticeable.

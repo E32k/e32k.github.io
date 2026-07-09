@@ -1,7 +1,8 @@
 ---
 title: Exo Car Tutorial
 layout: beamlua
-date: 2026-05-14
+date: 2026-07-09
+wip: true
 ---
 
 In this tutorial we will be creating an exo-car.<br>

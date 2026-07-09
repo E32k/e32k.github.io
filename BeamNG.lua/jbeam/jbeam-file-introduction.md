@@ -1,7 +1,8 @@
 ---
 title: JBeam File Introduction
 layout: beamlua
-date: 2026-05-14
+date: 2026-07-09
+wip: true
 ---
 
 I strongly recommend downloading <a href="https://code.visualstudio.com/download" target="_blank">Visual Studio Code</a> and installing the <a href="https://marketplace.visualstudio.com/items?itemName=beamng.jbeam-editor" target="_blank">JBeam Editor Extension</a>.

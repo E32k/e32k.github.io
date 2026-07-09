@@ -1,7 +1,8 @@
 ---
 title: BNG_DBG_DRAW
 layout: beamlua
-date: 2026-07-08
+date: 2026-07-09
+wip: true
 ---
 
 Source: `common/cdefDebugDraw.lua`

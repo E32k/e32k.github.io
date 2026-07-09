@@ -1,7 +1,8 @@
 ---
 title: Extension Structure
 layout: beamlua
-date: 2026-03-08
+date: 2026-07-09
+wip: true
 ---
 
 This section explains how extensions work, how they are loaded, and how they interact with the extension manager.

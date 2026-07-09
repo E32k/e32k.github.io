@@ -1,7 +1,8 @@
 ---
 title: Debug Drawer
 layout: beamlua
-date: 2026-07-08
+date: 2026-07-09
+wip: true
 ---
 
 These functions help modders visualize objects in 3D.<br>

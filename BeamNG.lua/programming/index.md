@@ -1,7 +1,8 @@
 ---
 title: Programming
 layout: beamlua
-date: 2026-03-08
+date: 2026-07-09
+wip: true
 ---
 
 This section will contain tips and tricks, tutorials and other guides.

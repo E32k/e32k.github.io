@@ -1,7 +1,8 @@
 ---
 title: LuaVec3 Library
 layout: beamlua
-date: 2026-05-14
+date: 2026-07-09
+wip: true
 ---
 
 These are all the functions you can use on vec3()
