@@ -30,8 +30,10 @@
   <div class="layout">
     <aside id="sites">{% include sites.html %}</aside>
     <main class="content">
-      <img src="/images/under-construction.gif" alt="Under Construction GIF">
-      <img src="/images/construction-worker.gif" alt="Construction Worker GIF">
+      {% if page.wip %}
+        <img src="/images/under-construction.gif" alt="Under Construction GIF">
+        <img src="/images/construction-worker.gif" alt="Construction Worker GIF">
+      {% endif %}
       <h1>{{ page.title | default: page.name }}</h1>
       {{ content }}
       {% if page.date %}
