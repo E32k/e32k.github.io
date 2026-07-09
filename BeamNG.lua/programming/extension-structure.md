@@ -29,7 +29,7 @@ return M
 
 Once the extension is loaded, the returned table is stored internally and also exposed globally using the extension name.
 The extension name is generated like this:
-for an extension: `ui/myExetnsion.lua` the extension will be aviable under `ui_myExtension`.
+for an extension: `ui/myExtension.lua` the extension will be aviable in the global table `ui_myExtension`.
 
 
 
@@ -56,4 +56,10 @@ You can also define functions directly in the M table
 
 ```lua
 M.onExtensionLoaded = function() print("Hello World!") end
+```
+
+At the end, you return the table of functions to the extension manager, which calls them when needed
+
+```lua
+return M
 ```

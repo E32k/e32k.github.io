@@ -1,5 +1,5 @@
 ---
-title: BeamNG Lua
+title: BeamNG.lua
 layout: beamlua
 date: 2026-07-09
 wip: true
@@ -9,27 +9,8 @@ I will try to document most game functions
 
 ## Sections
 
-- **Vlua** – Vehicle Lua
-- **GELua** – Game Engine Lua
-
-## Example Code
-
-```lua
-print("Hello World!")
-
-local function hello(test)
-    test.x = test[4] * 1.2
-end
-
-local hi = [[
-hello
-]]
-
---test
-
---[[
-test
-]]
-
-```
-very good
+- [vlua](vehicle/) - Vehicle Lua
+- [gelua](ge/) - GameEngine Lua
+- [common](common/) - Shared Libraries
+- [Programming](programming/) - Programming Tips and Tricks
+- [JBeam](jbeam/) - Some JBeam stuff
