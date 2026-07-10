@@ -9,14 +9,14 @@ document.querySelectorAll('a[href]').forEach(a => {
 const sidebarTree = document.getElementById("sidebar-tree");
 
 document.addEventListener("DOMContentLoaded", async () => {
-  if (!sidebarTree) return;
+  if (!sidebarTree) return; // Prevent errors if the element isn't found
 
   const CURRENT_PAGE_PATH = window.location.pathname;
 
   const ICONS = {
+    rootfolder: "/images/tree/base.gif",
     folder: "/images/tree/folder.gif",
     folderopen: "/images/tree/folderopen.gif",
-    rootfolder: "/images/tree/base.gif",
     file: "/images/tree/page.gif",
     line: "/images/tree/line.gif",
     join: "/images/tree/join.gif",
@@ -73,6 +73,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!node.disabled && node.path) {
       label.href = node.path;
+
+      // Automatically open the folder when its label link or folder icon is clicked for navigation
+      if (hasChildren && node.type !== 'root') {
+        const navigateAndOpen = () => {
+          setSavedState(node.path, true);
+        };
+        label.onclick = navigateAndOpen;
+        nodeImg.onclick = () => {
+          navigateAndOpen();
+          window.location.href = node.path; // Force navigation when clicking the folder icon directly
+        };
+      }
     } else if (node.disabled) {
       label.classList.add('node-disabled');
     }
@@ -105,7 +117,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       const executeToggleAction = () => {
-        // Disallow collapse toggles on the root completely
         if (node.type === 'root') return;
 
         const isCurrentlyOpen = childUl.classList.toggle('show-branch');
@@ -119,12 +130,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       };
 
-      // Only attach click toggles if this is a normal collapsible folder branch
+      // The +/- tiny sign boxes still handle normal on-page opening/collapsing without reloading
       if (node.type !== 'root' && toggleImg) {
         toggleImg.onclick = executeToggleAction;
       }
 
-      // Root is now permanently open; subfolders fall back to memory or path scans
       const determineOpenState = node.type === 'root'
         ? true
         : (getSavedState(node.path) !== null ? getSavedState(node.path) === "open" : containsActivePage);
