@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Primary Recursive Render Engine
   function renderTree(node, container, indentationArray = [], isLastChild = false) {
-    // If the node is explicitly disabled, completely skip rendering it
     if (node.disabled) return;
 
     const row = document.createElement('div');
@@ -79,15 +78,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (node.path) {
       label.href = node.path;
 
-      // Automatically open the folder when its label link or folder icon is clicked for navigation
+      // open the folder when clicked
       if (hasChildren && node.type !== 'root') {
-        const navigateAndOpen = () => {
+        label.onclick = () => {
           setSavedState(node.path, true);
-        };
-        label.onclick = navigateAndOpen;
-        nodeImg.onclick = () => {
-          navigateAndOpen();
-          window.location.href = node.path; // Force navigation when clicking the folder icon directly
         };
       }
     }
@@ -105,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       let containsActivePage = false;
       const scanForActiveElement = (targetNode) => {
-        if (targetNode.disabled) return; // Skip checking disabled items
+        if (targetNode.disabled) return;
         if (targetNode.path === CURRENT_PAGE_PATH) containsActivePage = true;
 
         const subChildren = (targetNode.children ?? []).filter(c => !c.disabled);
@@ -132,18 +126,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (toggleImg) {
           toggleImg.src = isCurrentlyOpen
             ? (isLastChild ? ICONS.minusbottom : ICONS.minus)
-            : (isLastChild ? ICONS.plusbottom : ICONS.plus);
+            : (isLastChild ? ICONS.plusbottom  : ICONS.plus);
         }
       };
 
-      // The +/- tiny sign boxes still handle normal on-page opening/collapsing without reloading
       if (node.type !== 'root' && toggleImg) {
         toggleImg.onclick = executeToggleAction;
       }
 
-      const determineOpenState = node.type === 'root'
-        ? true
-        : (getSavedState(node.path) !== null ? getSavedState(node.path) === "open" : containsActivePage);
+      const determineOpenState = node.type === 'root' ? true : (getSavedState(node.path) !== null ? getSavedState(node.path) === "open" : containsActivePage);
 
       if (determineOpenState) {
         childUl.classList.add('show-branch');
