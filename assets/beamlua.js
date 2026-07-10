@@ -48,8 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const hasChildren = node.children && node.children.length > 0;
 
     if (node.type === 'root') {
-      nodeImg.src = ICONS.rootfolderopen;
-      // Removed 'root-clickable' class since it's no longer collapsible
+      nodeImg.src = ICONS.rootfolder;
     } else {
       if (hasChildren) {
         toggleImg = document.createElement('img');
