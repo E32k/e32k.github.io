@@ -9,15 +9,14 @@ document.querySelectorAll('a[href]').forEach(a => {
 const sidebarTree = document.getElementById("sidebar-tree");
 
 document.addEventListener("DOMContentLoaded", async () => {
-  if (!sidebarTree) return; // Prevent errors if the element isn't found
+  if (!sidebarTree) return;
 
   const CURRENT_PAGE_PATH = window.location.pathname;
 
   const ICONS = {
     folder: "/images/tree/folder.gif",
     folderopen: "/images/tree/folderopen.gif",
-    rootfolder: "/images/tree/folderh.gif",
-    rootfolderopen: "/images/tree/folderhopen.gif",
+    rootfolder: "/images/tree/base.gif",
     file: "/images/tree/page.gif",
     line: "/images/tree/line.gif",
     join: "/images/tree/join.gif",
@@ -50,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (node.type === 'root') {
       nodeImg.src = ICONS.rootfolderopen;
-      nodeImg.classList.add('root-clickable');
+      // Removed 'root-clickable' class since it's no longer collapsible
     } else {
       if (hasChildren) {
         toggleImg = document.createElement('img');
@@ -107,38 +106,33 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       const executeToggleAction = () => {
+        // Disallow collapse toggles on the root completely
+        if (node.type === 'root') return;
+
         const isCurrentlyOpen = childUl.classList.toggle('show-branch');
         setSavedState(node.path, isCurrentlyOpen);
 
-        if (node.type === 'root') {
-          nodeImg.src = isCurrentlyOpen ? ICONS.rootfolderopen : ICONS.rootfolder;
-        } else {
-          nodeImg.src = isCurrentlyOpen ? ICONS.folderopen : ICONS.folder;
-          if (toggleImg) {
-            toggleImg.src = isCurrentlyOpen
-              ? (isLastChild ? ICONS.minusbottom : ICONS.minus)
-              : (isLastChild ? ICONS.plusbottom : ICONS.plus);
-          }
+        nodeImg.src = isCurrentlyOpen ? ICONS.folderopen : ICONS.folder;
+        if (toggleImg) {
+          toggleImg.src = isCurrentlyOpen
+            ? (isLastChild ? ICONS.minusbottom : ICONS.minus)
+            : (isLastChild ? ICONS.plusbottom : ICONS.plus);
         }
       };
 
-      if (node.type === 'root') {
-        nodeImg.onclick = executeToggleAction;
-        label.onclick = (e) => { e.preventDefault(); executeToggleAction(); };
-      } else if (toggleImg) {
+      // Only attach click toggles if this is a normal collapsible folder branch
+      if (node.type !== 'root' && toggleImg) {
         toggleImg.onclick = executeToggleAction;
       }
 
-      const savedPreference = getSavedState(node.path);
-      const determineOpenState = savedPreference !== null
-        ? savedPreference === "open"
-        : containsActivePage || node.type === 'root';
+      // Root is now permanently open; subfolders fall back to memory or path scans
+      const determineOpenState = node.type === 'root'
+        ? true
+        : (getSavedState(node.path) !== null ? getSavedState(node.path) === "open" : containsActivePage);
 
       if (determineOpenState) {
         childUl.classList.add('show-branch');
-        if (node.type === 'root') {
-          nodeImg.src = ICONS.rootfolderopen;
-        } else {
+        if (node.type !== 'root') {
           nodeImg.src = ICONS.folderopen;
           if (toggleImg) toggleImg.src = isLastChild ? ICONS.minusbottom : ICONS.minus;
         }
