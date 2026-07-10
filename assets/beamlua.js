@@ -13,18 +13,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   const CURRENT_PAGE_PATH = window.location.pathname;
 
   const ICONS = {
-    rootfolder: "/images/tree/base.gif",
-    folder: "/images/tree/folder.gif",
+    base:       "/images/tree/base.gif",
+    folder:     "/images/tree/folder.gif",
     folderopen: "/images/tree/folderopen.gif",
-    file: "/images/tree/page.gif",
-    line: "/images/tree/line.gif",
-    join: "/images/tree/join.gif",
+    page:       "/images/tree/page.gif",
+    line:       "/images/tree/line.gif",
+    join:       "/images/tree/join.gif",
     joinbottom: "/images/tree/joinbottom.gif",
-    plus: "/images/tree/plus.gif",
+    plus:       "/images/tree/plus.gif",
     plusbottom: "/images/tree/plusbottom.gif",
-    minus: "/images/tree/minus.gif",
-    minusbottom: "/images/tree/minusbottom.gif",
-    empty: "/images/tree/empty.gif"
+    minus:      "/images/tree/minus.gif",
+    minusbottom:"/images/tree/minusbottom.gif",
+    empty:      "/images/tree/empty.gif"
   };
 
   // LocalStorage state helpers
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const hasChildren = validChildren.length > 0;
 
     if (node.type === 'root') {
-      nodeImg.src = ICONS.rootfolder;
+      nodeImg.src = ICONS.base;
     } else {
       if (hasChildren) {
         toggleImg = document.createElement('img');
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         structuralWire.src = isLastChild ? ICONS.joinbottom : ICONS.join;
         row.appendChild(structuralWire);
         const isAFolderNode = node.path?.endsWith('/') || 'children' in node;
-        nodeImg.src = isAFolderNode ? ICONS.folder : ICONS.file;
+        nodeImg.src = isAFolderNode ? ICONS.folder : ICONS.page;
       }
     }
 
