@@ -274,60 +274,83 @@ header img {
   width: 200px;
   margin: 0;
   padding: 20px;
-  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
-  font-size: 11px;
   background-color: #ffffff;
-  color: #000000;
 }
+
+/* Explicit targeting shields the folder alignment tree from global styles */
 .tree {
   user-select: none;
   white-space: nowrap;
 }
-.tree ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+
+.tree ul,
+.tree li {
+  list-style: none !important;
+  list-style-type: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
+
+.tree li::before {
+  content: none !important; /* Strips out any custom bullets from your theme */
+}
+
 .tree-row {
   display: flex;
   align-items: center;
   height: 18px;
 }
+
 .tree-row img {
   width: 18px;
   height: 18px;
   display: block;
   image-rendering: pixelated;
+  margin: 0 !important;
+  padding: 0 !important;
 }
+
 .toggle-btn { cursor: pointer; }
 .root-clickable { cursor: pointer; }
+
 .node-label {
-  text-decoration: none;
-  color: #4b4b6b;
+  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  text-decoration: none !important;
+  color: #4b4b6b !important;
   padding-left: 4px;
   cursor: pointer;
   line-height: 18px;
   display: inline-block;
+  letter-spacing: normal !important;
 }
-.node-label:hover { text-decoration: underline; }
-/* Disabled state styling rules */
+
+.node-label:hover {
+  text-decoration: underline !important;
+}
+
 .node-disabled {
   color: #a0a0a0 !important;
   cursor: not-allowed !important;
   text-decoration: none !important;
-  pointer-events: none; /* Prevents clicks entirely */
+  pointer-events: none;
 }
 .node-disabled:hover { text-decoration: none !important; }
+
 .active-root {
-  background-color: #ffffcc;
-  font-weight: bold;
+  background-color: #ffffcc !important;
+  font-weight: bold !important;
   padding: 1px 2px;
-  color: #000;
+  color: #000 !important;
 }
+
 .active-current {
-  color: #666633;
-  font-weight: bold;
+  background-color: #e0e0e0 !important;
+  color: #000000 !important;
+  font-weight: bold !important;
 }
+
 .nested-branch { display: none; }
 .show-branch { display: block !important; }
 
@@ -432,8 +455,6 @@ i, i * { font-style: italic; }
     border-top: 5px solid #ddd;
     border-top-left-radius: 5px; }
   .argTable .nameField {
-    /*font-family:Roboto mono, monospace;
-        font-size:1.2em;*/
     border: 1px solid #ddd;
     background-color: #e6ffe6;
     font-weight: bold;
@@ -646,7 +667,7 @@ pre.highlight code {
 .special { color: #569CD6; }
 .number { color: #B5CEA8; }
 .string { color: #CE9178; }
-.escape { color: #D7BA7D; } /* escaped sequences in strings */
+.escape { color: #D7BA7D; }
 .operator { color: #D4D4D4; }
 .function { color: #DCDCAA; }
 .method { color: #4EC9B0; }
@@ -655,14 +676,14 @@ pre.highlight code {
 .bracket1 { color: #FFD700; }
 .bracket2 { color: #DA70D6; }
 .bracket3 { color: #179FFF; }
-.invalid { color: #D21414; } /* unmatched brackets */
+.invalid { color: #D21414; }
 
 /* line numbers */
 .lines {
-  color: #6E7681;       /* gray line numbers */
+  color: #6E7681;
   display: inline-block;
   text-align: right;
   user-select: none;
   width: 3ch;
-  margin-right: 2ch;     /* space between number and code */
+  margin-right: 2ch;
 }
