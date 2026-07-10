@@ -270,45 +270,66 @@ header img {
 /* MARK: Sidebar Container
 */
 
-#sites { width: 15em; }
-
-
-#sites ul {
-  background-color: white;
-  padding-left: 1em;
-  list-style: none; }
-
-#sites .sites-folder > ul {
-  padding: 0; margin: 0; }
-
-#sites a {
+#sidebar-tree {
+  width: 200px;
+  margin: 0;
+  padding: 20px;
+  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  background-color: #ffffff;
+  color: #000000;
+}
+.tree {
+  user-select: none;
+  white-space: nowrap;
+}
+.tree ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.tree-row {
+  display: flex;
+  align-items: center;
+  height: 18px;
+}
+.tree-row img {
+  width: 18px;
+  height: 18px;
   display: block;
-  padding: 4px 8px;
-  text-decoration: none; }
-
-#sites li > a { color: #507A95; }
-#sites li > a.active { color: var(--bng-orange); }
-#sites li > a:hover { text-decoration: underline; }
-
-#sites .sites-folder > ul { display: none; }
-#sites .sites-folder.open > ul { display: block; }
-
-#sites .sites-folder > a {
-  background-color: #F2F4F8;
-  color: #405481; }
-
-#sites .sites-folder > a:hover {
-  color: var(--bng-orange); }
-
-#sites .sites-folder.open > a {
-  background-color: #E5E9F2;
-  border-bottom: 1px solid #f60;
-  font-weight: 600;
+  image-rendering: pixelated;
 }
-
-#sites .hidden {
-  display: none;
+.toggle-btn { cursor: pointer; }
+.root-clickable { cursor: pointer; }
+.node-label {
+  text-decoration: none;
+  color: #4b4b6b;
+  padding-left: 4px;
+  cursor: pointer;
+  line-height: 18px;
+  display: inline-block;
 }
+.node-label:hover { text-decoration: underline; }
+/* Disabled state styling rules */
+.node-disabled {
+  color: #a0a0a0 !important;
+  cursor: not-allowed !important;
+  text-decoration: none !important;
+  pointer-events: none; /* Prevents clicks entirely */
+}
+.node-disabled:hover { text-decoration: none !important; }
+.active-root {
+  background-color: #ffffcc;
+  font-weight: bold;
+  padding: 1px 2px;
+  color: #000;
+}
+.active-current {
+  color: #666633;
+  font-weight: bold;
+}
+.nested-branch { display: none; }
+.show-branch { display: block !important; }
 
 /* MOBILE */
 #nav-burger {

@@ -1,32 +1,29 @@
 [
   {
-    "title": "Programming", "path": "/BeamNG.lua/programming/",
-    "children": [
-      {"title": "Optimizing GC", "path": "/BeamNG.lua/programming/writing-0gc-code.html"}
+    "title": "JBeam", "path": "/BeamNG.lua/jbeam/", "children": [
+      {"title": "Jbeam File Introduction", "path": "/BeamNG.lua/jbeam/jbeam-file-introduction"},
+      {"title": "Exo-car tutorial",        "path": "/BeamNG.lua/jbeam/exo-car-tutorial", "disabled":true}
     ]
   },{
-    "title": "common", "path": "/BeamNG.lua/common/",
-    "children": [
-      {"title": "BNG_DBG_DRAW", "path": "/BeamNG.lua/common/BNG_DBG_DRAW.html"},
-      {"title": "LuaVec3", "path": "/BeamNG.lua/common/LuaVec3.html"}
+    "title": "Programming", "path": "/BeamNG.lua/programming/", "children": [
+      {"title": "Garbage Collector", "path": "/BeamNG.lua/programming/garbage-collector"},
+      {"title": "Zero-Garbage Code", "path": "/BeamNG.lua/programming/writing-0gc-code"}
     ]
   },{
-    "title": "ge", "path": "/BeamNG.lua/ge/",
-    "children": [
-      {
-        "title": "test", "path": "/BeamNG.lua/ge/",
-        "children": [
-          {"title": "test2", "path": "/BeamNG.lua/ge/playerVehicle.html"},
-          {"title": "test3", "path": "/BeamNG.lua/ge/debugDrawer.html"}
-        ]
-      },
-      {"title": "playerVehicle", "path": "/BeamNG.lua/ge/playerVehicle.html"},
-      {"title": "debugDrawer", "path": "/BeamNG.lua/ge/debugDrawer.html"}
+    "title": "common", "path": "/BeamNG.lua/common/", "children": [
+      {"title": "LuaVec3",      "path": "/BeamNG.lua/common/LuaVec3"}
     ]
   },{
-    "title": "vehicle", "path": "/BeamNG.lua/vehicle/",
-    "children": [
-      {"title": "obj", "path": "/BeamNG.lua/vehicle/obj.html"}
+    "title": "ge", "path": "/BeamNG.lua/ge/", "children": [
+      {"title": "class", "path": "/BeamNG.lua/ge/class/", "children": [
+        {"title": "BeamNGVehicle", "path": "/BeamNG.lua/ge/class/BeamNGVehicle"},
+        {"title": "TSStatic",      "path": "/BeamNG.lua/ge/class/TSStatic"}]},
+      {"title": "BNG_DBG_DRAW", "path": "/BeamNG.lua/ge/BNG_DBG_DRAW"},
+      {"title": "debugDrawer",  "path": "/BeamNG.lua/ge/debugDrawer"}
+    ]
+  },{
+    "title": "vehicle", "path": "/BeamNG.lua/vehicle/", "children": [
+      {"title": "obj", "path": "/BeamNG.lua/vehicle/obj"}
     ]
   }
 ]

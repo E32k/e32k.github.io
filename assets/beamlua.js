@@ -8,29 +8,164 @@ document.querySelectorAll('a[href]').forEach(a => {
 // MARK: Sites navigation
 const sites = document.getElementById("sites")
 
-document.addEventListener("DOMContentLoaded", () => {
-  const current = window.location.pathname.replace(/\/+$/, "")
-  const links = sites.querySelectorAll("a")
+document.addEventListener("DOMContentLoaded", async () => {
+  const rootContainer = document.getElementById('sidebar-tree');
+  const CURRENT_PAGE_PATH = window.location.pathname;
 
-  if (current.endsWith("BeamNG.lua")) {
-    // Select every folder and open it
-    const allFolders = sites.querySelectorAll(".sites-folder")
-    allFolders.forEach(folder => folder.classList.add("open"))
+  const ICONS = {
+    folder: "images/tree/folder.gif",
+    folderopen: "images/tree/folderopen.gif",
+    rootfolder: "images/tree/folderh.gif",
+    rootfolderopen: "images/tree/folderh.gif", // Added to prevent bugs if referenced
+    file: "images/tree/page.gif",
+    line: "images/tree/line.gif",
+    join: "images/tree/join.gif",
+    joinbottom: "images/tree/joinbottom.gif",
+    plus: "images/tree/plus.gif",
+    plusbottom: "images/tree/plusbottom.gif",
+    minus: "images/tree/minus.gif",
+    minusbottom: "images/tree/minusbottom.gif",
+    empty: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  };
+
+  // LocalStorage state helpers
+  const getSavedState = (path) => localStorage.getItem("tree_expand_" + path);
+  const setSavedState = (path, isOpen) => localStorage.setItem("tree_expand_" + path, isOpen ? "open" : "closed");
+
+  // Primary Recursive Render Engine
+  function renderTree(node, container, indentationArray = [], isLastChild = false) {
+    const row = document.createElement('div');
+    row.className = 'tree-row';
+
+    indentationArray.forEach(isParentLast => {
+      const guideImg = document.createElement('img');
+      guideImg.src = isParentLast ? ICONS.empty : ICONS.line;
+      row.appendChild(guideImg);
+    });
+
+    let toggleImg = null;
+    let nodeImg = document.createElement('img');
+    const hasChildren = node.children && node.children.length > 0;
+
+    if (node.type === 'root') {
+      nodeImg.src = ICONS.rootfolderopen;
+      nodeImg.classList.add('root-clickable');
+    } else {
+      if (hasChildren) {
+        toggleImg = document.createElement('img');
+        toggleImg.className = 'toggle-btn';
+        toggleImg.src = isLastChild ? ICONS.plusbottom : ICONS.plus;
+        row.appendChild(toggleImg);
+        nodeImg.src = ICONS.folder;
+      } else {
+        const structuralWire = document.createElement('img');
+        structuralWire.src = isLastChild ? ICONS.joinbottom : ICONS.join;
+        row.appendChild(structuralWire);
+        const isAFolderNode = node.path.endsWith('/') || 'children' in node;
+        nodeImg.src = isAFolderNode ? ICONS.folder : ICONS.file;
+      }
+    }
+
+    row.appendChild(nodeImg);
+
+    const label = node.disabled ? document.createElement('span') : document.createElement('a');
+    label.className = 'node-label';
+    label.textContent = node.title;
+
+    if (!node.disabled && node.path) {
+      label.href = node.path;
+      label.onclick = (e) => {
+        e.preventDefault();
+        alert("Navigating to: " + node.path);
+      };
+    } else if (node.disabled) {
+      label.classList.add('node-disabled');
+    }
+
+    if (node.type === 'root') label.classList.add('active-root');
+    if (node.path === CURRENT_PAGE_PATH) label.classList.add('active-current');
+
+    row.appendChild(label);
+    container.appendChild(row);
+
+    if (hasChildren) {
+      const childUl = document.createElement('ul');
+      childUl.className = 'nested-branch';
+      container.appendChild(childUl);
+
+      let containsActivePage = false;
+      const scanForActiveElement = (targetNode) => {
+        if (targetNode.path === CURRENT_PAGE_PATH) containsActivePage = true;
+        targetNode.children?.forEach(scanForActiveElement);
+      };
+      node.children.forEach(scanForActiveElement);
+
+      node.children.forEach((child, index) => {
+        const lastNodeChildCheck = index === node.children.length - 1;
+        const childLi = document.createElement('li');
+        childUl.appendChild(childLi);
+
+        const passingArray = node.type === 'root' ? [] : [...indentationArray, isLastChild];
+        renderTree(child, childLi, passingArray, lastNodeChildCheck);
+      });
+
+      const executeToggleAction = () => {
+        const isCurrentlyOpen = childUl.classList.toggle('show-branch');
+        setSavedState(node.path, isCurrentlyOpen);
+
+        if (node.type === 'root') {
+          nodeImg.src = isCurrentlyOpen ? ICONS.rootfolderopen : ICONS.rootfolder;
+        } else {
+          nodeImg.src = isCurrentlyOpen ? ICONS.folderopen : ICONS.folder;
+          if (toggleImg) {
+            toggleImg.src = isCurrentlyOpen
+              ? (isLastChild ? ICONS.minusbottom : ICONS.minus)
+              : (isLastChild ? ICONS.plusbottom : ICONS.plus);
+          }
+        }
+      };
+
+      if (node.type === 'root') {
+        nodeImg.onclick = executeToggleAction;
+      } else if (toggleImg) {
+        toggleImg.onclick = executeToggleAction;
+      }
+
+      const savedPreference = getSavedState(node.path);
+      const determineOpenState = savedPreference !== null
+        ? savedPreference === "open"
+        : containsActivePage || node.type === 'root';
+
+      if (determineOpenState) {
+        childUl.classList.add('show-branch');
+        if (node.type === 'root') {
+          nodeImg.src = ICONS.rootfolderopen;
+        } else {
+          nodeImg.src = ICONS.folderopen;
+          if (toggleImg) toggleImg.src = isLastChild ? ICONS.minusbottom : ICONS.minus;
+        }
+      }
+    }
   }
 
-  links.forEach(link => {
-    const href = link.getAttribute("href").replace(/\/+$/, "")
+  // Fetch JSON data and instantly trigger base tree layout initialization
+  try {
+    const response = await fetch('/assets/sites.json');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const dataArray = await response.json();
 
-    if (href === current) {
-      // Add active class to the current page link
-      link.classList.add("active")
+    const rootWrapperNode = {
+      title: "BeamNG.lua",
+      type: "root",
+      path: "/BeamNG.lua/",
+      children: dataArray
+    };
 
-      // Add open class only to the top-level folder
-      let parent = link.closest(".sites-folder")
-      if (parent) { parent.classList.add("open") }
-    }
-  })
-})
+    renderTree(rootWrapperNode, rootContainer);
+  } catch (error) {
+    console.error("Failed to load or parse site structure JSON:", error);
+  }
+});
 
 const burger = document.getElementById("nav-burger")
 const backdrop = document.getElementById("sites-backdrop")
