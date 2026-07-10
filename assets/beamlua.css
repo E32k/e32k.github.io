@@ -313,17 +313,11 @@ i, i * { font-style: italic; }
   white-space: nowrap;
 }
 
-/* Changed target selectors from .tree to #sidebar-tree to apply layout rules correctly */
 #sidebar-tree ul,
 #sidebar-tree li {
-  list-style: none !important;
-  list-style-type: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-#sidebar-tree li::before {
-  content: none !important; /* Strips out any custom bullets from your theme */
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .tree-row {
@@ -337,8 +331,8 @@ i, i * { font-style: italic; }
   height: 18px;
   display: block;
   image-rendering: pixelated;
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
 }
 
 .toggle-btn { cursor: pointer; }
@@ -357,25 +351,16 @@ i, i * { font-style: italic; }
   letter-spacing: normal;
 }
 
-.node-label:hover {
-  text-decoration: underline;
-}
+.node-label:hover { text-decoration: underline; }
 
-.active-root {
-  background-color: #ffffcc !important;
-  font-weight: bold !important;
-  padding: 1px 2px;
+.active-root,
+.active-current {
+  font-weight: bold;
   color: #000 !important;
 }
 
-.active-current {
-  background-color: #e0e0e0 !important;
-  color: #000000 !important;
-  font-weight: bold !important;
-}
-
 .nested-branch { display: none; }
-.show-branch { display: block !important; }
+.show-branch { display: block; }
 
 /* MOBILE */
 #nav-burger {
