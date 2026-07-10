@@ -309,23 +309,20 @@ i, i * { font-style: italic; }
   margin: 0;
   padding: 20px;
   background-color: #ffffff;
-}
-
-/* Explicit targeting shields the folder alignment tree from global styles */
-.tree {
   user-select: none;
   white-space: nowrap;
 }
 
-.tree ul,
-.tree li {
+/* Changed target selectors from .tree to #sidebar-tree to apply layout rules correctly */
+#sidebar-tree ul,
+#sidebar-tree li {
   list-style: none !important;
   list-style-type: none !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
-.tree li::before {
+#sidebar-tree li::before {
   content: none !important; /* Strips out any custom bullets from your theme */
 }
 
@@ -404,7 +401,8 @@ i, i * { font-style: italic; }
 @media (max-width: 1000px) {
   #nav-burger { display: block; }
 
-  #sites {
+  /* Swapped out #sites layout references for #sidebar-tree */
+  #sidebar-tree {
     position: fixed;
     top: 0;
     left: 0;
@@ -423,7 +421,7 @@ i, i * { font-style: italic; }
     touch-action: pan-y;
   }
 
-  #sites.open { transform: translateX(0); }
+  #sidebar-tree.open { transform: translateX(0); }
 
   /* backdrop */
   #sites-backdrop {
