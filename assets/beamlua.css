@@ -345,29 +345,21 @@ i, i * { font-style: italic; }
 .root-clickable { cursor: pointer; }
 
 .node-label {
-  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif !important;
-  font-size: 11px !important;
-  font-weight: normal !important;
-  text-decoration: none !important;
+  font-family: "MS Sans Serif", Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  text-decoration: none;
   color: #4b4b6b !important;
-  padding-left: 4px;
+  padding-left: 2px;
   cursor: pointer;
   line-height: 18px;
   display: inline-block;
-  letter-spacing: normal !important;
+  letter-spacing: normal;
 }
 
 .node-label:hover {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
-
-.node-disabled {
-  color: #a0a0a0 !important;
-  cursor: not-allowed !important;
-  text-decoration: none !important;
-  pointer-events: none;
-}
-.node-disabled:hover { text-decoration: none !important; }
 
 .active-root {
   background-color: #ffffcc !important;

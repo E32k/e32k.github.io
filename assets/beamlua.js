@@ -4,7 +4,6 @@ document.querySelectorAll('a[href]').forEach(a => {
     a.classList.add('link-ext');
 });
 
-
 // MARK: Sidebar Tree Navigation & Mobile Drawer
 const sidebarTree = document.getElementById("sidebar-tree");
 
@@ -34,6 +33,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Primary Recursive Render Engine
   function renderTree(node, container, indentationArray = [], isLastChild = false) {
+    // If the node is explicitly disabled, completely skip rendering it
+    if (node.disabled) return;
+
     const row = document.createElement('div');
     row.className = 'tree-row';
 
@@ -45,7 +47,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let toggleImg = null;
     let nodeImg = document.createElement('img');
-    const hasChildren = node.children && node.children.length > 0;
+
+    // Modern optional chaining syntax with nullish coalescing to safely filter children
+    const validChildren = (node.children ?? []).filter(child => !child.disabled);
+    const hasChildren = validChildren.length > 0;
 
     if (node.type === 'root') {
       nodeImg.src = ICONS.rootfolder;
@@ -67,11 +72,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     row.appendChild(nodeImg);
 
-    const label = node.disabled ? document.createElement('span') : document.createElement('a');
+    const label = document.createElement('a');
     label.className = 'node-label';
     label.textContent = node.title;
 
-    if (!node.disabled && node.path) {
+    if (node.path) {
       label.href = node.path;
 
       // Automatically open the folder when its label link or folder icon is clicked for navigation
@@ -85,8 +90,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           window.location.href = node.path; // Force navigation when clicking the folder icon directly
         };
       }
-    } else if (node.disabled) {
-      label.classList.add('node-disabled');
     }
 
     if (node.type === 'root') label.classList.add('active-root');
@@ -102,13 +105,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       let containsActivePage = false;
       const scanForActiveElement = (targetNode) => {
+        if (targetNode.disabled) return; // Skip checking disabled items
         if (targetNode.path === CURRENT_PAGE_PATH) containsActivePage = true;
-        targetNode.children?.forEach(scanForActiveElement);
-      };
-      node.children.forEach(scanForActiveElement);
 
-      node.children.forEach((child, index) => {
-        const lastNodeChildCheck = index === node.children.length - 1;
+        const subChildren = (targetNode.children ?? []).filter(c => !c.disabled);
+        subChildren.forEach(scanForActiveElement);
+      };
+      validChildren.forEach(scanForActiveElement);
+
+      validChildren.forEach((child, index) => {
+        const lastNodeChildCheck = index === validChildren.length - 1;
         const childLi = document.createElement('li');
         childUl.appendChild(childLi);
 
