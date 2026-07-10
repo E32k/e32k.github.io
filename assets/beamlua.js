@@ -5,18 +5,19 @@ document.querySelectorAll('a[href]').forEach(a => {
 });
 
 
-// MARK: Sites navigation
-const sites = document.getElementById("sites")
+// MARK: Sidebar Tree Navigation & Mobile Drawer
+const sidebarTree = document.getElementById("sidebar-tree");
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const rootContainer = document.getElementById('sidebar-tree');
+  if (!sidebarTree) return; // Prevent errors if the element isn't found
+
   const CURRENT_PAGE_PATH = window.location.pathname;
 
   const ICONS = {
     folder: "images/tree/folder.gif",
     folderopen: "images/tree/folderopen.gif",
     rootfolder: "images/tree/folderh.gif",
-    rootfolderopen: "images/tree/folderh.gif", // Added to prevent bugs if referenced
+    rootfolderopen: "images/tree/folderhopen.gif",
     file: "images/tree/page.gif",
     line: "images/tree/line.gif",
     join: "images/tree/join.gif",
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const structuralWire = document.createElement('img');
         structuralWire.src = isLastChild ? ICONS.joinbottom : ICONS.join;
         row.appendChild(structuralWire);
-        const isAFolderNode = node.path.endsWith('/') || 'children' in node;
+        const isAFolderNode = node.path?.endsWith('/') || 'children' in node;
         nodeImg.src = isAFolderNode ? ICONS.folder : ICONS.file;
       }
     }
@@ -74,10 +75,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!node.disabled && node.path) {
       label.href = node.path;
-      label.onclick = (e) => {
-        e.preventDefault();
-        alert("Navigating to: " + node.path);
-      };
     } else if (node.disabled) {
       label.classList.add('node-disabled');
     }
@@ -127,6 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (node.type === 'root') {
         nodeImg.onclick = executeToggleAction;
+        label.onclick = (e) => { e.preventDefault(); executeToggleAction(); };
       } else if (toggleImg) {
         toggleImg.onclick = executeToggleAction;
       }
@@ -161,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       children: dataArray
     };
 
-    renderTree(rootWrapperNode, rootContainer);
+    renderTree(rootWrapperNode, sidebarTree);
   } catch (error) {
     console.error("Failed to load or parse site structure JSON:", error);
   }
@@ -177,85 +175,87 @@ let isDragging = false
 let isHorizontal = false
 let prevTransition = ""
 
-// toggle
-burger.addEventListener("click", () => {
-  sites.classList.toggle("open")
-  backdrop.classList.toggle("open")
-})
+// Only attach sidebar drawer event listeners if the burger menu exists (desktop vs mobile screens)
+if (burger && backdrop && sidebarTree) {
+  // toggle
+  burger.addEventListener("click", () => {
+    sidebarTree.classList.toggle("open")
+    backdrop.classList.toggle("open")
+  })
 
-// outside click
-backdrop.addEventListener("click", () => {
-  sites.classList.remove("open")
-  backdrop.classList.remove("open")
-})
-
-// drag to close
-sites.addEventListener("touchstart", (e) => {
-  if (!sites.classList.contains("open")) return
-
-  const touch = e.touches[0]
-  startX = touch.clientX
-  startY = touch.clientY
-  currentX = startX
-
-  isDragging = true
-  isHorizontal = false
-
-  // get computed transition (not inline)
-  prevTransition = getComputedStyle(sites).transition
-})
-
-sites.addEventListener("touchmove", (e) => {
-  if (!isDragging) return
-
-  const touch = e.touches[0]
-  currentX = touch.clientX
-  const currentY = touch.clientY
-
-  const deltaX = currentX - startX
-  const deltaY = currentY - startY
-
-  // decide direction once
-  if (!isHorizontal) {
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      isHorizontal = true
-      sites.style.transition = "none"
-    } else {
-      isDragging = false
-      return
-    }
-  }
-
-  if (deltaX < 0) {
-    sites.style.transform = `translateX(${deltaX}px)`
-  }
-})
-
-sites.addEventListener("touchend", () => {
-  if (!isDragging) return
-  isDragging = false
-
-  const deltaX = currentX - startX
-  const width = sites.offsetWidth
-
-  // restore transition properly
-  sites.style.transition = prevTransition
-
-  if (deltaX < -width * 0.25) {
-    // close
-    sites.style.transform = "translateX(-100%)"
+  // outside click
+  backdrop.addEventListener("click", () => {
+    sidebarTree.classList.remove("open")
     backdrop.classList.remove("open")
+  })
 
-    setTimeout(() => {
-      sites.classList.remove("open")
-      sites.style.transform = ""
-    }, 250)
-  } else {
-    // snap back
-    sites.style.transform = ""
-  }
-})
+  // drag to close touch gestures
+  sidebarTree.addEventListener("touchstart", (e) => {
+    if (!sidebarTree.classList.contains("open")) return
 
+    const touch = e.touches[0]
+    startX = touch.clientX
+    startY = touch.clientY
+    currentX = startX
+
+    isDragging = true
+    isHorizontal = false
+
+    // get computed transition (not inline)
+    prevTransition = getComputedStyle(sidebarTree).transition
+  })
+
+  sidebarTree.addEventListener("touchmove", (e) => {
+    if (!isDragging) return
+
+    const touch = e.touches[0]
+    currentX = touch.clientX
+    const currentY = touch.clientY
+
+    const deltaX = currentX - startX
+    const deltaY = currentY - startY
+
+    // decide direction once
+    if (!isHorizontal) {
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        isHorizontal = true
+        sidebarTree.style.transition = "none"
+      } else {
+        isDragging = false
+        return
+      }
+    }
+
+    if (deltaX < 0) {
+      sidebarTree.style.transform = `translateX(${deltaX}px)`
+    }
+  })
+
+  sidebarTree.addEventListener("touchend", () => {
+    if (!isDragging) return
+    isDragging = false
+
+    const deltaX = currentX - startX
+    const width = sidebarTree.offsetWidth
+
+    // restore transition properly
+    sidebarTree.style.transition = prevTransition
+
+    if (deltaX < -width * 0.25) {
+      // close
+      sidebarTree.style.transform = "translateX(-100%)"
+      backdrop.classList.remove("open")
+
+      setTimeout(() => {
+        sidebarTree.classList.remove("open")
+        sidebarTree.style.transform = ""
+      }, 250)
+    } else {
+      // snap back
+      sidebarTree.style.transform = ""
+    }
+  })
+}
 
 
 // MARK: Overview headings (Table of Contents)
