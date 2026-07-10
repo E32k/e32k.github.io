@@ -14,19 +14,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const CURRENT_PAGE_PATH = window.location.pathname;
 
   const ICONS = {
-    folder: "images/tree/folder.gif",
-    folderopen: "images/tree/folderopen.gif",
-    rootfolder: "images/tree/folderh.gif",
-    rootfolderopen: "images/tree/folderhopen.gif",
-    file: "images/tree/page.gif",
-    line: "images/tree/line.gif",
-    join: "images/tree/join.gif",
-    joinbottom: "images/tree/joinbottom.gif",
-    plus: "images/tree/plus.gif",
-    plusbottom: "images/tree/plusbottom.gif",
-    minus: "images/tree/minus.gif",
-    minusbottom: "images/tree/minusbottom.gif",
-    empty: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+    folder: "/images/tree/folder.gif",
+    folderopen: "/images/tree/folderopen.gif",
+    rootfolder: "/images/tree/folderh.gif",
+    rootfolderopen: "/images/tree/folderhopen.gif",
+    file: "/images/tree/page.gif",
+    line: "/images/tree/line.gif",
+    join: "/images/tree/join.gif",
+    joinbottom: "/images/tree/joinbottom.gif",
+    plus: "/images/tree/plus.gif",
+    plusbottom: "/images/tree/plusbottom.gif",
+    minus: "/images/tree/minus.gif",
+    minusbottom: "/images/tree/minusbottom.gif",
+    empty: "/images/tree/empty.gif"
   };
 
   // LocalStorage state helpers
