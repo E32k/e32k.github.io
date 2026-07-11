@@ -62,7 +62,11 @@ header {
   color: #000;
   transition: background-color 0.3s ease, color 0.3s ease; }
 
-header img {
+.logo {
+  display: flex;
+  align-items: center; }
+
+.logo img {
   height: 3em;
   width: auto; }
 
@@ -76,7 +80,7 @@ header img {
 #search-input {
   padding: 1px 0.5em;
   width: 100%;
-  border: hidden;
+  border: none;
   border-radius: 0.2rem;
   outline: none;
   background-color: #fff;
@@ -109,22 +113,17 @@ header img {
 @media (max-width: 700px) {
   header {
     flex-direction: column;
-    align-items: stretch;
-  }
+    align-items: stretch; }
 
   header img {
     width: fit-content;
-    align-self: center;
-  }
+    align-self: center; }
 
   .search-section {
     width: 100%;
-    margin: 0;
-  }
+    margin: 0; }
 
-  #search-input {
-    width: 100%;
-  }
+  #search-input {width: 100%}
   .header-btn {display: none}
 }
 
