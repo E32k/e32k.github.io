@@ -330,7 +330,6 @@ i, i * { font-style: italic; }
   width: 18px;
   height: 18px;
   display: block;
-  image-rendering: pixelated;
   margin: 0;
   padding: 0;
 }
