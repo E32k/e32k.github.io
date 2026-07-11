@@ -1,5 +1,8 @@
 :root { --bng-orange: #f60; }
 
+@view-transition {
+  navigation: auto;
+}
 /* MARK: body
 */
 
